@@ -1,15 +1,17 @@
-// import type { NextConfig } from "next";
-
-// const nextConfig: NextConfig = {
-//   /* config options here */
-// };
-
-// export default nextConfig;
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "gtt.dbbworldwide.com",
+        port: "",
+        pathname: "/Images/**", // allow all images under /Images/
+      },
+    ],
   },
 };
 
