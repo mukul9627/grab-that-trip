@@ -26,3 +26,66 @@
 .rounded-15{
   border-radius: 15px;
 }
+.ctaTow-home-mukul{
+  margin-top: 11px !important;
+  padding: 163px 0 69px 0;
+}
+
+.cardsection-button-mukul{
+  width: 12rem;
+  border-radius: 15px;
+}
+
+.location-based-mukul{
+  position: relative;
+    top: -16px;
+    background: #0a6a67 !important;
+    color: white !important;
+    width: 10rem;
+    padding: 7px !important;
+}
+
+
+.tg-listing-card-review-mukul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tg-listing-card-review-mukul .rating-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.tg-listing-card-price-wrap-mukul, .price-bg{
+  background-image: none;
+  background: #0A6A67;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0px 0px 0px 12px;
+    width: 320px;
+}
+
+.tg-listing-card-price-wrap-mukul{
+height: 50px;
+    padding: 5px 29px 5px 23px;
+}
+.tg-listing-card-price-mukul{
+border: 1px solid #0A6A67;
+border-radius: 0 0 12px 12px;
+}
+.tg-listing-card-review-mukul{
+ padding: 10px 21px 10px 17px;
+}
+.tg-listing-rating-icon-mukul{
+  color:  #0A6A67;
+    font-size: 20px;
+}
+
+.mukulsharma{
+  width: 284px !important;
+  min-height: 540px !important;
+}
+
+.card-purpose{
+  border-radius: 12px 12px 12px 12px;
+}

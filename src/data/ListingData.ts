@@ -228,6 +228,31 @@ const listing_data: DataType[] = [
       review: 5,
       category: "cat-three cat-four",
    },
+   {
+      id: 9,
+      page: "home_3",
+      thumb: listing3_img8,
+      time: "4 Days",
+      title: "win cities on opposite sides of the",
+      location: "Sydney, Australia",
+      delete_price: 240,
+      price: 110,
+      review: 5,
+      category: "cat-three cat-four",
+   },
+   {
+      id: 10,
+      page: "home_3",
+      thumb: listing3_img8,
+      time: "4 Days",
+      title: "win cities on opposite sides of the",
+      location: "Sydney, Australia",
+      delete_price: 240,
+      price: 110,
+      review: 5,
+      category: "cat-three cat-four",
+   },
+
 
    // home_5
 
