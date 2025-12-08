@@ -91,7 +91,7 @@ curated to give you authentic experiences wherever you travel.
                     <div className="tg-location-wrap p-relative mb-30">
                            <div className="tg-location-thumb">
                       <Image
-                        src={`${imageBase}bg/${item.hero_image_url}`}
+                        src={`${imageBase}/bg/${item.hero_image_url}`}
                         alt={item.name}
                         width={400}
                         height={300}

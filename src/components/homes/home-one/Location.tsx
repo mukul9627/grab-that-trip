@@ -89,7 +89,7 @@ const Location = () => {
                   <div className="tg-location-3-wrap p-relative mb-30 tg-round-25">
                     <div className="tg-location-thumb tg-round-25">
                       <Image
-                        src={`${imageBase}bg/${item.hero_image_url}`}
+                        src={`${imageBase}/bg/${item.hero_image_url}`}
                         alt={item.name}
                         width={400}
                         height={300}
