@@ -45,7 +45,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
 
             <div className="card-right card-left-padding">
               <Image
-                src={`${iconBase}icon/${mood.icon_image}`}
+                src={`${iconBase}/icon/${mood.icon_image}`}
                 alt={mood.name}
                 width={50}
                 height={50}
