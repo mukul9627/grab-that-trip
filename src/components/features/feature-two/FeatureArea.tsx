@@ -1,147 +1,272 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import UseProducts from "@/hooks/UseProducts";
-import { useState, useCallback } from "react";
+import ReactPaginate from "react-paginate";
+import { useEffect, useState, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { addToWishlist } from "@/redux/features/wishlistSlice";
-import FeatureTop from "./FeatureTop"
+import FeatureTop from "./FeatureTop";
 import FeatureSidebar from "./FeatureSidebar";
-import ReactPaginate from "react-paginate";
+import { getPackagesByFeatureId } from "@/hooks/packageDetails";
 
-const FeatureArea = () => {
-   const dispatch = useDispatch();
-   const { products, setProducts } = UseProducts();
-   const [isListView, setIsListView] = useState(false);
+import CryptoJS from "crypto-js";    // ✅ FIX 1: Import CryptoJS
+const secretKey = "MY_PRIVATE_KEY";  // ✅ FIX 2: Add secret key (same as PurposeSection)
 
-   const itemsPerPage = 9;
-   const [itemOffset, setItemOffset] = useState(0);
-   const filteredProducts = products.filter((item) => item.page === "shop_2");
-   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-   const currentItems = filteredProducts.slice(itemOffset, itemOffset + itemsPerPage);
+export default function FeatureArea() {
+  const searchParams = useSearchParams();
+  const dispatch = useDispatch();
 
-   const startOffset = itemOffset + 1;
-   const endOffset = Math.min(itemOffset + itemsPerPage, products.length);
-   const totalItems = products.length;
+  // 1️⃣ LIST / GRID VIEW
+  const [isListView, setIsListView] = useState(false);
 
-   const handlePageClick = ({ selected }: { selected: number }) => {
-      const newOffset = selected * itemsPerPage;
-      setItemOffset(newOffset);
-   };
+  // 2️⃣ API DATA STATE
+  const [apiData, setApiData] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-   const handleAddToWishlist = useCallback(
-      (item: any) => {
-         dispatch(addToWishlist(item));
-      },
-      [dispatch]
-   );
+  // 3️⃣ PAGINATION
+  const itemsPerPage = 9;
+  const [itemOffset, setItemOffset] = useState(0);
 
-   const handleListViewClick = () => {
-      setIsListView(true);
-   };
-   const handleGridViewClick = () => {
-      setIsListView(false);
-   };
+  const currentItems = apiData.slice(itemOffset, itemOffset + itemsPerPage);
+  const totalPages = Math.ceil(apiData.length / itemsPerPage);
 
-   return (
-      <div className="tg-listing-grid-area mb-85">
-         <div className="container">
-            <div className="row">
-               <FeatureSidebar setProducts={setProducts} />
-               <div className="col-xl-9 col-lg-8">
-                  <div className="tg-listing-item-box-wrap ml-10">
-                     <FeatureTop
-                        startOffset={startOffset}
-                        endOffset={Math.min(endOffset, totalItems)}
-                        totalItems={totalItems}
-                        setProducts={setProducts}
-                        isListView={isListView}
-                        handleListViewClick={handleListViewClick}
-                        handleGridViewClick={handleGridViewClick}
-                     />
-                     <div className="tg-listing-grid-item">
-                        <div className={`row list-card ${isListView ? 'list-card-open' : ''}`}>
-                           {currentItems.filter((items) => items.page === "shop_2").map((item) => (
-                              <div key={item.id} className="col-xxl-4 col-xl-6 col-lg-6 col-md-6 tg-grid-full">
-                                 <div className="tg-listing-card-item mb-30">
-                                    <div className="tg-listing-card-thumb fix mb-15 p-relative">
-                                       <Link href="/tour-details">
-                                          <Image className="tg-card-border w-100" src={item.thumb} alt="listing" />
-                                          {item.tag && <span className="tg-listing-item-price-discount shape">{item.tag}</span>}
-                                          {item.featured && <span className="tg-listing-item-price-discount shape-3">
-                                             <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M6.60156 1L0.601562 8.2H6.00156L5.40156 13L11.4016 5.8H6.00156L6.60156 1Z" stroke="white" strokeWidth="0.857143" strokeLinecap="round" strokeLinejoin="round" />
-                                             </svg>
-                                             {item.featured}
-                                          </span>}
-                                          {item.offer && <span className="tg-listing-item-price-discount offer-btm shape-2">{item.offer}</span>}
-                                       </Link>
-                                       <div className="tg-listing-item-wishlist">
-                                          <a onClick={() => handleAddToWishlist(item)} style={{ cursor: "pointer" }}>
-                                             <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M10.5167 16.3416C10.2334 16.4416 9.76675 16.4416 9.48341 16.3416C7.06675 15.5166 1.66675 12.075 1.66675 6.24165C1.66675 3.66665 3.74175 1.58331 6.30008 1.58331C7.81675 1.58331 9.15841 2.31665 10.0001 3.44998C10.8417 2.31665 12.1917 1.58331 13.7001 1.58331C16.2584 1.58331 18.3334 3.66665 18.3334 6.24165C18.3334 12.075 12.9334 15.5166 10.5167 16.3416Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                             </svg>
-                                          </a>
-                                       </div>
-                                    </div>
-                                    <div className="tg-listing-main-content">
-                                       <div className="tg-listing-card-content">
-                                          <h4 className="tg-listing-card-title"><Link href="/tour-details">{item.title}</Link></h4>
-                                          <div className="tg-listing-card-duration-tour">
-                                             <span className="tg-listing-card-duration-map mb-5">
-                                                <svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                   <path d="M12.3329 6.7071C12.3329 11.2324 6.55512 15.1111 6.55512 15.1111C6.55512 15.1111 0.777344 11.2324 0.777344 6.7071C0.777344 5.16402 1.38607 3.68414 2.46962 2.59302C3.55316 1.5019 5.02276 0.888916 6.55512 0.888916C8.08748 0.888916 9.55708 1.5019 10.6406 2.59302C11.7242 3.68414 12.3329 5.16402 12.3329 6.7071Z" stroke="currentColor" strokeWidth="1.15556" strokeLinecap="round" strokeLinejoin="round" />
-                                                   <path d="M6.55512 8.64649C7.61878 8.64649 8.48105 7.7782 8.48105 6.7071C8.48105 5.636 7.61878 4.7677 6.55512 4.7677C5.49146 4.7677 4.6292 5.636 4.6292 6.7071C4.6292 7.7782 5.49146 8.64649 6.55512 8.64649Z" stroke="currentColor" strokeWidth="1.15556" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                                {item.location}
-                                             </span>
-                                             <span className="tg-listing-card-duration-time">
-                                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                   <path d="M8.00175 3.73329V7.99996L10.8462 9.42218M15.1128 8.00003C15.1128 11.9274 11.9291 15.1111 8.00174 15.1111C4.07438 15.1111 0.890625 11.9274 0.890625 8.00003C0.890625 4.07267 4.07438 0.888916 8.00174 0.888916C11.9291 0.888916 15.1128 4.07267 15.1128 8.00003Z" stroke="currentColor" strokeWidth="1.06667" strokeLinecap="round" strokeLinejoin="round" />
-                                                </svg>
-                                                {item.duration}
-                                             </span>
-                                          </div>
-                                       </div>
-                                       <div className="tg-listing-card-price d-flex align-items-end justify-content-between">
-                                          <div className="tg-listing-card-price-wrap price-bg d-flex align-items-center">
-                                             <span className="tg-listing-card-currency-amount mr-5">
-                                                {item.delete_price && <del className="tg-listing-card-currency-old">${item.delete_price}</del>}
-                                                <span className="currency-symbol">$</span>{item.price}
-                                             </span>
-                                             <span className="tg-listing-card-activity-person">/Person</span>
-                                          </div>
-                                          <div className="tg-listing-card-review space">
-                                             <span className="tg-listing-rating-icon"><i className="fa-sharp fa-solid fa-star"></i></span>
-                                             <span className="tg-listing-rating-percent">({item.total_review} Reviews)</span>
-                                          </div>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           ))}
-                        </div>
-                        <div className="tg-pagenation-wrap text-center mt-50 mb-30">
-                           <nav>
-                              <ReactPaginate
-                                 breakLabel="..."
-                                 nextLabel={<i className="p-btn">Next Page</i>}
-                                 onPageChange={handlePageClick}
-                                 pageRangeDisplayed={3}
-                                 pageCount={totalPages}
-                                 previousLabel={<i className="p-btn">Previous Page</i>}
-                                 renderOnZeroPageCount={null}
-                              />
-                           </nav>
-                        </div>
-                     </div>
+  const startOffset = itemOffset + 1;
+  const endOffset = Math.min(itemOffset + itemsPerPage, apiData.length);
+  const totalItems = apiData.length;
+
+const decryptId = (encrypted: string) => {
+  try {
+    const bytes = CryptoJS.AES.decrypt(encrypted, secretKey);
+    const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+
+    if (!decrypted) throw new Error();
+    return decrypted;
+  } catch (e) {
+    console.error("Invalid encrypted ID:", encrypted);
+    return null;
+  }
+};
+
+  useEffect(() => {
+  const encrypted = searchParams.get("type");
+  let featureId = "7";
+
+  if (encrypted) {
+    const decrypted = decryptId(encrypted);
+    featureId = decrypted || "7";
+  } else if (searchParams.get("feature_id")) {
+    featureId = searchParams.get("feature_id")!;
+  }
+
+  async function loadData() {
+    setLoading(true);
+    const data = await getPackagesByFeatureId(featureId);
+    setApiData(data);
+    setLoading(false);
+    setItemOffset(0);
+  }
+
+  loadData();
+
+}, [searchParams]);
+
+
+  const handlePageClick = ({ selected }: { selected: number }) => {
+    setItemOffset(selected * itemsPerPage);
+  };
+
+  // Wishlist function
+  const handleAddToWishlist = useCallback(
+    (item: any) => {
+      dispatch(addToWishlist(item));
+    },
+    [dispatch]
+  );
+
+  const imgBase = process.env.NEXT_PUBLIC_IMAGE_URL;
+
+  return (
+    <div className="tg-listing-grid-area mb-85 mt-85">
+      <div className="container">
+        <div className="row">
+
+          {/* LEFT SIDEBAR */}
+          <FeatureSidebar setProducts={() => {}} />
+
+          {/* RIGHT CONTENT */}
+          <div className="col-xl-9 col-lg-8">
+            <div className="tg-listing-item-box-wrap ml-10">
+
+              {/* TOP BAR */}
+              <FeatureTop
+                startOffset={startOffset}
+                endOffset={endOffset}
+                totalItems={totalItems}
+                setProducts={() => {}}
+                isListView={isListView}
+                handleListViewClick={() => setIsListView(true)}
+                handleGridViewClick={() => setIsListView(false)}
+              />
+
+              {/* GRID START */}
+              <div className="tg-listing-grid-item">
+
+                {/* LOADING */}
+                {loading && (
+                  <div className="text-center py-5 text-gray-500 text-lg">
+                    Loading...
                   </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   )
-}
+                )}
 
-export default FeatureArea
+                {/* NO DATA */}
+                {!loading && apiData.length === 0 && (
+                  <div className="text-center py-5 text-gray-500 text-lg">
+                    No tours found.
+                  </div>
+                )}
+
+                {/* TOUR CARDS */}
+                {!loading && apiData.length > 0 && (
+                  <div
+                    className={`row list-card ${
+                      isListView ? "list-card-open" : ""
+                    }`}
+                  >
+                    {currentItems.map((item: any) => (
+                      <div
+                        key={item.package_id}
+                        className="col-xxl-4 col-xl-6 col-lg-6 col-md-6 tg-grid-full"
+                      >
+                        <div className="tg-listing-card-item mb-30">
+
+                          {/* IMAGE */}
+                          <div className="tg-listing-card-thumb fix mb-15 p-relative">
+                            <Link href={`/tour-details?id=${item.package_id}`}>
+                              <Image
+                                className="tg-card-border w-100"
+                                src={`${imgBase}/package/bg/${item.bg_image}`}
+                                alt={item.package_name}
+                                width={400}
+                                height={300}
+                              />
+                            </Link>
+
+                            {/* WISHLIST BUTTON */}
+                            <div className="tg-listing-item-wishlist">
+                              <a
+                                onClick={() => handleAddToWishlist(item)}
+                                style={{ cursor: "pointer" }}
+                              >
+                                <svg width="20" height="18" viewBox="0 0 20 18">
+                                  <path
+                                    d="M10.5167 16.3416C10.2334 16.4416 9.76675 16.4416 9.48341 16.3416C7.06675 15.5166 1.66675 12.075 1.66675 6.24165C1.66675 3.66665 3.74175 1.58331 6.30008 1.58331C7.81675 1.58331 9.15841 2.31665 10.0001 3.44998C10.8417 2.31665 12.1917 1.58331 13.7001 1.58331C16.2584 1.58331 18.3334 3.66665 18.3334 6.24165C18.3334 12.075 12.9334 15.5166 10.5167 16.3416Z"
+                                    stroke="currentColor"
+                                    strokeWidth="1.5"
+                                  />
+                                </svg>
+                              </a>
+                            </div>
+                          </div>
+
+                          {/* RATING */}
+                          <div className="tg-listing-card-review flex items-center justify-between space tg-listing-card-review-mukul">
+                            <span className="tg-listing-card-duration-time">
+                              {item.days} Days
+                            </span>
+
+                            <div className="flex items-center gap-1">
+                              <span className="tg-listing-rating-icon">
+                                <i className="fa-sharp fa-solid fa-star"></i>
+                              </span>
+                              <span className="tg-listing-rating-percent">
+                                {Number(item.average_rating).toFixed(1)} (
+                                {item.total_reviews})
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* CONTENT */}
+                          <div className="tg-listing-main-content">
+                            <div className="tg-listing-card-content">
+                              <h4 className="tg-listing-card-title">
+                                <Link href={`/tour-details?id=${item.package_id}`}>
+                                  {item.package_name}
+                                </Link>
+                              </h4>
+
+                              <span className="tg-listing-card-duration-time mb-3">
+                                {item.destination_name}
+                              </span>
+
+                              <div className="tg-listing-card-duration-tour pt-10">
+                                <span className="tg-listing-card-currency-amount mr-5">
+                                  {item.base_price && (
+                                    <del className="tg-listing-card-currency-old">
+                                      ₹{item.base_price}
+                                    </del>
+                                  )}
+                                </span>
+
+                                <span>
+                                  ₹{item.offer_price}
+                                  <span className="tg-listing-card-activity-person">
+                                    /Person
+                                  </span>
+                                </span>
+                              </div>
+                            </div>
+
+                            {/* BOOK NOW */}
+                            <div
+                              className="tg-listing-card-price-mukul d-flex align-items-end justify-content-between"
+                              style={{ cursor: "pointer", background: "#fff" }}
+                            >
+                              <div className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center">
+                                <span className="tg-listing-card-currency-amount mr-5">
+                                  Book Now
+                                </span>
+                              </div>
+
+                              <div className="tg-listing-card-review-mukul space">
+                                <span className="tg-listing-rating-icon-mukul ">
+                                  <i className="fa-sharp fa-solid fa-phone"></i>
+                                </span>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* PAGINATION */}
+                {!loading && apiData.length > 0 && (
+                  <div className="tg-pagenation-wrap text-center mt-50 mb-30">
+                    <nav>
+                      <ReactPaginate
+                        breakLabel="..."
+                        nextLabel={<i className="p-btn">Next Page</i>}
+                        previousLabel={<i className="p-btn">Previous Page</i>}
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={3}
+                        pageCount={totalPages}
+                      />
+                    </nav>
+                  </div>
+                )}
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}

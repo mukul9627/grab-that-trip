@@ -49,7 +49,7 @@ const FeatureArea = () => {
       <div className="tg-listing-grid-area mb-85 pt-80">
          <div className="container">
             <div className="row">
-               <FeatureSidebar setProducts={setProducts} />
+               {/* <FeatureSidebar setProducts={setProducts} /> */}
                <div className="col-xl-9 col-lg-8">
                   <div className="tg-listing-item-box-wrap ml-10">
                      <FeatureTop
