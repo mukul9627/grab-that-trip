@@ -22,9 +22,9 @@ export function usePurposeSection(featureId: number) {
 
   useEffect(() => {
     setLoading(true);
-
+ const API = process.env.NEXT_PUBLIC_API_URL
     fetch(
-      `https://gtt.dbbworldwide.com/Home/GetPackage?feature_id=${featureId}&destination_id=0&package_id=0&is_active=true&priority=0`
+      `${API}Home/GetPackage?feature_id=${featureId}&destination_id=0&package_id=0&is_active=true&priority=0`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -40,3 +40,6 @@ export function usePurposeSection(featureId: number) {
 
   return { listingData, loading };
 }
+
+
+
