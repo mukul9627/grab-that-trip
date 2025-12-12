@@ -3,7 +3,6 @@ import Brand from "./Brand"
 import Destination from "./Destination"
 import Listing from "./Listing"
 import Process from "./Process"
-import Counter from "../home-two/Counter"
 import Testimonial from "./Testimonial"
 import Blog from "./Blog"
 import HeaderFour from "@/layouts/headers/HeaderFour"
@@ -24,7 +23,7 @@ const HomeFour = () => {
         <Cta />
         <Listing />
         <Process />
-        <Counter />
+       
         <Testimonial style={false} />
         <Blog />
         <CtaTwo />
