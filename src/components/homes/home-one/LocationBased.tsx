@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import Image from "next/image";
 import Link from "next/link";
-import { useDestinations } from "@/hooks/UseDestination";
+import { usePackageForActivities } from "@/hooks/usePackageForActivities";
 import location_bg from "@/assets/img/destination/tu/bg.png";
 import location7_1 from "@/assets/img/location/location-5/location.jpg"
 
@@ -29,7 +29,7 @@ const setting = {
 };
 
 const LocationBased = () => {
-  const { destinations, loading, error } = useDestinations();
+  const { destinations, loading, error } = usePackageForActivities();
   const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
 
   if (loading) return <p>Loading...</p>;
@@ -87,14 +87,14 @@ curated to give you authentic experiences wherever you travel.
               className="swiper-container tg-location-su-slider"
             >
               {destinations.map((item) => (
-                <SwiperSlide key={item.destination_id}>
+                <SwiperSlide key={item.package_id}>
                     <div className="tg-location-wrap p-relative mb-30">
                            <div className="tg-location-thumb">
                       <Image
-                        src={`${imageBase}/bg/${item.hero_image_url}`}
-                        alt={item.name}
-                        width={400}
-                        height={300}
+                        src={`${imageBase}/package/bg/${item.bg_image}`}
+                        alt={item.package_name}
+                        width={234}
+                        height={234}
                         className="tg-round-25"
                       />
                     </div>
@@ -110,8 +110,8 @@ curated to give you authentic experiences wherever you travel.
                       </div> */}
 
                        <div className="tg-location-content text-center">
-                              <span className="tg-location-time location-based-mukul">{item.name}</span>
-                              <h3 className="tg-location-title mb-0"><Link href="/map-listing"> {item.country}</Link></h3>
+                              <span className="tg-location-time location-based-mukul">{item.destination_name}</span>
+                              <h3 className="tg-location-title mb-0"><Link href="/map-listing"> {item.package_name}</Link></h3>
                            </div>
                            {/* <div className="tg-location-border one"></div>
                            <div className="tg-location-border two"></div> */}
