@@ -2,7 +2,7 @@ import HomeOne from "@/components/homes/home-one";
 import Wrapper from "@/layouts/Wrapper";
 
 export const metadata = {
-  title: "Tourex - Tour & Travel Booking React Next js Template",
+  title: "GTT - Tour & Travel Booking",
 };
 const page = () => {
   return (
@@ -12,4 +12,4 @@ const page = () => {
   )
 }
 
-export default page
+export default page 
