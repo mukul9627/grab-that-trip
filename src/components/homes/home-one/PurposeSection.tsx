@@ -22,6 +22,7 @@ export default function PurposeSection() {
   const [featureId, setFeatureId] = useState<number>(7);
   const [selectedFilter, setSelectedFilter] = useState<number | string>("7");
   const [tabs, setTabs] = useState<any[]>([]);
+  const [encryptedParam, setEncryptedParam] = useState<string>("");
 
   // ⬅️ Reusable HOOK
   const { listingData, loading } = usePurposeSection(featureId);
@@ -35,6 +36,12 @@ export default function PurposeSection() {
     setSelected(item);
     setOpenModal(true);
   };
+
+  useEffect(() => {
+  if (typeof window !== "undefined") {
+    setEncryptedParam(encodeURIComponent(encryptId(selectedFilter)));
+  }
+}, [selectedFilter]);
 
   useEffect(() => {
   async function loadTabs() {
@@ -114,23 +121,12 @@ export default function PurposeSection() {
         </div>
 
         {/* ===================== TABS ===================== */}
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
+        <div className="flex flex-wrap justify-center gap-3 mb-5">
           <div
-            className="tg-listing-menu-nav project__menu-nav mb-40 wow fadeInUp"
+            className="tg-listing-menu-nav project__menu-nav mb-5 wow fadeInUp"
             data-wow-delay=".5s"
             data-wow-duration=".9s"
           >
-            {/* <button
-            className={selectedFilter === "*" ? "active" : ""}
-            onClick={() => {
-              setSelectedFilter("*");
-              setFeatureId(0); // show all data
-            }}
-            data-filter="*"
-          >
-            <span className="borders"></span>
-            <span className="icon"></span>
-          </button> */}
             {tabs.map((tab: any) => (
     <button
       key={tab.id}
@@ -147,6 +143,23 @@ export default function PurposeSection() {
           </div>
         </div>
 
+        {/* ================= CUSTOM SWIPER NAVIGATION BUTTONS ================= */}
+<div className="row mb-3">
+  <div className="col-lg-12 tg-location-su-slider-navigation1 d-flex justify-content-between align-items-center">
+    
+    {/* LEFT ARROW */}
+    <button className="tg-listing-5-slide-prev1">
+      <i className="fa-solid fa-arrow-left-long"></i>
+    </button>
+
+    {/* RIGHT ARROW */}
+    <button className="tg-listing-5-slide-next1">
+      <i className="fa-solid fa-arrow-right-long"></i>
+    </button>
+
+  </div>
+</div>
+
         {/* ===================== LOADING ===================== */}
         {loading && (
           <div className="py-6 text-center text-gray-500">
@@ -159,6 +172,10 @@ export default function PurposeSection() {
           <Swiper
             {...slider}
             modules={[Autoplay, Navigation]}
+             navigation={{
+              nextEl: ".tg-listing-5-slide-next1",
+              prevEl: ".tg-listing-5-slide-prev1",
+            }}
             className="mukul"
           >
             {(listingData ?? [])
@@ -298,14 +315,14 @@ export default function PurposeSection() {
 
         <div className="col-12">
           <div className="text-center mt-15">
-            <Link
-              href={`/tour-grid-1?type=${encodeURIComponent(
-                encryptId(selectedFilter)
-              )}`}
-              className="tg-btn tg-btn-transparent tg-btn-su-transparent"
-            >
-              See More Tours
-            </Link>{" "}
+           {encryptedParam && (
+  <Link
+    href={`/tour-grid-1?type=${encryptedParam}`}
+    className="tg-btn tg-btn-transparent tg-btn-su-transparent"
+  >
+    See More Tours
+  </Link>
+)}{" "}
           </div>
         </div>
       </section>

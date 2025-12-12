@@ -1,155 +1,240 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-import { Swiper, SwiperSlide } from 'swiper/react';
-import {Navigation, Controller } from "swiper/modules";
-import Image, { StaticImageData } from "next/image"
-import { JSX, useState } from "react"
+"use client";
 
-import avatar_1 from "@/assets/img/testimonial/tes-4/tes-1.png"
-import avatar_2 from "@/assets/img/testimonial/tes-4/tes-2.png"
-import avatar_3 from "@/assets/img/testimonial/tes-4/tes-3.png"
-import avatar_4 from "@/assets/img/testimonial/tes-4/tes-4.png"
-import shape_1 from "@/assets/img/testimonial/su/shape.png"
-import shape_2 from "@/assets/img/testimonial/su/shape-2.png"
+import { useState } from "react";
+import Image from "next/image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Controller } from "swiper/modules";
+import { useTestimonial } from "@/hooks/useTestimonial";
+import type { Swiper as SwiperType } from "swiper";
 
-const avatar_data: StaticImageData[] = [avatar_1, avatar_2, avatar_3, avatar_4, avatar_2,];
+import "swiper/css";
+import "swiper/css/navigation";
 
-interface DataType {
-   id: number;
-   name: string;
-   designation: string
-   desc: JSX.Element;
-   rating: string[];
-}
+import avatar from "@/assets/img/testimonial/avatar.png";
 
-const testi_data: DataType[] = [
-   {
-      id: 1,
-      name: "Mr.Robey Alexa",
-      designation: "CEO, logistra Agency",
-      rating: ["fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star",],
-      desc: (<>“ Morem ipsum dolor sit amet, consectetur adipisc Service follwing arrea fowlwo awing  elita florai sum dolor sit amet, consectetur area raweaeaw ecall edBorem<br /> ipsum dolor sit amet, consectetur.”</>),
-   },
-   {
-      id: 2,
-      name: "Jamie L. Jorgensen",
-      designation: "CEO, logistra Agency",
-      rating: ["fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star",],
-      desc: (<>“ Morem ipsum dolor sit amet, consectetur adipisc Service follwing arrea fowlwo awing  elita florai sum dolor sit amet, consectetur area raweaeaw ecall edBorem<br /> ipsum dolor sit amet, consectetur.”</>),
-   },
-   {
-      id: 3,
-      name: "Mr.Robey Alexa",
-      designation: "CEO, logistra Agency",
-      rating: ["fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star",],
-      desc: (<>“ Morem ipsum dolor sit amet, consectetur adipisc Service follwing arrea fowlwo awing  elita florai sum dolor sit amet, consectetur area raweaeaw ecall edBorem<br /> ipsum dolor sit amet, consectetur.”</>),
-   },
-   {
-      id: 4,
-      name: "Jason Whitmore",
-      designation: "Founder",
-      rating: ["fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star",],
-      desc: (<>“ Morem ipsum dolor sit amet, consectetur adipisc Service follwing arrea fowlwo awing  elita florai sum dolor sit amet, consectetur area raweaeaw ecall edBorem<br /> ipsum dolor sit amet, consectetur.”</>),
-   },
-   {
-      id: 5,
-      name: "Jamie L. Jorgensen",
-      designation: "CEO, logistra Agency",
-      rating: ["fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star", "fa-sharp fa-solid fa-star",],
-      desc: (<>“ Morem ipsum dolor sit amet, consectetur adipisc Service follwing arrea fowlwo awing  elita florai sum dolor sit amet, consectetur area raweaeaw ecall edBorem<br /> ipsum dolor sit amet, consectetur.”</>),
-   },
-];
+export default function Testimonial() {
+  // HOOKS — MUST BE FIRST
+  const { destinations, loading, error } = useTestimonial()
+  const [imgSwiper, setImgSwiper] = useState<SwiperType | null>(null);
+  const [textSwiper, setTextSwiper] = useState<SwiperType | null>(null);
 
-const setting1 = {
-   slidesPerView: 4,
-   loop: true,
-   autoplay: false,
-   pagination: false,
-   navigation: {
-      prevEl: ".tg-testimonial-4-slide-prev",
-      nextEl: ".tg-testimonial-4-slide-next",
-   },
-};
+  // CONDITIONAL RETURNS — AFTER HOOKS (IMPORTANT)
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading testimonials.</p>;
+const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
 
-const setting2 = {
-   slidesPerView: 1,
-   loop: true,
-   spaceBetween: 30,
-   autoplay: false,
-   pagination: false,
-   navigation: {
-      prevEl: ".tg-testimonial-4-slide-prev",
-      nextEl: ".tg-testimonial-4-slide-next",
-   },
-};
+  return (
+    <section className="struggles-container">
 
-const Testimonial = () => {
+      {/* LEFT IMAGE SWIPER */}
+      <Swiper
+        modules={[Controller]}
+        onSwiper={setImgSwiper}
+        controller={{ control: textSwiper }}
+        slidesPerView={1}
+        loop={true}
+        className="left-swiper"
+      >
+        {destinations.map((item, i) => (
+          <SwiperSlide key={i}>
+            <div className="images-column">
 
-   const [thumbSwiper, setThumbSwiper] = useState<any>(null);
-   const [contentSwiper, setContentSwiper] = useState<any>(null);
+              <div className="img-row">
 
-   return (
-      <div className="tg-testimonial-area tg-testimonial-su-wrap p-relative pt-160 pb-50">
-         <Image className="tg-testimonial-su-shape d-none d-xxl-block" src={shape_1} alt="" />
-         <Image className="tg-testimonial-su-shape-2 d-none d-lg-block" src={shape_2} alt="" />
-         <div className="container">
-            <div className="row justify-content-center">
-               <div className="col-xl-10">
-                  <div className="tg-testimonial-4-wrap">
-                     <div className="row justify-content-center">
-                        <div className="tg-testimonial-qoute-wrap text-center mb-25">
-                           <span>
-                              <svg width="60" height="44" viewBox="0 0 60 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <path d="M4.28571 44H17.1429L25.7143 26.4V0H0V26.4H12.8571L4.28571 44ZM38.5714 44H51.4286L60 26.4V0H34.2857V26.4H47.1429L38.5714 44Z" fill="#7C37FF" />
-                              </svg>
-                           </span>
-                        </div>
-                        <div className="col-lg-4 col-md-6 col-sm-6 col-10">
-                           <Swiper {...setting1}
-                              modules={[Navigation, Controller]}
-                              onSwiper={setThumbSwiper}
-                              controller={{ control: contentSwiper }} className="swiper-container tg-testimonial-4-thumb-active mb-25 fix p-relative">
-                              {avatar_data.map((img, i) => (
-                                 <SwiperSlide key={i} className="swiper-slide">
-                                    <div className="tg-testimonial-4-slider-thumb">
-                                       <Image src={img} alt="" />
-                                    </div>
-                                 </SwiperSlide>
-                              ))}
-                           </Swiper>
-                        </div>
-                     </div>
-                     <Swiper  {...setting2}
-                        modules={[Navigation, Controller]}
-                        onSwiper={setContentSwiper}
-                        controller={{ control: thumbSwiper }} className="swiper-container tg-testimonial-4-slide-active p-relative fix pb-20">
-                        {testi_data.map((item) => (
-                           <SwiperSlide key={item.id} className="swiper-slide">
-                              <div className="tg-testimonial-4-content-wrap">
-                                 <div className="tg-testimonial-4-clients text-center">
-                                    <h5 className="tg-testimonial-4-name mb-0">{item.name}</h5>
-                                    <span className="d-inline-block mb-10">{item.designation}</span>
-                                    <div className="tg-testimonial-4-ratings mb-20">
-                                       {item.rating.map((rating, i) => (
-                                          <i key={i} className={rating}></i>
-                                       ))}
-                                    </div>
-                                    <p>{item.desc}</p>
-                                 </div>
-                              </div>
-                           </SwiperSlide>
-                        ))}
-                        <div className="tg-testimonial-4-slider-navigation">
-                           <button className="tg-testimonial-4-slide-next"><i className="fa-solid fa-arrow-right-long"></i></button>
-                           <button className="tg-testimonial-4-slide-prev"><i className="fa-solid fa-arrow-left-long"></i></button>
-                        </div>
-                     </Swiper>
-                  </div>
-               </div>
+                {/* LARGE IMAGE */}
+                <div className="img-box img-large">
+                  {item.images?.[0] && (
+                    <Image
+                      src={item.images[0]}
+                      alt="testimonial-img-1"
+                      width={290}
+                      height={330}
+                    />
+                  )}
+                </div>
+
+                {/* SMALL IMAGE 1 */}
+                <div className="img-box img-small img-small1">
+                  {item.images?.[1] && (
+                    <Image
+                      src={item.images[1]}
+                      alt="testimonial-img-2"
+                      width={230}
+                      height={170}
+                    />
+                  )}
+                </div>
+              </div>
+
+              <div className="img-row">
+                {/* SMALL IMAGE 2 */}
+                <div className="img-box img-small img-small2">
+                  {item.images?.[2] && (
+                    <Image
+                      src={item.images[2]}
+                      alt="testimonial-img-3"
+                      width={230}
+                      height={170}
+                    />
+                  )}
+                </div>
+              </div>
+
             </div>
-         </div>
-      </div>
-   )
-}
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
-export default Testimonial
+      {/* RIGHT SIDE CONTENT */}
+      <div className="content-column">
+
+        <div className="col-lg-10">
+          <div className="tg-listing-5-slider-navigation text-end mb-30">
+            <button className="tg-listing-5-slide-prev swiper-prev">
+              <i className="fa-solid fa-arrow-left-long"></i>
+            </button>
+            <button className="tg-listing-5-slide-next swiper-next">
+              <i className="fa-solid fa-arrow-right-long"></i>
+            </button>
+          </div>
+        </div>
+
+        <Swiper
+          modules={[Navigation, Controller]}
+          onSwiper={setTextSwiper}
+          controller={{ control: imgSwiper }}
+          navigation={{
+            prevEl: ".swiper-prev",
+            nextEl: ".swiper-next",
+          }}
+          slidesPerView={1}
+          loop={true}
+          spaceBetween={20}
+          className="testimonial-swiper"
+        >
+          {destinations.map((item, i) => (
+            <SwiperSlide key={i}>
+
+              <div className="content-header">
+                <h2 className="text-white">{item.title}</h2>
+              </div>
+
+              <p className="desc text-white">{item.heading}</p>
+              <p className="desc text-white">{item.description}</p>
+
+              <div className="author-block">
+                <div className="author-avatar">
+                  <Image src={avatar} alt="author" />
+                </div>
+
+                <div>
+                  <h4 className="author-name text-white">{item.added_by}</h4>
+                  <span className="designation">{item.city}</span>
+                </div>
+              </div>
+
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+
+      {/* INLINE CSS (CAN MOVE TO FILE) */}
+      <style jsx>{`
+        .img-small1 {
+          margin-top: 14rem !important;
+          margin-left: 12px;
+        }
+        .img-small2 {
+          width: 18rem !important;
+          margin-left: 12px;
+          margin-top: -68px;
+        }
+
+        .struggles-container {
+          display: flex;
+          gap: 70px;
+          padding: 80px 0;
+          align-items: center;
+          background: #0a6a67;
+        }
+
+        .left-swiper {
+          width: 350px;
+        }
+
+        .images-column {
+          display: flex;
+          flex-direction: column;
+          gap: 25px;
+          position: relative;
+          left: 15rem;
+        }
+
+        .img-box {
+          overflow: hidden;
+          border-radius: 15px;
+        }
+
+        .img-large {
+          width: 290px;
+          height: 330px;
+        }
+
+        .img-small {
+          width: 230px;
+          height: 170px;
+        }
+
+        .img-row {
+          display: flex;
+          gap: 20px;
+        }
+
+        .content-column {
+          width: 45%;
+          color: #fff;
+        }
+
+        .content-header h2 {
+          font-size: 36px;
+          font-weight: 700;
+          margin-bottom: 20px;
+        }
+
+        .desc {
+          font-size: 17px;
+          margin: 15px 0;
+          line-height: 1.6;
+          max-width: 34rem;
+        }
+
+        .author-block {
+          margin-top: 20px;
+          display: flex;
+          gap: 15px;
+          align-items: center;
+        }
+
+        .author-avatar {
+          width: 55px;
+          height: 55px;
+          overflow: hidden;
+          border-radius: 50%;
+        }
+
+        .author-name {
+          margin: 0;
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        .designation {
+          font-size: 14px;
+          opacity: 0.8;
+        }
+      `}</style>
+
+    </section>
+  );
+}
