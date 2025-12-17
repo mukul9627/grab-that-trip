@@ -1,21 +1,19 @@
-import HeaderThree from "@/layouts/headers/HeaderThree"
-import Breadcrumb from "./Breadcrumb"
-import FeatureDetailsArea from "./FeatureDetailsArea"
-import FeatureAboutArea from "./FeatureAboutArea"
-import FooterSix from "@/layouts/footers/FooterSix"
+import Breadcrumb from "./Breadcrumb";
+import FeatureDetailsArea from "./FeatureDetailsArea";
+import FooterSix from "@/layouts/footers/FooterSix";
+import HeaderOne from "@/layouts/headers/HeaderOne";
 
 const FeatureDetailsOne = () => {
-   return (
-      <>
-         <HeaderThree />
-         <main>
-            <Breadcrumb />
-            <FeatureDetailsArea />
-            <FeatureAboutArea />
-         </main>
-         <FooterSix />
-      </>
-   )
-}
+  return (
+    <>
+      <HeaderOne />
+      <main>
+        <Breadcrumb />
+        <FeatureDetailsArea />
+      </main>
+      <FooterSix />
+    </>
+  );
+};
 
-export default FeatureDetailsOne
+export default FeatureDetailsOne;

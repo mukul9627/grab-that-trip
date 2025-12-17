@@ -1,153 +1,272 @@
-"use client"
-import NiceSelect from "@/ui/NiceSelect"
+"use client";
 
-const FeatureSidebar = () => {
+import { useState } from "react";
+import { useBooking } from "@/hooks/useBooking";
 
-   const selectHandler = () => { };
+type FeatureSidebarProps = {
+  package_id: number;
+  package_name: string;
+  base_price: number;
+  offer_price: number;
+};
 
-   return (
-      <form onSubmit={(e) => e.preventDefault()}>
-         <h4 className="tg-tour-about-title title-2 mb-15">Book This Tour</h4>
-         <div className="tg-booking-form-parent-inner mb-10">
-            <div className="tg-tour-about-date p-relative">
-               <input className="input" name="datetime-local" type="text" placeholder="When (Date)" />
-               <span className="calender">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M11.1111 1V3.80003M4.88888 1V3.80003M1 6.59992H15M2.55556 2.39988H13.4444C14.3036 2.39988 15 3.02668 15 3.79989V13.6C15 14.3732 14.3036 15 13.4444 15H2.55556C1.69645 15 1 14.3732 1 13.6V3.79989C1 3.02668 1.69645 2.39988 2.55556 2.39988Z" stroke="#560CE3" strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-               </span>
-               <span className="angle"><i className="fa-sharp fa-solid fa-angle-down"></i></span>
-            </div>
-         </div>
-         <div className="tg-tour-about-time d-flex align-items-center mb-10">
-            <span className="time">Time:</span>
-            <div className="form-check mr-15">
-               <input className="form-check-input" type="radio" name="flexRadioDefault" id="time1" checked readOnly />
-               <label className="form-check-label" htmlFor="time1">
-                  12:00
-               </label>
-            </div>
-            <div className="form-check">
-               <input className="form-check-input" type="radio" name="flexRadioDefault" id="time2" />
-               <label className="form-check-label" htmlFor="time2">
-                  19:00
-               </label>
-            </div>
-         </div>
-         <div className="tg-tour-about-border-doted mb-15"></div>
-         <div className="tg-tour-about-tickets-wrap mb-15">
-            <span className="tg-tour-about-sidebar-title">Tickets:</span>
-            <div className="tg-tour-about-tickets mb-10">
-               <div className="tg-tour-about-tickets-adult">
-                  <span>Adult</span>
-                  <p className="mb-0">(14+ years) <span>$20</span></p>
-               </div>
-               <div className="tg-tour-about-tickets-quantity">
-                  <NiceSelect
-                     className="select  item-first"
-                     options={[
-                        { value: "01", text: "0" },
-                        { value: "02", text: "01" },
-                        { value: "03", text: "02" },
-                        { value: "04", text: "03" },
-                        { value: "05", text: "04" },
-                        { value: "06", text: "05" },
-                        { value: "07", text: "06" },
-                        { value: "08", text: "07" },
-                     ]}
-                     defaultCurrent={0}
-                     onChange={selectHandler}
-                     name=""
-                     placeholder="" />
-               </div>
-            </div>
-            <div className="tg-tour-about-tickets mb-10">
-               <div className="tg-tour-about-tickets-adult">
-                  <span>Youth </span>
-                  <p className="mb-0">(13-17 years) <span>$20</span></p>
-               </div>
-               <div className="tg-tour-about-tickets-quantity">
-                  <NiceSelect
-                     className="select  item-first"
-                     options={[
-                        { value: "01", text: "0" },
-                        { value: "02", text: "01" },
-                        { value: "03", text: "02" },
-                        { value: "04", text: "03" },
-                        { value: "05", text: "04" },
-                        { value: "06", text: "05" },
-                        { value: "07", text: "06" },
-                        { value: "08", text: "07" },
-                     ]}
-                     defaultCurrent={0}
-                     onChange={selectHandler}
-                     name=""
-                     placeholder="" />
-               </div>
-            </div>
-            <div className="tg-tour-about-tickets mb-10">
-               <div className="tg-tour-about-tickets-adult">
-                  <span>Children </span>
-                  <p className="mb-0">(13-17 years) <span>$15</span></p>
-               </div>
-               <div className="tg-tour-about-tickets-quantity">
-                  <NiceSelect
-                     className="select  item-first"
-                     options={[
-                        { value: "01", text: "0" },
-                        { value: "02", text: "01" },
-                        { value: "03", text: "02" },
-                        { value: "04", text: "03" },
-                        { value: "05", text: "04" },
-                        { value: "06", text: "05" },
-                        { value: "07", text: "06" },
-                        { value: "08", text: "07" },
-                     ]}
-                     defaultCurrent={0}
-                     onChange={selectHandler}
-                     name=""
-                     placeholder="" />
-               </div>
-            </div>
-         </div>
-         <div className="tg-tour-about-border-doted mb-15"></div>
-         <div className="tg-tour-about-extra mb-10">
-            <span className="tg-tour-about-sidebar-title mb-10 d-inline-block">Add Extra:</span>
-            <div className="tg-filter-list">
-               <ul>
-                  <li>
-                     <div className="checkbox d-flex">
-                        <input className="tg-checkbox" type="checkbox" id="amenities" />
-                        <label htmlFor="amenities" className="tg-label">Service per booking</label>
-                     </div>
-                     <span className="quantity">$30.00</span>
-                  </li>
-                  <li>
-                     <div className="checkbox d-flex">
-                        <input className="tg-checkbox" type="checkbox" id="amenities-2" />
-                        <label htmlFor="amenities-2" className="tg-label">Service per person</label>
-                     </div>
-                     <span className="quantity">$20.00</span>
-                  </li>
-                  <li>
-                     <span className="adult">Adult:</span>
-                     <span className="quantity">$15.00</span>
-                  </li>
-                  <li>
-                     <span className="adult">Youth:</span>
-                     <span className="quantity">$20.00</span>
-                  </li>
-               </ul>
-            </div>
-         </div>
-         <div className="tg-tour-about-border-doted mb-15"></div>
-         <div className="tg-tour-about-coast d-flex align-items-center flex-wrap justify-content-between mb-20">
-            <span className="tg-tour-about-sidebar-title d-inline-block">Total Cost:</span>
-            <h5 className="total-price">$300.00</h5>
-         </div>
-         <button type="submit" className="tg-btn tg-btn-switch-animation w-100">Book now</button>
+const FeatureSidebar = ({
+  package_id,
+  package_name,
+  base_price,
+  offer_price,
+}: FeatureSidebarProps) => {
+  const { loading, sendEnquiry } = useBooking();
+
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+    phone: "",
+    travel_date: "",
+    travel_count: "",
+    adult_count: "",
+    child_count: "",
+    infant_count: "",
+    message: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (loading) return;
+
+  const payload = {
+    PackageId: package_id,
+    FullName: formData.full_name,
+    Email: formData.email,
+    CountryCode: "+91",
+    Phone: formData.phone,
+    TravelDate: formData.travel_date,
+    TravelCount: Number(formData.travel_count || 0),
+    AdultCount: Number(formData.adult_count || 0),
+    ChildCount: Number(formData.child_count || 0),
+    InfantCount: Number(formData.infant_count || 0),
+    Message: formData.message,
+  };
+
+  const response = await sendEnquiry(payload);
+
+  if (response.ok && response.data?.status) {
+    alert("Enquiry sent successfully ✅");
+    setFormData({
+      full_name: "",
+      email: "",
+      phone: "",
+      travel_date: "",
+      travel_count: "",
+      adult_count: "",
+      child_count: "",
+      infant_count: "",
+      message: "",
+    });
+  } else {
+    console.error("API Error:", response.data || response.error);
+    alert(response.data?.message || "Failed to send enquiry ❌");
+  }
+};
+
+
+  return (
+    <div className="booking-card">
+      <div className="booking-header">
+        <div className="thumb" />
+        <div>
+          <h5>{package_name}</h5>
+          <p className="price">
+            ₹{offer_price} <span>₹{base_price}</span>
+          </p>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          name="full_name"
+          placeholder="Full Name"
+          value={formData.full_name}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+
+        <div className="row">
+          <div className="col-3">
+            <input className="code" value="+91" readOnly />
+          </div>
+          <div className="col-9">
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+          </div>
+        </div>
+
+        <input
+          type="date"
+          name="travel_date"
+          value={formData.travel_date}
+          onChange={handleChange}
+          required
+        />
+
+        <input
+          type="number"
+          name="travel_count"
+          placeholder="Total Travellers"
+          value={formData.travel_count}
+          onChange={handleChange}
+        />
+
+        <div className="row">
+          <div className="col-4">
+            <input
+              type="number"
+              name="adult_count"
+              placeholder="Adults"
+              value={formData.adult_count}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-4">
+            <input
+              type="number"
+              name="child_count"
+              placeholder="Children"
+              value={formData.child_count}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="col-4">
+            <input
+              type="number"
+              name="infant_count"
+              placeholder="Infants"
+              value={formData.infant_count}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+
+        <textarea
+          name="message"
+          placeholder="Message"
+          value={formData.message}
+          onChange={handleChange}
+        />
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Sending..." : "Send Enquiry"}
+        </button>
       </form>
-   )
-}
 
-export default FeatureSidebar
+      {/* ✅ INTERNAL CSS */}
+      <style jsx>{`
+        .booking-card {
+          background: #fff;
+          padding: 18px;
+          border-radius: 14px;
+          box-shadow: 0 0 0 1px #e5e5e5;
+        }
+
+        .booking-header {
+          display: flex;
+          gap: 12px;
+          margin-bottom: 18px;
+          align-items: center;
+        }
+
+        .thumb {
+          width: 42px;
+          height: 42px;
+          background: #e0e0e0;
+          border-radius: 8px;
+        }
+
+        h5 {
+          font-size: 14px;
+          font-weight: 600;
+          margin: 0 0 4px;
+        }
+
+        .price {
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        .price span {
+          font-size: 13px;
+          color: #888;
+          text-decoration: line-through;
+          margin-left: 6px;
+        }
+
+        input,
+        textarea {
+          width: 100%;
+          padding: 14px;
+          border-radius: 12px;
+          border: 1px solid #cfcfcf;
+          font-size: 14px;
+          margin-bottom: 12px;
+          outline: none;
+        }
+
+        textarea {
+          height: 90px;
+          resize: none;
+        }
+
+        .row {
+          display: flex;
+          gap: 0px;
+        }
+
+        .code {
+          width: 70px;
+          text-align: center;
+          font-weight: 600;
+        }
+
+        button {
+          width: 100%;
+          padding: 16px;
+          background: #0a6a63;
+          color: #fff;
+          border: none;
+          border-radius: 14px;
+          font-size: 16px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+        button:hover {
+          background: #085c56;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default FeatureSidebar;

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import Image from "next/image";
@@ -13,73 +12,70 @@ import FeatureTop from "./FeatureTop";
 import FeatureSidebar from "./FeatureSidebar";
 import { getPackagesByFeatureId } from "@/hooks/packageDetails";
 
-import CryptoJS from "crypto-js";    // ✅ FIX 1: Import CryptoJS
-const secretKey = "MY_PRIVATE_KEY";  // ✅ FIX 2: Add secret key (same as PurposeSection)
+import CryptoJS from "crypto-js";
+
+const secretKey = "MY_PRIVATE_KEY";
 
 export default function FeatureArea() {
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
-  // 1️⃣ LIST / GRID VIEW
   const [isListView, setIsListView] = useState(false);
 
-  // 2️⃣ API DATA STATE
+  // API DATA
   const [apiData, setApiData] = useState<any[]>([]);
+  const [filteredData, setFilteredData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 3️⃣ PAGINATION
+  // Pagination
   const itemsPerPage = 9;
   const [itemOffset, setItemOffset] = useState(0);
 
-  const currentItems = apiData.slice(itemOffset, itemOffset + itemsPerPage);
-  const totalPages = Math.ceil(apiData.length / itemsPerPage);
+  const currentItems = filteredData.slice(itemOffset, itemOffset + itemsPerPage);
+  const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   const startOffset = itemOffset + 1;
-  const endOffset = Math.min(itemOffset + itemsPerPage, apiData.length);
-  const totalItems = apiData.length;
+  const endOffset = Math.min(itemOffset + itemsPerPage, filteredData.length);
+  const totalItems = filteredData.length;
 
-const decryptId = (encrypted: string) => {
-  try {
-    const bytes = CryptoJS.AES.decrypt(encrypted, secretKey);
-    const decrypted = bytes.toString(CryptoJS.enc.Utf8);
-
-    if (!decrypted) throw new Error();
-    return decrypted;
-  } catch (e) {
-    console.error("Invalid encrypted ID:", encrypted);
-    return null;
-  }
-};
+  const decryptId = (encrypted: string) => {
+    try {
+      const bytes = CryptoJS.AES.decrypt(encrypted, secretKey);
+      const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+      return decrypted || null;
+    } catch {
+      return null;
+    }
+  };
 
   useEffect(() => {
-  const encrypted = searchParams.get("type");
-  let featureId = "7";
+    const encrypted = searchParams.get("type");
+    let featureId = "7";
 
-  if (encrypted) {
-    const decrypted = decryptId(encrypted);
-    featureId = decrypted || "7";
-  } else if (searchParams.get("feature_id")) {
-    featureId = searchParams.get("feature_id")!;
-  }
+    if (encrypted) {
+      const decrypted = decryptId(encrypted);
+      featureId = decrypted || "7";
+    } else if (searchParams.get("feature_id")) {
+      featureId = searchParams.get("feature_id")!;
+    }
 
-  async function loadData() {
-    setLoading(true);
-    const data = await getPackagesByFeatureId(featureId);
-    setApiData(data);
-    setLoading(false);
-    setItemOffset(0);
-  }
+    async function loadData() {
+      setLoading(true);
+      const data = await getPackagesByFeatureId(featureId);
 
-  loadData();
+      setApiData(data);
+      setFilteredData(data); // initial state
+      setLoading(false);
+      setItemOffset(0);
+    }
 
-}, [searchParams]);
-
+    loadData();
+  }, [searchParams]);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     setItemOffset(selected * itemsPerPage);
   };
 
-  // Wishlist function
   const handleAddToWishlist = useCallback(
     (item: any) => {
       dispatch(addToWishlist(item));
@@ -93,14 +89,16 @@ const decryptId = (encrypted: string) => {
     <div className="tg-listing-grid-area mb-85 mt-85">
       <div className="container">
         <div className="row">
-
-          {/* LEFT SIDEBAR */}
-          <FeatureSidebar setProducts={() => {}} />
+           {/* SIDEBAR */}
+          <FeatureSidebar
+            fullData={apiData}
+            setProducts={setFilteredData}
+            resetPage={() => setItemOffset(0)}
+          />
 
           {/* RIGHT CONTENT */}
           <div className="col-xl-9 col-lg-8">
             <div className="tg-listing-item-box-wrap ml-10">
-
               {/* TOP BAR */}
               <FeatureTop
                 startOffset={startOffset}
@@ -114,7 +112,6 @@ const decryptId = (encrypted: string) => {
 
               {/* GRID START */}
               <div className="tg-listing-grid-item">
-
                 {/* LOADING */}
                 {loading && (
                   <div className="text-center py-5 text-gray-500 text-lg">
@@ -142,7 +139,6 @@ const decryptId = (encrypted: string) => {
                         className="col-xxl-4 col-xl-6 col-lg-6 col-md-6 tg-grid-full"
                       >
                         <div className="tg-listing-card-item mb-30">
-
                           {/* IMAGE */}
                           <div className="tg-listing-card-thumb fix mb-15 p-relative">
                             <Link href={`/tour-details?id=${item.package_id}`}>
@@ -193,7 +189,9 @@ const decryptId = (encrypted: string) => {
                           <div className="tg-listing-main-content">
                             <div className="tg-listing-card-content">
                               <h4 className="tg-listing-card-title">
-                                <Link href={`/tour-details?id=${item.package_id}`}>
+                                <Link
+                                  href={`/tour-details?id=${item.package_id}`}
+                                >
                                   {item.package_name}
                                 </Link>
                               </h4>
@@ -237,7 +235,6 @@ const decryptId = (encrypted: string) => {
                                 </span>
                               </div>
                             </div>
-
                           </div>
                         </div>
                       </div>
@@ -260,11 +257,9 @@ const decryptId = (encrypted: string) => {
                     </nav>
                   </div>
                 )}
-
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

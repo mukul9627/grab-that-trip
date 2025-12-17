@@ -42,6 +42,7 @@
     "@eslint/eslintrc": "^3",
     "@types/axios": "^0.9.36",
     "@types/crypto-js": "^4.2.2",
+    "@types/google.maps": "^3.58.1",
     "@types/isotope-layout": "^3.0.15",
     "@types/node": "^20",
     "@types/react": "^19",

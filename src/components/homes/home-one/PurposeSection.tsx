@@ -189,14 +189,19 @@ export default function PurposeSection() {
                       className="tg-listing-card-thumb fix mb-15 p-relative"
                       style={{ height: "270px", width: "284px" }}
                     >
-                      <Link href="/tour-details">
-                        <Image
-                          src={`${imageBase}/package/bg/${item.bg_image}`}
-                          alt={item.package_name}
-                          fill
-                          className="object-cover"
-                        />
-                      </Link>
+                     <Link
+  href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
+ target="_blank"
+  rel="noopener noreferrer"
+  >
+  <Image
+    src={`${imageBase}/package/bg/${item.bg_image}`}
+    alt={item.package_name}
+    fill
+    className="object-cover"
+  />
+</Link>
+
                       <div className="tg-listing-item-wishlist">
                         <a
                           onClick={() => handleAddToWishlist(item)}
@@ -318,6 +323,8 @@ export default function PurposeSection() {
            {encryptedParam && (
   <Link
     href={`/tour-grid-1?type=${encryptedParam}`}
+    target="_blank"
+  rel="noopener noreferrer"
     className="tg-btn tg-btn-transparent tg-btn-su-transparent"
   >
     See More Tours

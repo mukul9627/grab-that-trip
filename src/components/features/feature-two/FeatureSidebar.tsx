@@ -1,200 +1,180 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-"use client"
-import shop_data from "@/data/ShopData";
-import { selectProducts } from "@/redux/features/productSlice";
+"use client";
+
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Rating } from 'react-simple-star-rating';
+import { Rating } from "react-simple-star-rating";
 import PriceRange from "./PriceRange";
 
-interface FilterCriteria {
-  destination: string;
-  duration: string;
-  amenities: string;
-  language: string;
-  rating: number | null;
-}
-
 interface FeatureSidebarProps {
-  setProducts: (products: any[]) => void;
+  fullData: any[];
+  setProducts: (data: any[]) => void;
+  resetPage: () => void;
 }
 
-const FeatureSidebar = ({ setProducts }: FeatureSidebarProps) => {
-  
-  const allProducts = useSelector(selectProducts);
-  const filterdProduct = allProducts.filter(product => product.page === 'shop_2');
+export default function FeatureSidebar({
+  fullData,
+  setProducts,
+  resetPage,
+}: FeatureSidebarProps) {
 
-  const [destinationSelected, setDestinationSelected] = useState('');
-  const [durationSelected, setDurationSelected] = useState('');
-  const [amenitiesSelected, setAmenitiesSelected] = useState('');
-  const [languageSelected, setLanguageSelected] = useState('');
-  const [ratingSelected, setRatingSelected] = useState<number | null>(null);
+  const [destination, setDestination] = useState("");
+  const [duration, setDuration] = useState("");
+  const [rating, setRating] = useState<number | null>(null);
+  const [priceValue, setPriceValue] = useState<number[]>([0, 0]);
 
-  const destinationFilter = filterdProduct.map(product => product.destination);
-  const durationFilter = filterdProduct.map(product => product.duration);
-  const amenitiesFilter = filterdProduct.map(product => product.amenities);
-  const languageFilter = filterdProduct.map(product => product.language);
+  /* ===== FILTER OPTIONS ===== */
+  const destinations = [
+  "All Destination",
+  ...Array.from(
+    new Set(
+      fullData
+        .map(i => i.destination_name?.trim())
+        .filter(Boolean)
+    )
+  ),
+];
 
-  const allDestination = ['All Destination', ...new Set(destinationFilter)];
-  const allDuration = ['All Duration', ...new Set(durationFilter)];
-  const allAmenities = ['All Amenities', ...new Set(amenitiesFilter)];
-  const allLanguage = ['All Language', ...new Set(languageFilter)];
 
-  // Handle destination selection
-  const handleDestination = (destination: string) => {
-    setDestinationSelected(prevDestination => prevDestination === destination ? '' : destination);
-    filterProducts({ destination: destination === destinationSelected ? '' : destination, amenities: amenitiesSelected, language: languageSelected, rating: ratingSelected, duration: durationSelected });
-  };
+  const durations = [
+    "All Duration",
+    ...new Set(fullData.map(i => `${i.days} Days`)),
+  ];
 
-  // Handle destination selection
-  const handleDuration = (duration: string) => {
-    setDurationSelected(prevDuration => prevDuration === duration ? '' : duration);
-    filterProducts({ duration: duration === durationSelected ? '' : duration, destination: destinationSelected, amenities: amenitiesSelected, language: languageSelected, rating: ratingSelected });
-  };
+  const maxPrice =
+    fullData.length > 0
+      ? Math.max(...fullData.map(i => i.offer_price || i.base_price || 0))
+      : 0;
 
-  // Handle amenities selection
-  const handleAmenities = (amenities: string) => {
-    setAmenitiesSelected(prevAmenities => prevAmenities === amenities ? '' : amenities);
-    filterProducts({ destination: destinationSelected, amenities: amenities === amenitiesSelected ? '' : amenities, language: languageSelected, rating: ratingSelected, duration: durationSelected });
-  };
+  useEffect(() => {
+    if (maxPrice > 0) setPriceValue([0, maxPrice]);
+  }, [maxPrice]);
 
-  // Handle language selection
-  const handleLanguage = (language: string) => {
-    setLanguageSelected(prevLanguage => prevLanguage === language ? '' : language);
-    filterProducts({ destination: destinationSelected, amenities: amenitiesSelected, language: language === languageSelected ? '' : language, rating: ratingSelected, duration: durationSelected });
-  };
+  /* ===== APPLY FILTERS ===== */
+  useEffect(() => {
+    let data = [...fullData];
 
-  // Handle rating selection
-  const handleRating = (rating: number) => {
-    setRatingSelected(prevRating => prevRating === rating ? null : rating);
-    filterProducts({ destination: destinationSelected, amenities: amenitiesSelected, language: languageSelected, rating: rating === ratingSelected ? null : rating, duration: durationSelected });
-  };
-
-  const filterProducts = ({ destination, duration, amenities, language, rating }: FilterCriteria) => {
-    let filteredProducts = allProducts;
-
-    if (destination && destination !== 'All Destination') {
-      filteredProducts = filteredProducts.filter(product => product.destination === destination);
+    if (destination && destination !== "All Destination") {
+      data = data.filter(i => i.destination_name === destination);
     }
 
-    if (duration && duration !== 'All Duration') {
-      filteredProducts = filteredProducts.filter(product => product.duration === duration);
-    }
-
-    if (amenities && amenities !== 'All Amenities') {
-      filteredProducts = filteredProducts.filter(product => product.amenities === amenities);
-    }
-
-    if (language && language !== 'All Language') {
-      filteredProducts = filteredProducts.filter(product => product.language === language);
+    if (duration && duration !== "All Duration") {
+      const d = parseInt(duration);
+      data = data.filter(i => i.days === d);
     }
 
     if (rating !== null) {
-      filteredProducts = filteredProducts.filter(product => product.review === rating);
+      data = data.filter(
+        i => Math.round(i.average_rating) === rating
+      );
     }
 
-    setProducts(filteredProducts);
-  };
+    data = data.filter(i => {
+      const price = i.offer_price || i.base_price;
+      return price >= priceValue[0] && price <= priceValue[1];
+    });
 
+    setProducts(data);
+    resetPage();
+  }, [destination, duration, rating, priceValue]);
 
-  // handle Price
-  const maxPrice = shop_data.reduce((max, item) => {
-    return item.price > max ? item.price : max;
-  }, 0);
-
-  const [priceValue, setPriceValue] = useState([0, maxPrice]);
-
-  useEffect(() => {
-    const filterPrice = shop_data.filter((j) => j.price >= priceValue[0] && j.price <= priceValue[1]);
-    setProducts(filterPrice);
-  }, [priceValue, setProducts]);
-
-  const handleChanges = (val: number[]) => {
-    setPriceValue(val)
-  }
-
+  /* ===== UI ===== */
   return (
     <div className="col-xl-3 col-lg-4 order-last order-lg-first">
       <div className="tg-filter-sidebar mb-40 top-sticky">
         <div className="tg-filter-item">
 
-          {/* destination */}
+          {/* Destination */}
           <h4 className="tg-filter-title mb-15">Destination</h4>
           <div className="tg-filter-list">
             <ul>
-              {allDestination.map((destination, i) => (
-                <li key={i} onClick={() => handleDestination(destination)}>
+              {destinations.map((d, i) => (
+                <li key={i}>
                   <div className="checkbox d-flex">
-                    <input className="tg-checkbox" type="checkbox" checked={destination === destinationSelected} readOnly id={`cat_${i}`} />
-                    <label htmlFor={`cat_${i}`} onClick={() => handleDestination(destination)} className="tg-label">{destination}</label>
+                    <input
+                      className="tg-checkbox"
+                      type="checkbox"
+                      checked={destination === d}
+                      onChange={() => setDestination(prev => (prev === d  ?  "" : d))}
+                      id={`dest_${i}`}
+                    />
+                    <label htmlFor={`dest_${i}`} className="tg-label">
+                      {d}
+                    </label>
                   </div>
                 </li>
               ))}
             </ul>
           </div>
+
           <span className="tg-filter-border mt-25 mb-25"></span>
 
-          {/* price range */}
-          <div className="tg-filter-price-input">
-            <h4 className="tg-filter-title mb-20">Price By Filter</h4>
-            <PriceRange
-              MAX={maxPrice}
-              MIN={0}
-              STEP={1}
-              values={priceValue}
-              handleChanges={handleChanges}
-            />
-            <div className="d-flex align-items-center mt-15">
-              <span className="input-range" onChange={() => handleChanges}>
-                ${priceValue[0]} - ${priceValue[1]}
-              </span>
-            </div>
-          </div>
+          {/* Price */}
+          <h4 className="tg-filter-title mb-20">Price By Filter</h4>
+          {maxPrice > 0 && (
+            <>
+              <PriceRange
+                MIN={0}
+                MAX={maxPrice}
+                STEP={1}
+                values={priceValue}
+                handleChanges={setPriceValue}
+              />
+              <div className="d-flex align-items-center mt-15">
+                <span className="input-range">
+                  ₹{priceValue[0]} - ₹{priceValue[1]}
+                </span>
+              </div>
+            </>
+          )}
+
           <span className="tg-filter-border mt-25 mb-25"></span>
 
-          {/* duration */}
-          <h4 className="tg-filter-title mb-15">Duration</h4>
-          <div className="tg-filter-list">
-            <ul>
-              {allDuration.map((duration, i) => (
-                <li key={i} onClick={() => handleDuration(duration)}>
-                  <div className="checkbox d-flex">
-                    <input className="tg-checkbox" type="checkbox" checked={duration === durationSelected} readOnly id={`duration_${i}`} />
-                    <label className="tg-label" htmlFor={`duration_${i}`} onClick={() => handleDuration(duration)}>{duration}</label>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
+         {/* Duration */}
+<h4 className="tg-filter-title mb-15">Duration</h4>
+<div className="tg-filter-list">
+  <ul>
+    {durations.map((d, i) => (
+      <li key={i}>
+        <div className="checkbox d-flex">
+          <input
+            className="tg-checkbox"
+            type="checkbox"
+            checked={duration === d}
+            onChange={() =>
+              setDuration(prev =>
+                prev === d ? "" : d
+              )
+            }
+            id={`duration_${i}`}
+          />
+          <label htmlFor={`duration_${i}`} className="tg-label">
+            {d}
+          </label>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
           <span className="tg-filter-border mt-25 mb-25"></span>
 
-          {/* amenitiess */}
-          <h4 className="tg-filter-title mb-15">Amenities</h4>
-          <div className="tg-filter-list">
-            <ul>
-              {allAmenities.map((amenities, i) => (
-                <li key={i} onClick={() => handleAmenities(amenities)}>
-                  <div className="checkbox d-flex">
-                    <input className="tg-checkbox" type="checkbox" checked={amenities === amenitiesSelected} readOnly id={`amenities_${i}`} />
-                    <label className="tg-label" htmlFor={`amenities_${i}`} onClick={() => handleAmenities(amenities)}>{amenities}</label>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <span className="tg-filter-border mt-25 mb-25"></span>
-
-          {/* rating */}
+          {/* Rating */}
           <h4 className="tg-filter-title mb-15">Top Reviews</h4>
           <div className="tg-filter-list">
             <ul>
-              {[5, 4, 3, 2, 1].map((rating, i) => (
-                <li key={i} onClick={() => handleRating(rating)}>
+              {[5, 4, 3, 2, 1].map((r, i) => (
+                <li key={i}>
                   <div className="checkbox d-flex">
-                    <input className="tg-checkbox" type="checkbox" checked={rating === ratingSelected} readOnly id={`rating_${i}`} />
-                    <label htmlFor={`rating_${i}`} onClick={() => handleRating(rating)}>
+                    <input
+                      className="tg-checkbox"
+                      type="checkbox"
+                      checked={rating === r}
+                      onChange={() => setRating(prev => (prev === r ?  null  : r))}
+                      id={`rating_${i}`}
+                    />
+                    <label htmlFor={`rating_${i}`}>
                       <div className="tg-filter-review">
-                        <Rating initialValue={rating} size={18} readonly />
+                        <Rating initialValue={r} size={18} readonly />
                       </div>
                     </label>
                   </div>
@@ -202,26 +182,9 @@ const FeatureSidebar = ({ setProducts }: FeatureSidebarProps) => {
               ))}
             </ul>
           </div>
-          <span className="tg-filter-border mt-25 mb-25"></span>
 
-          {/* language */}
-          <h4 className="tg-filter-title mb-15">Language</h4>
-          <div className="tg-filter-list">
-            <ul>
-              {allLanguage.map((language, i) => (
-                <li key={i} onClick={() => handleLanguage(language)}>
-                  <div className="checkbox d-flex">
-                    <input className="tg-checkbox" type="checkbox" checked={language === languageSelected} readOnly id={`language_${i}`} />
-                    <label className="tg-label" htmlFor={`language_${i}`} onClick={() => handleLanguage(language)}>{language}</label>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-export default FeatureSidebar

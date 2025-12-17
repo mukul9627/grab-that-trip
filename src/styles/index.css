@@ -7,6 +7,8 @@
 @import "../../public/assets/css/default.css";
 @import "../../public/assets/css/flatpicker.css";
 @import "../../public/assets/css/fontawesome-all.min.css";
+@import "../../public/assets/css/main.css"; /* ← You should import this too */
+
 
 
 .homeone-header-p{
@@ -88,4 +90,61 @@ border-radius: 0 0 12px 12px;
 
 .card-purpose{
   border-radius: 12px 12px 12px 12px;
+}
+.tg-location-su-slider-navigation1 button {
+    width: 45px;
+    height: 45px;
+    line-height: 42px;
+    border-radius: 56px;
+    background: rgb(241, 241, 241);
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+}
+.tg-listing-5-slide-prev1{
+  position: relative;
+    top: 19rem;
+    left: -5rem;
+}
+
+.tg-listing-5-slide-next1{
+  position: relative;
+    right: -4rem;
+    top: 19rem;
+}
+
+.tg-tour-about-sidebar-ms{
+  border: 1px solid #e9e9e9;
+    border-radius: 12px;
+    box-shadow: 0 0 15px 0 #efefef;
+    background: var(--tg-common-white);
+    padding: 0px 0px 0px 0px !important;
+    margin-left: -30px;
+}
+
+.Review-according-ms{
+  width: 43rem;
+  padding-top: 15px;
+}
+
+.Review-according-ms .review-progress{
+  padding-right: 20px;
+}
+/* .tg-tour-about-cus-review-thumb-ms span::after{
+  content: 0;
+} */
+
+.tg-tour-about-cus-review-thumb-ms {
+  width: 140px;
+    height: 51px;
+    border-radius: 50%;
+    border: 2px solid #0a6a63;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    background: #fff;
+    margin: 0 10px 0 0;
+    color: #0a6a63;       /* text color */
 }

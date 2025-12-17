@@ -92,7 +92,7 @@ const Location = () => {
                         src={`${imageBase}/bg/${item.hero_image_url}`}
                         alt={item.name}
                         width={400}
-                        height={300}
+                        height={330}
                         className="tg-round-25"
                       />
                     </div>

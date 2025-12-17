@@ -52,7 +52,7 @@ const FeatureArea = () => {
                {/* <FeatureSidebar setProducts={setProducts} /> */}
                <div className="col-xl-9 col-lg-8">
                   <div className="tg-listing-item-box-wrap ml-10">
-                     <FeatureTop
+                     {/* <FeatureTop
                         startOffset={startOffset}
                         endOffset={Math.min(endOffset, totalItems)}
                         totalItems={totalItems}
@@ -60,7 +60,7 @@ const FeatureArea = () => {
                         isListView={isListView}
                         handleListViewClick={handleListViewClick}
                         handleGridViewClick={handleGridViewClick}
-                     />
+                     /> */}
                      <div className="tg-listing-grid-item">
                         <div className={`row list-card ${isListView ? 'list-card-open' : ''}`}>
                            {currentItems.map((item) => (
