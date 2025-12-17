@@ -2,7 +2,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-import logo from "@/assets/img/logo/logo-white.png"
+import logo from "@/assets/img/logo/GrabThatTrip_White.svg";
 
 const FooterOne = () => {
 
@@ -15,7 +15,7 @@ const FooterOne = () => {
                      <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                         <div className="tg-footer-widget mb-40">
                            <div className="tg-footer-logo mb-20">
-                              <Link href="/"><Image src={logo} alt="" /></Link>
+                              <Link href="/"><Image src={logo} alt="" width={100} height={100} /></Link>
                            </div>
                            <p className="mb-20">Pharetra maecenas felisey vestibulum
                               convallis mollis nullam congue sittle
@@ -105,7 +105,7 @@ const FooterOne = () => {
             </div>
             <div className="tg-footer-copyright text-center">
                <span>
-                  Copyright <Link href="#">©Tourex</Link> |  All Right Reserved
+                  Copyright <Link href="#">©GTT</Link> |  All Right Reserved
                </span>
             </div>
          </div>
