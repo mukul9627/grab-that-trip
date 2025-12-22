@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useDestinations } from "@/hooks/UseDestination";
 import location_bg from "@/assets/img/destination/tu/bg.png";
+import CryptoJS from "crypto-js";
 
 const setting = {
   slidesPerView: 4,
@@ -34,8 +35,14 @@ const Location = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading destinations.</p>;
 
+  const secretKey = "MY_PRIVATE_KEY"; // change this
+
+  const encryptId = (id: number | string) => {
+    return CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
+  };
+
   return (
-    <div className="tg-location-area p-relative z-index-1 pb-65 pt-120 locationp-mar-m">
+    <div className="tg-location-area p-relative z-index-1 pb-65 locationp-mar-m">
       <div className="tg-location-su-bg">
         <Image src={location_bg} alt="location background" />
       </div>
@@ -88,26 +95,45 @@ const Location = () => {
                 <SwiperSlide key={item.destination_id}>
                   <div className="tg-location-3-wrap p-relative mb-30 tg-round-25">
                     <div className="tg-location-thumb tg-round-25">
-                      <Image
-                        src={`${imageBase}/bg/${item.hero_image_url}`}
-                        alt={item.name}
-                        width={400}
-                        height={330}
-                        className="tg-round-25"
-                      />
+                      {/* <h1>{item.destination_id}</h1> */}
+                      <Link
+                        href={`/holidays?pid=${encodeURIComponent(
+                          encryptId(item.destination_id)
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Image
+                          src={`${imageBase}/bg/${item.hero_image_url}`}
+                          alt={item.name}
+                          width={400}
+                          height={330}
+                          className="tg-round-25"
+                        />
+                      </Link>
                     </div>
 
                     <div className="tg-location-content tg-location-su-content">
                       <div className="content">
-                        <h3 className="tg-location-title mb-5">
-                          <Link href="/tour-grid-1">{item.name}</Link>
+                         <Link href={`/holidays?pid=${encodeURIComponent(
+                          encryptId(item.destination_id)
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      > <h3 className="tg-location-title mb-5">
+                         {item.name}
                         </h3>
                         <span className="tg-location-su-duration">
                           {item.country}
-                        </span>
+                        </span></Link>
+                       
                       </div>
 
-                      <Link className="icons" href="/tour-grid-1">
+                      <Link className="icons" href={`/holidays?pid=${encodeURIComponent(
+                          encryptId(item.destination_id)
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer">
                         <svg
                           width="16"
                           height="16"

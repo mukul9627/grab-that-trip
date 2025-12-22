@@ -31,7 +31,7 @@ const FeatureAboutArea = () => {
                         <div className="tg-tour-about-border mb-45"></div>
                         <Review />
                         <div className="tg-tour-about-border mb-35"></div>
-                        <ReviewDetails />
+                        {/* <ReviewDetails /> */}
                         <div className="tg-tour-about-border mb-45"></div>
                         <ReviewFormArea />
                      </div>
@@ -39,7 +39,7 @@ const FeatureAboutArea = () => {
                </div>
                <div className="col-xl-3 col-lg-4">
                   <div className="tg-tour-about-sidebar top-sticky mb-50">
-                     <FeatureSidebar />
+                     {/* <FeatureSidebar /> */}
                   </div>
                </div>
             </div>

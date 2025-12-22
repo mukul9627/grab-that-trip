@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { useMoods, MoodType } from "@/hooks/useMoods";
+import Link from "next/link";
+import CryptoJS from "crypto-js";
 
 interface MoodSelectorProps {
   onMoodChange: (slug: string) => void;
@@ -20,15 +22,23 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
 
   const iconBase = process.env.NEXT_PUBLIC_IMAGE_URL;
   const isButtonActive = activeMood || inputValue.trim();
+  const secretKey = "MY_PRIVATE_KEY"; // change this
+
+  const encryptId = (id: number | string) => {
+    return CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
+  };
 
   return (
-   <section className="relative w-full h-[320px] moodSelector"> 
-   <div className="absolute inset-0 bg-black/25"></div>
+    <section className="relative w-full h-[320px] moodSelector">
+      <div className="absolute inset-0 bg-black/25"></div>
 
       {/* State feedback (optional UI) */}
       {loading && <p>Loading moods…</p>}
       {error && <p className="text-red-500">{error}</p>}
-<h4 className="text-white text-2xl font-semibold mb-6 text-left"> How are you feeling about your next trip? </h4>
+      <h4 className="text-white text-2xl font-semibold mb-6 text-left">
+        {" "}
+        How are you feeling about your next trip?{" "}
+      </h4>
       <div className="grid-container">
         {moods.map((mood) => (
           <div
@@ -38,10 +48,21 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
             }`}
             onClick={() => handleMoodClick(mood)}
           >
-            <div className="card-left">
-              <div className="title text-left">{mood.name}</div>
-              <div className="content text-left"> <p>{mood.description}</p> </div>
-            </div>
+            <Link
+              href={`/holidays?pid=${encodeURIComponent(
+                encryptId(mood.feature_id)
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="card-left">
+                <div className="title text-left">{mood.name}</div>
+                <div className="content text-left">
+                  {" "}
+                  <p>{mood.description}</p>{" "}
+                </div>
+              </div>
+            </Link>
 
             <div className="card-right card-left-padding">
               <Image
@@ -56,26 +77,36 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
       </div>
 
       {/* Input section */}
-      <div className="p-10 rounded-2xl shadow-xl hoem-mood-input">
-       <p className="font-medium mb-2 text-gray-700 text-lg text-left"> Or describe your mood in your own words: </p>
-        {/* <input
+      {/* <div className="p-10 rounded-2xl shadow-xl hoem-mood-input"> */}
+      {/* <p className="font-medium mb-2 text-gray-700 text-lg text-left"> Or describe your mood in your own words: </p> */}
+      {/* <input
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           placeholder="I want somewhere warm…"
         /> */}
-        <input type="text" placeholder="e.g., I want somewhere warm where I can disconnect from work and enjoy nature…" className="w-full p-4 rounded-15 border border-gray-200 shadow-sm mb-6 " value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+      {/* <input type="text" placeholder="e.g., I want somewhere warm where I can disconnect from work and enjoy nature…" className="w-full p-4 rounded-15 border border-gray-200 shadow-sm mb-6 " value={inputValue} onChange={(e) => setInputValue(e.target.value)} /> */}
 
-        {/* <button
+      {/* <button
           disabled={!isButtonActive}
           className={`find-button ${isButtonActive ? "btn-active" : "btn-disabled"}`}
         >
           Find my Destination
         </button> */}
-<div className="flex justify-end">
-        <button
-         className={`find-my-destination-button ${ isButtonActive ? "btn-active" : "btn-disabled"}`} > Find my Destination </button>
-      </div>
-      </div>
+        {activeMood && (
+  <Link
+    href={`/holidays/${moods.find(m => m.feature_id === activeMood)?.slug}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <div className="flex justify-center">
+      <button className="find-my-destination-button btn-active">
+        Find my Destination
+      </button>
+    </div>
+  </Link>
+)}
+     
+      {/* </div> */}
 
       <style jsx>{`
         .find-my-destination-button {
@@ -83,7 +114,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
           width: 184px;
           height: 52px;
           top: 20px;
-          left: 29rem;
+          left: 0rem;
           border-radius: 10px;
           transition: 0.3s ease;
         }
@@ -108,7 +139,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
         }
         .moodSelector {
           // max-width: 64pc;
-          height: 43rem;
+          // height: 43rem;
           background: rgba(228, 228, 228, 0.25);
           backdrop-filter: blur(3px);
           padding: 52px 50px 27px 50px;

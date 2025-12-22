@@ -12,7 +12,7 @@ const FooterOne = () => {
             <div className="container">
                <div className="tg-footer-top mb-45">
                   <div className="row">
-                     <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                     <div className="col-xl-3 col-lg-3 col-md-5 col-sm-6">
                         <div className="tg-footer-widget mb-40">
                            <div className="tg-footer-logo mb-20">
                               <Link href="/"><Image src={logo} alt="" width={100} height={100} /></Link>
@@ -39,33 +39,45 @@ const FooterOne = () => {
                            </div>
                         </div>
                      </div>
-                     <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                     <div className="col-xl-2 col-lg-3 col-md-5 col-sm-6">
                         <div className="tg-footer-widget tg-footer-link ml-80 mb-40">
                            <h3 className="tg-footer-widget-title mb-25">Quick Links</h3>
                            <ul>
-                              <li><Link href="/">Home</Link></li>
-                              <li><Link href="/about">About Us</Link></li>
-                              <li><Link href="#">Services</Link></li>
-                              <li><Link href="#">Tour Guide</Link></li>
-                              <li><Link href="/contact"> Contact Us</Link></li>
+                              <li><Link href="/">About US</Link></li>
+                              <li><Link href="/about">Teams & Conditions</Link></li>
+                              <li><Link href="#">Copyrights Policies</Link></li>
+                              <li><Link href="#">Support</Link></li>
+                              <li><Link href="/contact">Beware Of Frauds</Link></li>
                            </ul>
                         </div>
                      </div>
-                     <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                     <div className="col-xl-2 col-lg-3 col-md-5 col-sm-6">
                         <div className="tg-footer-widget tg-footer-link mb-40">
-                           <h3 className="tg-footer-widget-title mb-25">Utility Pages</h3>
+                           <h3 className="tg-footer-widget-title mb-25">Package</h3>
                            <ul>
-                              <li><Link href="#">Style Guide</Link></li>
-                              <li><Link href="#">Password Protected</Link></li>
-                              <li><Link href="#">404 Error</Link></li>
-                              <li><Link href="#">Changelog</Link></li>
-                              <li><Link href="#">License</Link></li>
+                              <li><Link href="#">Family</Link></li>
+                              <li><Link href="#">Vacation</Link></li>
+                              <li><Link href="#">Honeymoon</Link></li>
+                              <li><Link href="#">Business</Link></li>
+                              <li><Link href="#">Pilgrim</Link></li>
                            </ul>
                         </div>
                      </div>
-                     <div className="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+                     <div className="col-xl-2 col-lg-3 col-md-5 col-sm-6">
+                        <div className="tg-footer-widget tg-footer-link mb-40">
+                           <h3 className="tg-footer-widget-title mb-25">Travel Destination</h3>
+                           <ul>
+                              <li><Link href="#">Bali</Link></li>
+                              <li><Link href="#">Dubai</Link></li>
+                              <li><Link href="#">Singapore</Link></li>
+                              <li><Link href="#">Thailand</Link></li>
+                            
+                           </ul>
+                        </div>
+                     </div>
+                     <div className="col-xl-3 col-lg-3 col-md-5 col-sm-6">
                         <div className="tg-footer-widget tg-footer-info mb-40">
-                           <h3 className="tg-footer-widget-title mb-25">Information</h3>
+                           <h3 className="tg-footer-widget-title mb-25">Contact Details</h3>
                            <ul>
                               <li>
                                  <Link className="d-flex" href="https://www.google.com/maps/@41.6758525,-86.2531698,18.17z">
@@ -75,15 +87,15 @@ const FooterOne = () => {
                                           <path d="M10.3346 12.9699C11.9301 12.9699 13.2235 11.6674 13.2235 10.0608C13.2235 8.45412 11.9301 7.15168 10.3346 7.15168C8.73915 7.15168 7.44575 8.45412 7.44575 10.0608C7.44575 11.6674 8.73915 12.9699 10.3346 12.9699Z" stroke="white" strokeWidth="1.73333" strokeLinecap="round" strokeLinejoin="round" />
                                        </svg>
                                     </span>
-                                    58 Street Commercial Road<br /> Fratton, Australia
+                                    B-85, 3rd Floor, Defence Colony, <br /> New Delhi 110024
                                  </Link>
                               </li>
                               <li>
-                                 <Link className="d-flex" href="tel:+1238889999">
+                                 <Link className="d-flex" href="tel:+918908909020 ">
                                     <span className="mr-15">
                                        <i className="fa-sharp text-white fa-solid fa-phone"></i>
                                     </span>
-                                    +123 888 9999
+                                   +91 890-8909-020 
                                  </Link>
                               </li>
                               <li className="d-flex">
@@ -93,7 +105,7 @@ const FooterOne = () => {
                                     </svg>
                                  </span>
                                  <p className="mb-0">
-                                    Mon – Sat: 8 am – 5 pm,<br />
+                                    Mon – Sat: 9 am – 6 pm,<br />
                                     Sunday: <span className="text-white d-inline-block">CLOSED</span>
                                  </p>
                               </li>

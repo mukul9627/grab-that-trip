@@ -12,9 +12,7 @@ import Faq from "./about/Faq";
 import Included from "./about/Included";
 import Review from "./about/Review";
 import ReviewDetails from "./about/ReviewDetails";
-import ReviewFormArea from "./about/ReviewFormArea";
 import FeatureSidebar from "./FeatureSidebar";
-import BookingModal from "@/components/homes/home-one/BookingModal";
 
 const secretKey = "MY_PRIVATE_KEY";
 
@@ -59,60 +57,60 @@ type Review = {
 // At the top of the file
 /// <reference types="@types/google.maps" />
 
-type TourPlanMap = {
-  day_no: number;
-  activity: string;
-  location_coordinates: string;
-};
+// type TourPlanMap = {
+//   day_no: number;
+//   activity: string;
+//   location_coordinates: string;
+// };
 
-type MapProps = {
-  tourplans: TourPlanMap[];
-};
+// type MapProps = {
+//   tourplans: TourPlanMap[];
+// };
 
-const MapMultipleLocations = ({ tourplans }: MapProps) => {
-  useEffect(() => {
-    if (!window.google) {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY`;
-      script.async = true;
-      script.defer = true;
-      script.onload = initMap;
-      document.head.appendChild(script);
-    } else {
-      initMap();
-    }
+// const MapMultipleLocations = ({ tourplans }: MapProps) => {
+//   useEffect(() => {
+//     if (!window.google) {
+//       const script = document.createElement("script");
+//       script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY`;
+//       script.async = true;
+//       script.defer = true;
+//       script.onload = initMap;
+//       document.head.appendChild(script);
+//     } else {
+//       initMap();
+//     }
 
-    function initMap() {
-      if (!tourplans || tourplans.length === 0) return;
+//     function initMap() {
+//       if (!tourplans || tourplans.length === 0) return;
 
-      const bounds = new google.maps.LatLngBounds();
+//       const bounds = new google.maps.LatLngBounds();
 
-      const map = new google.maps.Map(
-        document.getElementById("map") as HTMLElement,
-        {
-          zoom: 10,
-          center: { lat: 0, lng: 0 },
-        }
-      );
+//       const map = new google.maps.Map(
+//         document.getElementById("map") as HTMLElement,
+//         {
+//           zoom: 10,
+//           center: { lat: 0, lng: 0 },
+//         }
+//       );
 
-      tourplans.forEach((plan) => {
-        const [lat, lng] = plan.location_coordinates.split(",").map(Number);
+//       tourplans.forEach((plan) => {
+//         const [lat, lng] = plan.location_coordinates.split(",").map(Number);
 
-        const marker = new google.maps.Marker({
-          position: { lat, lng },
-          map,
-          title: plan.activity,
-        });
+//         const marker = new google.maps.Marker({
+//           position: { lat, lng },
+//           map,
+//           title: plan.activity,
+//         });
 
-        bounds.extend(marker.getPosition()!);
-      });
+//         bounds.extend(marker.getPosition()!);
+//       });
 
-      map.fitBounds(bounds);
-    }
-  }, [tourplans]);
+//       map.fitBounds(bounds);
+//     }
+//   }, [tourplans]);
 
-  return <div id="map" style={{ width: "100%", height: "450px" }}></div>;
-};
+//   return <div id="map" style={{ width: "100%", height: "450px" }}></div>;
+// };
 
 const FeatureDetailsArea = () => {
   const searchParams = useSearchParams();
@@ -179,6 +177,41 @@ const FeatureDetailsArea = () => {
 
   return (
     <>
+      <div
+        className="tg-breadcrumb-spacing-3 include-bg p-relative fix"
+        style={{
+          backgroundImage: `url(/assets/img/breadcrumb/breadcrumb-2.jpg)`,
+        }}
+      >
+        <div className="tg-hero-top-shadow"></div>
+      </div>
+      <div className="tg-breadcrumb-list-2-wrap">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <div className="tg-breadcrumb-list-2">
+                <ul>
+                  <li>
+                    <Link href="/">Home</Link>
+                  </li>
+                  <li>
+                    <i className="fa-sharp fa-solid fa-angle-right"></i>
+                  </li>
+                  <li>
+                    <Link href="/tour-grid-1">Tour Grid</Link>
+                  </li>
+                  <li>
+                    <i className="fa-sharp fa-solid fa-angle-right"></i>
+                  </li>
+                  <li>
+                    <span>{data.name}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="tg-tour-details-area pt-35 pb-25">
         <div className="container">
           <div className="row align-items-end mb-35">
@@ -358,7 +391,7 @@ const FeatureDetailsArea = () => {
                   {/* ---------- MULTIPLE LOCATIONS MAP ---------- */}
                   <div className="tg-tour-about-map mb-40">
                     <h4 className="tg-tour-about-title mb-15">Location</h4>
-                    <MapMultipleLocations tourplans={data.tourplans} />
+                    {/* <MapMultipleLocations tourplans={data.tourplans} /> */}
                   </div>
                   <div className="tg-tour-about-border mb-45"></div>
                   <Review />

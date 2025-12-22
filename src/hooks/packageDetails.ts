@@ -12,11 +12,12 @@ type PackageItem = {
   destination_name: string;
 };
 
+
 type PackagesApiResponse = {
   data: PackageItem[];
 };
 
-export async function getPackagesByFeatureId(featureId: string | number) {
+async function getPackagesByFeatureId(featureId: string | number) {
   try {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -40,3 +41,40 @@ export async function getPackagesByFeatureId(featureId: string | number) {
     return [];
   }
 }
+
+
+async function getPackagesByFeatureType(destinationId: string | number) {
+  try {
+    const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+    const res = await axios.get<PackagesApiResponse>(
+      `${API_URL}Home/GetPackageForActivities`,
+      {
+        params: {
+          feature_id: 0,
+          destination_id: destinationId, // ✅ key change
+          package_id: 0,
+          is_active: true,
+          priority: 0,
+          topRows: 0,
+          feature_type: 0,
+        },
+      }
+    );
+
+    return res.data?.data || [];
+  } catch {
+    return [];
+  }
+}
+
+
+
+
+export {
+getPackagesByFeatureId,
+getPackagesByFeatureType
+
+}
+
+

@@ -1,13 +1,17 @@
 import FeatureDetailsOne from "@/components/features/feature-details-one";
 import Wrapper from "@/layouts/Wrapper";
+import { Suspense } from "react";
 
 export const metadata = {
-  title: "Feature DetailsOne Tourex - Tour & Travel Booking React Next js Template",
+  title: "GTT - Tour & Travel Booking",
 };
 const page = () => {
   return (
     <Wrapper>
-      <FeatureDetailsOne />
+      <Suspense fallback={<div>Loading tour details...</div>}>
+       <FeatureDetailsOne />
+      </Suspense>
+     
     </Wrapper>
   )
 }

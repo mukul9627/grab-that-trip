@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { addToWishlist } from "@/redux/features/wishlistSlice";
 import FeatureTop from "./FeatureTop";
 import FeatureSidebar from "./FeatureSidebar";
-import { getPackagesByFeatureId } from "@/hooks/packageDetails";
+import { getPackagesByFeatureId,getPackagesByFeatureType } from "@/hooks/packageDetails";
 
 import CryptoJS from "crypto-js";
 
@@ -48,29 +48,71 @@ export default function FeatureArea() {
     }
   };
 
+  // useEffect(() => {
+  //   const encrypted = searchParams.get("type");
+  //   let featureId = "7";
+
+  //   if (encrypted) {
+  //     const decrypted = decryptId(encrypted);
+  //     featureId = decrypted || "7";
+  //   } else if (searchParams.get("feature_id")) {
+  //     featureId = searchParams.get("feature_id")!;
+  //   }
+
+  //   async function loadData() {
+  //     setLoading(true);
+  //     const data = await getPackagesByFeatureId(featureId);
+
+  //     setApiData(data);
+  //     setFilteredData(data); // initial state
+  //     setLoading(false);
+  //     setItemOffset(0);
+  //   }
+
+  //   loadData();
+  // }, [searchParams]);
+
+
   useEffect(() => {
-    const encrypted = searchParams.get("type");
-    let featureId = "7";
+  const encryptedDestination = searchParams.get("pid");
+  const encryptedFeature = searchParams.get("type");
 
-    if (encrypted) {
-      const decrypted = decryptId(encrypted);
-      featureId = decrypted || "7";
-    } else if (searchParams.get("feature_id")) {
-      featureId = searchParams.get("feature_id")!;
+  let featureId = "7";
+  let destinationId: string | null = null;
+
+  if (encryptedDestination) {
+    destinationId = decryptId(encryptedDestination);
+  }
+
+  if (encryptedFeature) {
+    const decrypted = decryptId(encryptedFeature);
+    featureId = decrypted || "7";
+  } else if (searchParams.get("feature_id")) {
+    featureId = searchParams.get("feature_id")!;
+  }
+
+  async function loadData() {
+    setLoading(true);
+
+    let data = [];
+
+    if (destinationId) {
+      // ✅ DESTINATION BASED API
+      data = await getPackagesByFeatureType(destinationId);
+    } else {
+      // ✅ EXISTING FEATURE BASED API
+      data = await getPackagesByFeatureId(featureId);
     }
 
-    async function loadData() {
-      setLoading(true);
-      const data = await getPackagesByFeatureId(featureId);
+    setApiData(data);
+    setFilteredData(data);
+    setItemOffset(0);
+    setLoading(false);
+  }
 
-      setApiData(data);
-      setFilteredData(data); // initial state
-      setLoading(false);
-      setItemOffset(0);
-    }
+  loadData();
+}, [searchParams]);
 
-    loadData();
-  }, [searchParams]);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     setItemOffset(selected * itemsPerPage);
@@ -152,7 +194,7 @@ export default function FeatureArea() {
                             </Link>
 
                             {/* WISHLIST BUTTON */}
-                            <div className="tg-listing-item-wishlist">
+                            {/* <div className="tg-listing-item-wishlist">
                               <a
                                 onClick={() => handleAddToWishlist(item)}
                                 style={{ cursor: "pointer" }}
@@ -165,7 +207,7 @@ export default function FeatureArea() {
                                   />
                                 </svg>
                               </a>
-                            </div>
+                            </div> */}
                           </div>
 
                           {/* RATING */}

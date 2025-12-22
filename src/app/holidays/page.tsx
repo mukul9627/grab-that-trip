@@ -3,7 +3,7 @@ import Wrapper from "@/layouts/Wrapper";
 import { Suspense } from "react";
 
 export const metadata = {
-  title: "Feature Two Tourex - Tour & Travel Booking React Next js Template",
+  title: "GTT - Tour & Travel Booking",
 };
 
 const Page = () => {

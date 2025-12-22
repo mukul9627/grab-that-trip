@@ -4,6 +4,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import Image from "next/image";
 import Link from "next/link";
+import CryptoJS from "crypto-js";
 import { usePackageForActivities } from "@/hooks/usePackageForActivities";
 import location_bg from "@/assets/img/destination/tu/bg.png";
 import location7_1 from "@/assets/img/location/location-5/location.jpg"
@@ -27,6 +28,10 @@ const setting = {
     0: { slidesPerView: 1 },
   },
 };
+ const secretKey = "MY_PRIVATE_KEY"; // change this
+  const encryptId = (id: number | string) => {
+    return CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
+  };
 
 const LocationBased = () => {
   const { destinations, loading, error } = usePackageForActivities();
@@ -35,6 +40,12 @@ const LocationBased = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading destinations.</p>;
 
+  const secretKey = "MY_PRIVATE_KEY"; // change this
+const encryptId = (id: number | string) => {
+  return CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
+};
+
+const featureType = destinations[0]?.feature_id;
   return (
     <div className="tg-location-area p-relative z-index-1 pb-65 pt-120 locationp-mar-m">
       <div className="tg-location-su-bg">
@@ -90,13 +101,20 @@ curated to give you authentic experiences wherever you travel.
                 <SwiperSlide key={item.package_id}>
                     <div className="tg-location-wrap p-relative mb-30">
                            <div className="tg-location-thumb">
-                      <Image
+                               <Link
+                      href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
+                      target="_blank"
+  rel="noopener noreferrer"
+                    >
+                       <Image
                         src={`${imageBase}/package/bg/${item.bg_image}`}
                         alt={item.package_name}
                         width={234}
                         height={234}
                         className="tg-round-25"
                       />
+                    </Link>
+                     
                     </div>
 
                     <div className="tg-location-content tg-location-su-content">
@@ -153,7 +171,8 @@ curated to give you authentic experiences wherever you travel.
               ))}
                <div className="col-12">
                   <div className="text-center mt-15">
-                     <Link href="/tour-grid-1" className="tg-btn tg-btn-transparent tg-btn-su-transparent">See More Tours</Link>
+                     <Link  href={`tour-grid-1?pid=${encodeURIComponent(encryptId(featureType)
+)}`} className="tg-btn tg-btn-transparent tg-btn-su-transparent">See More Tours</Link>
                   </div>
                </div>
             </Swiper>

@@ -2,9 +2,9 @@
 
 export default function CardSection() {
   const cardData = [
-    { title: "Lorem Ipsum", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-    { title: "Lorem Ipsum", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
-    { title: "Lorem Ipsum", desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry." },
+    { title: "We match destinations to your mood, not just your budget. ", desc: "Most travel sites show you what's cheap. We show you what's right." },
+    { title: "Every itinerary is built around your purpose, not a template.", desc: "Cookie-cutter trips waste your time and money. Custom planning saves both." },
+    { title: "Real travellers, real expertise, real recommendations. ", desc: "We've been there. We know what works. And we'll tell you what doesn't." },
   ];
 
   return (
@@ -22,17 +22,17 @@ export default function CardSection() {
           
           {/* LEFT COL-6 */}
           <div className="col-12 col-md-6 d-flex flex-column justify-content-center text-white">
-            <h1 className="text-4xl font-bold leading-snug mb-4 text-white">
-              Book Ticket Easily With <br /> Just A Few Steps
-            </h1>
-            <p className="text-lg mb-6">
+            <h2 className="text-3xl font-bold leading-snug mb-4 text-white">
+             Why Travellers Trust Us ?
+            </h2>
+            {/* <p className="text-lg mb-6">
               Are you tired of the typical tourist destinations and looking to
               step out of your comfort zone?
-            </p>
+            </p> */}
 
-            <button className="bg-white text-black px-6 py-3 rounded-md font-semibold hover:bg-gray-100 cardsection-button-mukul">
+            {/* <button className="bg-white text-black px-6 py-3 rounded-md font-semibold hover:bg-gray-100 cardsection-button-mukul">
               READ MORE
-            </button>
+            </button> */}
           </div>
 
           {/* RIGHT COL-6 */}

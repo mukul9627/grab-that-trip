@@ -206,21 +206,24 @@ export default function PackageTabs() {
                 <div key={index} className="col-lg-6 order-lg-1">
                   <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
                     
-                    <Link
-                      href={`/#?type=${encodeURIComponent(encryptId(item.package_id))}`}
-                    >
+                   
                       <Image
                         src={`${imageBase}/package/bg/${item.bg_image}`}
                         alt={item.package_name}
                         fill
                         className="object-cover"
                       />
-                    </Link>
+                  
 
                     <div className="cardpackage-ms" />
 
                     <div className="cardpackage-ms1">
-                      <div>
+                       <Link
+                      href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
+                      target="_blank"
+  rel="noopener noreferrer"
+                    >
+                       <div>
                         <p className="fw-semibold small mb-1 text-end">
                           {item.days > 1 && `${item.days - 1} Nights`} - {item.days} Days
                         </p>
@@ -231,6 +234,8 @@ export default function PackageTabs() {
                           {item.short_description}
                         </p>
                       </div>
+                    </Link>
+                     
 
                       <div className="d-flex align-items-center justify-content-between">
                         <div>
@@ -268,7 +273,9 @@ export default function PackageTabs() {
                   <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
 
                     <Link
-                      href={`/#?type=${encodeURIComponent(encryptId(item.package_id))}`}
+                      href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
+                      target="_blank"
+  rel="noopener noreferrer"
                     >
                       <Image
                         src={`${imageBase}/package/bg/${item.bg_image}`}
@@ -334,7 +341,9 @@ export default function PackageTabs() {
 
                   <div className="position-relative" style={{ height: "223px" }}>
                     <Link
-                      href={`/#?type=${encodeURIComponent(encryptId(item.package_id))}`}
+                      href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
+                      target="_blank"
+  rel="noopener noreferrer"
                     >
                       <Image
                         src={`${imageBase}/package/bg/${item.bg_image}`}
@@ -402,6 +411,8 @@ export default function PackageTabs() {
             {encryptedActiveTab && (
   <Link
     href={`/tour-grid-1?type=${encryptedActiveTab}`}
+    target="_blank"
+  rel="noopener noreferrer"
     className="tg-btn tg-btn-transparent tg-btn-su-transparent"
   >
     See More Tours

@@ -57,7 +57,7 @@ const HeaderOne = () => {
                                  Login
                               </Link>
                            </div> */}
-                           <div className="tg-header-menu-bar p-relative">
+                           {/* <div className="tg-header-menu-bar p-relative">
                               <button onClick={() => setOffCanvas(true)} style={{ cursor: "pointer" }} className="tgmenu-offcanvas-open-btn mobile-nav-toggler d-block d-xl-none ml-10">
                                  <span></span>
                                  <span></span>
@@ -68,7 +68,7 @@ const HeaderOne = () => {
                               <span></span>
                               <span></span>
                               <span></span>
-                           </button>
+                           </button> */}
                         </div>
                         
                      </div>
@@ -77,8 +77,8 @@ const HeaderOne = () => {
                </div>
             </div>
          </header>
-         <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
-         <Offcanvas offCanvas={offCanvas} setOffCanvas={setOffCanvas} />
+         {/* <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
+         <Offcanvas offCanvas={offCanvas} setOffCanvas={setOffCanvas} /> */}
       </>
    )
 }

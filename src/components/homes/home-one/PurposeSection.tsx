@@ -202,7 +202,7 @@ export default function PurposeSection() {
   />
 </Link>
 
-                      <div className="tg-listing-item-wishlist">
+                      {/* <div className="tg-listing-item-wishlist">
                         <a
                           onClick={() => handleAddToWishlist(item)}
                           style={{ cursor: "pointer" }}
@@ -223,7 +223,7 @@ export default function PurposeSection() {
                             />
                           </svg>
                         </a>
-                      </div>
+                      </div> */}
                       <div className="p-4 border-t flex justify-between items-center">
                         <div>
                           <div className="text-gray-400 line-through text-sm">
