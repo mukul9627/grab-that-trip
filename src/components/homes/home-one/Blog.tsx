@@ -35,7 +35,7 @@ const blog_data: DataType[] = [
 
 const Blog = () => {
    return (
-      <div className="tg-blog-area pt-135 pb-105">
+      <div className="tg-blog-area pt-135 pb-170">
          <div className="container">
             <div className="row">
                <div className="col-lg-12">
@@ -90,6 +90,13 @@ const Blog = () => {
                         </div>
                      ))}
                   </div>
+               </div>
+
+               <div className="col-lg-12 text-center">
+                    <p className="text-capitalize wow fadeInUp" data-wow-delay=".5s" data-wow-duration=".9s">Want to see our recent News & Updates. 
+
+                     <Link href="/Blog" className="hover:text-blue-500"> Click Here to View More</Link>
+                    </p>
                </div>
             </div>
          </div>

@@ -6,12 +6,12 @@ import MoodSelector from "@/components/common/banner-form/MoodSelector";
 const bgImage = process.env.NEXT_PUBLIC_IMAGE_URL;
 
 const moodApiImages: Record<string, string> = {
-  romantic: `${bgImage}/bg/romantic.jpg`,
-  adventurous: `${bgImage}/bg/adventurous.jpg`,
-  peaceful: `${bgImage}/bg/peaceful.jpg`,
-  cultural: `${bgImage}/bg/cultural.jpg`,
-  "instagram-worthy": `${bgImage}/bg/instagram-worthy.jpg`,
-  relaxing: `${bgImage}/bg/relaxing.jpg`,
+  romantic: `${bgImage}/bg/Romantic_Banner.jpg`,
+  adventurous: `${bgImage}/bg/Adventurous_Banner.jpg`,
+  peaceful: `${bgImage}/bg/Adventurous_Banner.jpg`,
+  cultural: `${bgImage}/bg/Cultural_Banner.jpg`,
+  "instagram-worthy": `${bgImage}/bg/Instagram-Worthy_Banner.jpg`,
+  relaxing: `${bgImage}/bg/Instagram-Worthy_Banner.jpg`,
 };
 
 const Banner = () => {
@@ -43,7 +43,7 @@ const Banner = () => {
       <div className="container">
         <div className="tg-hero-content text-center">
           <div className="tg-hero-title-box mb-30">
-            <h2 className="tg-hero-title">Plan Your Trip Based on Mood</h2>
+            <h2 className="tg-hero-title">Choose a Trip That Matches Your Mood</h2>
             <p className="home-second-p-color mb-10 text-white">
               Tell us how you're feeling, and we'll find the perfect destination
             </p>
@@ -54,6 +54,13 @@ const Banner = () => {
       </div>
 
       <style jsx>{`
+     .tg-hero-tu-wrapper .tg-hero-content {
+    padding-top: 151px;
+    padding-bottom: 190px;
+}
+      .tg-hero-title{
+      font-size: 46px;
+      }
         .fade-banner {
           opacity: 0;
           transition: opacity 1.2s ease-in-out;

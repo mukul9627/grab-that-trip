@@ -13,7 +13,7 @@ const BreadCrumb = () => {
                      <div className="tg-breadcrumb-list">
                         <span><Link href="/">Home</Link></span>
                         <span className="dvdr"><i className="fa-sharp fa-solid fa-angle-right"></i></span>
-                        <span>HoliDays</span>
+                        <span>Activities</span>
                      </div>
                   </div>
                </div>

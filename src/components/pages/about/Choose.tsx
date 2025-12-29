@@ -17,20 +17,20 @@ const choose_data: DataType[] = [
    {
       id: 1,
       icon: (<><Choose6 /></>),
-      title: "Ultimate flexibility",
-      desc: "when an unknown printer took galleof type and scrambled make type peci bookhas survived five.",
+      title: "Travel on your terms",
+      desc: "Life changes. Plans change. Your trip should change with them. Modify dates, swap destinations, or adjust activities without the headache.",
    },
    {
       id: 2,
       icon: (<><Choose7 /></>),
-      title: "Memorable experiences",
-      desc: "when an unknown printer took galleof type and scrambled make type peci bookhas survived five.",
+      title: "Moments that last",
+      desc: "Anyone can book a hotel. We create the experiences that make you glad you went. Not just sightseeing, but the stories you'll tell at dinner parties",
    },
    {
       id: 3,
       icon: (<><Choose8 /></>),
-      title: "Award winning support",
-      desc: "when an unknown printer took galleof type and scrambled make type peci bookhas survived five.",
+      title: "Real humans, real help",
+      desc: "Flights get delayed. Plans fall through. Questions pop up at 2 AM. That's when you need us most, and that's exactly when we're there. Real people, real solutions, real time.",
    },
 ];
 

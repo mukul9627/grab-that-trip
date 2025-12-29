@@ -1,44 +1,112 @@
-import Image from "next/image"
-import Link from "next/link"
-import Button from "@/components/common/Button"
+"use client";
 
-import shape from "@/assets/img/banner/banner-2/shape-2.png"
+import Link from "next/link";
 
 const Cta = () => {
-   return (
-      <>
-         {/* <span className="tg-banner-transparent-bg tg-grey-bg"></span> */}
-         <div className="tg-banner-area tg-banner-space-3 p-relative z-index-9">
-            <div className="struggles-container">
-               <div className="row gx-0">
-                  <div className="col-lg-4">
-                     <div className="tg-banner-content tg-banner-3-content banner-3 p-relative z-index-1 text-center">
-                        <Image className="tg-banner-shape" src={shape} alt="shape" />
-                        <h4 className="tg-banner-subtitle mb-10">Enjoy Summer Deals</h4>
-                        <h2 className="tg-banner-title mb-25">Up to 40% Discount!</h2>
-                        <div className="tg-banner-btn">
-                           <Link href="/tour-details" className="tg-btn tg-btn-switch-animation">
-                              <Button text="See Details" />
-                           </Link>
-                        </div>
-                     </div>
-                  </div>
-                  <div className="col-lg-8">
-                     <div className="tg-banner-3-big-content banner-3 text-center include-bg" style={{ backgroundImage: `url(/assets/img/banner/banner-2/thumb.jpg)` }}>
-                        {/* <h2>Let’s Discover</h2> */}
-                        <span className="d-none d-sm-block">
-                           <svg width="322" height="23" viewBox="0 0 322 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M2.5 15C25.5 12.6667 84.9106 17 108 17C186 17 266 32 320 2" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
-                           </svg>
-                        </span>
-                        {/* <h2>The Whole World !</h2> */}
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </>
-   )
-}
+  return (
+    <>
+      <section className="cta-wrapper">
+        <div
+          className="cta-bg"
+          style={{
+            backgroundImage: "url(/assets/img/banner/banner-2/thumb.jpg)",
+          }}
+        />
 
-export default Cta
+        <div className="cta-overlay">
+          <div className="cta-content">
+            <h4>Enjoy Summer Deals</h4>
+            <h2>Up to 40% Discounts!</h2>
+
+            <Link href="/holidays">
+              <button className="cta-btn">See Details →</button>
+            </Link>
+          </div>
+        </div>
+
+        <span className="cta-divider" />
+
+        <style jsx>{`
+          .cta-wrapper {
+            position: relative;
+            width: 100%;
+            height: 320px;
+            overflow: hidden;
+            border-radius: 4px;
+          }
+
+          .cta-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+          }
+
+          .cta-overlay {
+            position: relative;
+            z-index: 2;
+            width: 32%;
+            height: 100%;
+            background: rgba(40, 120, 115, 0.85);
+            display: flex;
+            align-items: center;
+            padding-left: 60px;
+          }
+
+          .cta-content h4 {
+            color: #e7f7f6;
+            font-size: 16px;
+            margin-bottom: 10px;
+          }
+
+          .cta-content h2 {
+            color: #ffffff;
+            font-size: 34px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            line-height: 1.2;
+          }
+
+          .cta-btn {
+            background: #ff4d4f;
+            color: #fff;
+            border: none;
+            padding: 12px 26px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s ease;
+          }
+
+          .cta-btn:hover {
+            background: #e63b3d;
+          }
+
+          .cta-divider {
+            position: absolute;
+            top: 0;
+            left: 32%;
+            width: 4px;
+            height: 100%;
+            background: #ff6b6b;
+            z-index: 3;
+          }
+
+          @media (max-width: 991px) {
+            .cta-overlay {
+              width: 100%;
+              padding: 40px;
+            }
+
+            .cta-divider {
+              display: none;
+            }
+          }
+        `}</style>
+      </section>
+    </>
+  );
+};
+
+export default Cta;

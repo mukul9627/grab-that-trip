@@ -17,9 +17,9 @@ const FooterOne = () => {
                            <div className="tg-footer-logo mb-20">
                               <Link href="/"><Image src={logo} alt="" width={100} height={100} /></Link>
                            </div>
-                           <p className="mb-20">Pharetra maecenas felisey vestibulum
+                           {/* <p className="mb-20">Pharetra maecenas felisey vestibulum
                               convallis mollis nullam congue sittle
-                              rivers of Finland Quebec.</p>
+                              rivers of Finland Quebec.</p> */}
                            <div className="tg-footer-form mb-30">
                               <form onSubmit={(e) => e.preventDefault()}>
                                  <input type="email" placeholder="Enter your mail" />
@@ -31,11 +31,11 @@ const FooterOne = () => {
                               </form>
                            </div>
                            <div className="tg-footer-social">
-                              <Link href="#"><i className="fa-brands fa-facebook-f"></i></Link>
-                              <Link href="#"><i className="fa-brands fa-twitter"></i></Link>
-                              <Link href="#"><i className="fa-brands fa-instagram"></i></Link>
-                              <Link href="#"><i className="fa-brands fa-pinterest-p"></i></Link>
-                              <Link href="#"><i className="fa-brands fa-youtube"></i></Link>
+                              <Link href="https://www.facebook.com/people/Grabthat-Trip/pfbid0b79xXU1aunu95TGt3sqoVNGNcCmNaS2wa6TQbdRi1nH1fBGTddwCmoVaqbWVnHbDl/?rdid=gUae60n45mNSxj4t&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Wm2c4xmih%2F"><i className="fa-brands fa-facebook-f"></i></Link>
+                              {/* <Link href="#"><i className="fa-brands fa-twitter"></i></Link> */}
+                              <Link href="https://www.instagram.com/grabthattrip/"><i className="fa-brands fa-instagram"></i></Link>
+                              <Link href="https://www.linkedin.com/in/grab-that-trip-7716b0398/?utm_source=share_via&utm_content=profile&utm_medium=member_android"><i className="fa-brands fa-linkedin"></i></Link>
+                              <Link href="https://www.youtube.com/@grabthattrip?si=OX5nAr_24_yDyRrw"><i className="fa-brands fa-youtube"></i></Link>
                            </div>
                         </div>
                      </div>
@@ -43,11 +43,11 @@ const FooterOne = () => {
                         <div className="tg-footer-widget tg-footer-link ml-80 mb-40">
                            <h3 className="tg-footer-widget-title mb-25">Quick Links</h3>
                            <ul>
-                              <li><Link href="/">About US</Link></li>
-                              <li><Link href="/about">Teams & Conditions</Link></li>
-                              <li><Link href="#">Copyrights Policies</Link></li>
-                              <li><Link href="#">Support</Link></li>
-                              <li><Link href="/contact">Beware Of Frauds</Link></li>
+                              <li><Link href="/about">About Us</Link></li>
+                              <li><Link href="/tarms&conditions">Teams & Conditions</Link></li>
+                              <li><Link href="/privacypolicy">Copyrights Policies</Link></li>
+                              <li><Link href="/supportpolicy">Support</Link></li>
+                              <li><Link href="/bewareoffrauds">Beware Of Frauds</Link></li>
                            </ul>
                         </div>
                      </div>
@@ -60,12 +60,13 @@ const FooterOne = () => {
                               <li><Link href="#">Honeymoon</Link></li>
                               <li><Link href="#">Business</Link></li>
                               <li><Link href="#">Pilgrim</Link></li>
+                              <li><Link href="#">Solo</Link></li>
                            </ul>
                         </div>
                      </div>
                      <div className="col-xl-2 col-lg-3 col-md-5 col-sm-6">
                         <div className="tg-footer-widget tg-footer-link mb-40">
-                           <h3 className="tg-footer-widget-title mb-25">Travel Destination</h3>
+                           <h3 className="tg-footer-widget-title mb-25">Destination</h3>
                            <ul>
                               <li><Link href="#">Bali</Link></li>
                               <li><Link href="#">Dubai</Link></li>
@@ -77,10 +78,10 @@ const FooterOne = () => {
                      </div>
                      <div className="col-xl-3 col-lg-3 col-md-5 col-sm-6">
                         <div className="tg-footer-widget tg-footer-info mb-40">
-                           <h3 className="tg-footer-widget-title mb-25">Contact Details</h3>
+                           <h3 className="tg-footer-widget-title mb-25">Contact</h3>
                            <ul>
                               <li>
-                                 <Link className="d-flex" href="https://www.google.com/maps/@41.6758525,-86.2531698,18.17z">
+                                 <Link className="d-flex" href="https://maps.app.goo.gl/xq98fa3m2uYrVtvc9">
                                     <span className="mr-15">
                                        <svg width="20" height="24" viewBox="0 0 20 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                           <path d="M19.0013 10.0608C19.0013 16.8486 10.3346 22.6668 10.3346 22.6668C10.3346 22.6668 1.66797 16.8486 1.66797 10.0608C1.66797 7.74615 2.58106 5.52634 4.20638 3.88965C5.83169 2.25297 8.03609 1.3335 10.3346 1.3335C12.6332 1.3335 14.8376 2.25297 16.4629 3.88965C18.0882 5.52634 19.0013 7.74615 19.0013 10.0608Z" stroke="white" strokeWidth="1.73333" strokeLinecap="round" strokeLinejoin="round" />
@@ -117,7 +118,7 @@ const FooterOne = () => {
             </div>
             <div className="tg-footer-copyright text-center">
                <span>
-                  Copyright <Link href="#">©GTT</Link> |  All Right Reserved
+                  Copyright <Link href="#">©Grab That Trip</Link> |  All Right Reserved
                </span>
             </div>
          </div>

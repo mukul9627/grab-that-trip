@@ -47,7 +47,7 @@ const encryptId = (id: number | string) => {
 
 const featureType = destinations[0]?.feature_id;
   return (
-    <div className="tg-location-area p-relative z-index-1 pb-65 pt-120 locationp-mar-m">
+    <div className="tg-location-area p-relative z-index-1 pb-140 pt-120 locationp-mar-m">
       <div className="tg-location-su-bg">
         <Image src={location_bg} alt="location background" />
       </div>

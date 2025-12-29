@@ -90,11 +90,16 @@ const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
       <div className="content-column">
 
         <div className="col-lg-10">
-          <div className="tg-listing-5-slider-navigation text-end mb-30">
-            <button className="tg-listing-5-slide-prev swiper-prev">
+          
+         <div
+              className="tg-listing-5-slider-navigation tg-location-su-slider-navigation text-end mb-30 wow fadeInUp"
+              data-wow-delay=".4s"
+              data-wow-duration="1s"
+            >
+            <button className="tg-listing-5-slide-prev2 swiper-prev">
               <i className="fa-solid fa-arrow-left-long"></i>
             </button>
-            <button className="tg-listing-5-slide-next swiper-next">
+            <button className="tg-listing-5-slide-next2 swiper-next">
               <i className="fa-solid fa-arrow-right-long"></i>
             </button>
           </div>

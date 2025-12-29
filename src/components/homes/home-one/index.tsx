@@ -10,6 +10,7 @@ import Cta1 from "./Cta"
 import HeroSection1 from "./CardSection";
 import LocationBased from "./LocationBased";
 import PackageTabs from "./PackageTabs";
+import Faq from "./faq"
 
 const HomeOne = () => {
   return (
@@ -24,8 +25,9 @@ const HomeOne = () => {
         <PackageTabs />
         <LocationBased />
          <Testimonial />
-         <Blog/>
+         <Blog />
          <Cta1 />
+         <Faq />
       </main>
       <FooterOne />
     </>

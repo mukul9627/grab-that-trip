@@ -2,7 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import Button from "@/components/common/Button"
 
-import shape from "@/assets/img/banner/banner-2/shape-2.png"
+// import shape from "@/assets/img/banner/banner-2/shape-2.png"
 
 const CtaTwo = () => {
    return (
@@ -12,12 +12,12 @@ const CtaTwo = () => {
             <div className="container">
                <div className="row gx-0">
                   <div className="col-lg-4">
-                     <div className="tg-banner-content tg-banner-3-content banner-3 p-relative z-index-1 text-center">
-                        <Image className="tg-banner-shape" src={shape} alt="shape" />
+                     <div className="tg-banner-content tg-banner-3-content banner-3 p-relative z-index-1 text-center" style={{background:"#0A6A67"}}>
+                        {/* <Image className="tg-banner-shape" src={shape} alt="shape" /> */}
                         <h4 className="tg-banner-subtitle mb-10">Enjoy Summer Deals</h4>
                         <h2 className="tg-banner-title mb-25">Up to 40% Discount!</h2>
                         <div className="tg-banner-btn">
-                           <Link href="/tour-details" className="tg-btn tg-btn-switch-animation">
+                           <Link href="/tour-details" className="tg-btn tg-btn-switch-animation" style={{background: "red"}}>
                               <Button text="See Details" />
                            </Link>
                         </div>

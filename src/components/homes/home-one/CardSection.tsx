@@ -1,17 +1,29 @@
 "use client";
+import Link from "next/link";
+import Button from "@/components/common/Button";
 
 export default function CardSection() {
   const cardData = [
-    { title: "We match destinations to your mood, not just your budget. ", desc: "Most travel sites show you what's cheap. We show you what's right." },
-    { title: "Every itinerary is built around your purpose, not a template.", desc: "Cookie-cutter trips waste your time and money. Custom planning saves both." },
-    { title: "Real travellers, real expertise, real recommendations. ", desc: "We've been there. We know what works. And we'll tell you what doesn't." },
+    {
+      title: "We match destinations to your mood, not just your budget. ",
+      desc: "Most travel sites show you what's cheap. We show you what's right.",
+    },
+    {
+      title: "Every itinerary is built around your purpose, not a template.",
+      desc: "Cookie-cutter trips waste your time and money. Custom planning saves both.",
+    },
+    {
+      title: "Real travellers, real expertise, real recommendations. ",
+      desc: "We've been there. We know what works. And we'll tell you what doesn't.",
+    },
   ];
 
   return (
     <section
       className="relative w-full  flex items-center bg-center bg-cover bg-no-repeat"
-      style={{ height: "700px",
-        backgroundImage: 'url("/assets/img/bg/cardsectionbg.jpg")',
+      style={{
+        height: "700px",
+        backgroundImage: 'url("/assets/img/bg/Why_choose_us.jpg")',
       }}
     >
       {/* overlay (optional) */}
@@ -19,11 +31,10 @@ export default function CardSection() {
 
       <div className="container relative z-20">
         <div className="row">
-          
           {/* LEFT COL-6 */}
           <div className="col-12 col-md-6 d-flex flex-column justify-content-center text-white">
             <h2 className="text-3xl font-bold leading-snug mb-4 text-white">
-             Why Travellers Trust Us ?
+              Why Travellers Trust Us ?
             </h2>
             {/* <p className="text-lg mb-6">
               Are you tired of the typical tourist destinations and looking to
@@ -33,13 +44,30 @@ export default function CardSection() {
             {/* <button className="bg-white text-black px-6 py-3 rounded-md font-semibold hover:bg-gray-100 cardsection-button-mukul">
               READ MORE
             </button> */}
+
+            <Link href="/about">
+              <button className="bg-white  px-6 py-3 rounded-md font-semibold hover:bg-gray-100 cardsection-button-mukul">
+                READ MORE
+              </button>
+            </Link>
           </div>
 
           {/* RIGHT COL-6 */}
           <div className="col-12 col-md-6 d-flex flex-column gap-4 mt-4 mt-md-0 pt-100">
             {cardData.map((item, index) => (
-              <div key={index} className="bg-white rounded-xl shadow-lg p-4 d-flex gap-3">
-                <div className="rounded-circle bg-teal-700" style={{ width: 75, height: 60, background: "#0A6A67", marginTop: "15px" }}></div>
+              <div
+                key={index}
+                className="bg-opacity rounded-cardsection shadow-lg p-4 d-flex gap-3"
+              >
+                <div
+                  className="rounded-circle bg-teal-700"
+                  style={{
+                    width: 75,
+                    height: 60,
+                    background: "#0A6A67",
+                    marginTop: "15px",
+                  }}
+                ></div>
                 <div>
                   <h3 className="h5 fw-bold">{item.title}</h3>
                   <p className="text-muted">{item.desc}</p>
@@ -47,7 +75,6 @@ export default function CardSection() {
               </div>
             ))}
           </div>
-
         </div>
       </div>
     </section>

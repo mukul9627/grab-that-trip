@@ -325,7 +325,7 @@ export default function PurposeSection() {
     href={`/tour-grid-1?type=${encryptedParam}`}
     target="_blank"
   rel="noopener noreferrer"
-    className="tg-btn tg-btn-transparent tg-btn-su-transparent"
+    className="tg-btn tg-btn-transparent tg-btn-su-transparent tg-btn-su-transparent-ms"
   >
     See More Tours
   </Link>

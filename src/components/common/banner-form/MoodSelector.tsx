@@ -35,10 +35,10 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
       {/* State feedback (optional UI) */}
       {loading && <p>Loading moods…</p>}
       {error && <p className="text-red-500">{error}</p>}
-      <h4 className="text-white text-2xl font-semibold mb-6 text-left">
+      {/* <h4 className="text-white text-2xl font-semibold mb-6 text-left">
         {" "}
         How are you feeling about your next trip?{" "}
-      </h4>
+      </h4> */}
       <div className="grid-container">
         {moods.map((mood) => (
           <div
@@ -48,13 +48,13 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
             }`}
             onClick={() => handleMoodClick(mood)}
           >
-            <Link
+            {/* <Link
               href={`/holidays?pid=${encodeURIComponent(
                 encryptId(mood.feature_id)
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-            >
+            > */}
               <div className="card-left">
                 <div className="title text-left">{mood.name}</div>
                 <div className="content text-left">
@@ -62,7 +62,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
                   <p>{mood.description}</p>{" "}
                 </div>
               </div>
-            </Link>
+            {/* </Link> */}
 
             <div className="card-right card-left-padding">
               <Image
@@ -93,22 +93,42 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
           Find my Destination
         </button> */}
         {activeMood && (
+          <>
+          <div className="card-underline">.</div>
   <Link
     href={`/holidays/${moods.find(m => m.feature_id === activeMood)?.slug}`}
     target="_blank"
     rel="noopener noreferrer"
   >
-    <div className="flex justify-center">
-      <button className="find-my-destination-button btn-active">
-        Find my Destination
-      </button>
-    </div>
-  </Link>
+    <div className="flex  md:justify-end find-my-destination-button-div">
+  <button className="find-my-destination-button btn-active">
+   Search Package
+  </button>
+</div>
+  </Link></>
+          
 )}
      
       {/* </div> */}
 
       <style jsx>{`
+.card {
+  cursor: grab;
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+      .card-underline{
+      background: white;
+    height: 2px;
+    margin: 18px 0 0 0;
+      }
+    .find-my-destination-button-div{
+    text-align: end;
+    }
+
         .find-my-destination-button {
           position: relative;
           width: 184px;
@@ -138,29 +158,29 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
           transform: scale(1.02);
         }
         .moodSelector {
-          // max-width: 64pc;
-          // height: 43rem;
+              width: 79%;
+    margin-left: 114px;
           background: rgba(228, 228, 228, 0.25);
           backdrop-filter: blur(3px);
-          padding: 52px 50px 27px 50px;
+          padding: 50px 50px 61px 50px;
           border-radius: 30px;
         }
         .grid-container {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 1.5rem;
+          gap: 1rem;
           width: 100%;
         }
         .card-left-padding {
-          padding-left: 15rem;
+          padding-left: 13rem;
         }
         .card {
-          padding: 1.5rem;
-          border-radius: 1.5rem;
+          padding: 1rem;
+          border-radius: 1rem;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          gap: 10px;
+          gap: 0px;
           background-image: linear-gradient(to bottom left, #e0e4e5, #f2f6f9);
           // box-shadow: inset -2px 2px hsl(0 0 100% / 1),
           //   -15px 15px 35px rgba(0, 0, 0, 0.25);
@@ -178,7 +198,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
             -10px 10px 20px rgba(0, 0, 0, 0.25);
         }
         .title {
-          font-size: 1.2rem;
+          font-size: 1rem;
           font-weight: 600;
           text-transform: uppercase;
         }
@@ -195,7 +215,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
         }
         @media (max-width: 768px) {
           .grid-container {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 1fr) !important;
           }
         }
         @media (max-width: 520px) {
@@ -203,6 +223,35 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
             grid-template-columns: 1fr;
           }
         }
+
+        @media (max-width: 768px) {
+  .card {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card-left-padding {
+    padding-left: 0;
+  }
+
+  .card-left {
+    flex: 1;
+  }
+
+  .card-right {
+    flex-shrink: 0;
+  }
+
+  .title {
+    font-size: 1rem;
+  }
+
+  .content p {
+    font-size: 0.9rem;
+  }
+}
+
       `}</style>
     </section>
   );
