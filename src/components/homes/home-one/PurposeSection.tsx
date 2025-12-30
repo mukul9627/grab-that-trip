@@ -186,8 +186,8 @@ export default function PurposeSection() {
 
                   <div className="card card-purpose">
                     <div
-                      className="tg-listing-card-thumb fix mb-15 p-relative"
-                      style={{ height: "270px", width: "284px" }}
+                      className="tg-listing-card-thumb fix mb-13 p-relative"
+                      style={{ height: "244px", width: "284px" }}
                     >
                      <Link
   href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
@@ -246,7 +246,7 @@ export default function PurposeSection() {
                       className="tg-listing-card-content"
                       style={{ width: "284px" }}
                     >
-                      <div className="tg-listing-card-review flex items-center justify-between space tg-listing-card-review-mukul">
+                      <div className="tg-listing-card-review flex items-center justify-between space tg-listing-card-review-mukul pb-1">
                         <span className="tg-listing-card-duration-time">
                           {item.days} Days
                         </span>
@@ -262,26 +262,26 @@ export default function PurposeSection() {
                         </div>
                       </div>
 
-                      <h4 className="tg-listing-card-title">
+                      <h4 className="tg-listing-card-title mb-0">
                         <Link href="/tour-details">{item.package_name}</Link>
                       </h4>
-                      <span className="tg-listing-card-duration-time mb-3">
+                      <span className="tg-listing-card-duration-time mb-10">
                         {item.destination_name}
                       </span>
 
                       {/* Price  */}
-                      <div className="tg-listing-card-duration-tour pt-10">
+                      <div className="tg-listing-card-duration-tour pt-25">
                         <span className="tg-listing-card-currency-amount mr-5">
                           {item.base_price && (
-                            <del className="tg-listing-card-currency-old">
-                              ${item.base_price}
+                            <del className="tg-listing-card-currency-old" style={{color:"#bfbfbf"}}>
+                              ₹{item.base_price}
                             </del>
                           )}
                         </span>
-                        <span>
-                          <span className="currency-symbol">$</span>
-                          {item.offer_price}
-                          <span className="tg-listing-card-activity-person">
+                        <span style={{fontSize: "22px"}}>
+                          <span className="currency-symbol fw-medium fs-10">₹</span>
+                         <strong>{item.offer_price}</strong> 
+                          <span className="tg-listing-card-activity-person mt-2" style={{fontSize: "10px"}}>
                             /Person
                           </span>
                         </span>
@@ -294,7 +294,7 @@ export default function PurposeSection() {
                       style={{ cursor: "pointer", background: "#fff" }}
                     >
                       <div className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center">
-                        <span className="tg-listing-card-currency-amount mr-5">
+                        <span className="tg-listing-card-currency-amount  mr-5 fw-medium fs-6">
                           Book Now
                         </span>
                       </div>
@@ -322,7 +322,7 @@ export default function PurposeSection() {
           <div className="text-center mt-15">
            {encryptedParam && (
   <Link
-    href={`/tour-grid-1?type=${encryptedParam}`}
+    href={`/holidays?type=${encryptedParam}`}
     target="_blank"
   rel="noopener noreferrer"
     className="tg-btn tg-btn-transparent tg-btn-su-transparent tg-btn-su-transparent-ms"

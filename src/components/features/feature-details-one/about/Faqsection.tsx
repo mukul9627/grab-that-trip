@@ -58,7 +58,7 @@ const tourplansData: TourPlan[] = [
 ];
 
 /* ------------------ COMPONENT ------------------ */
-const faq = () => {
+const faqsection = () => {
   const [faqData, setFaqData] = useState<FaqItem[]>([]);
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const faq = () => {
   return (
    
 <>
- <div className="tg-blog-area pt-135 pb-200">
+ <div className="tg-blog-area pt-13 pb-200">
       <div className="container">
         <div className="row">
 
@@ -90,28 +90,14 @@ const faq = () => {
           <div className="col-lg-12">
             <div className="tg-location-section-title text-center mb-30">
               {/* <h5 className="tg-section-subtitle mb-15">FAQ</h5> */}
-               <h2 className="mb-15 text-capitalize wow fadeInUp" data-wow-delay=".4s" data-wow-duration=".9s">FAQ</h2>
-              <p className="text-capitalize">
-                Are you tired of the typical tourist destinations and
-                <br />
-                looking to step out of your comfort zone
-              </p>
+               <h2 className="mb-15 text-capitalize wow fadeInUp text-start" data-wow-delay=".4s" data-wow-duration=".9s">FAQ's</h2>
             </div>
           </div>
 
-          {/* Left Blog Card */}
-          <div className="col-lg-4">
-            <div className="tg-blog-item mb-25 p-0">
-              <div className="tg-blog-thumb fix">
-                <Link href="/blog-details">
-                  <Image className="w-100" src={blog_1} alt="blog" style={{height: "19.5rem"}}/>
-                </Link>
-              </div>
-            </div>
-          </div>
+          
 
           {/* FAQ Accordion */}
-          <div className="col-lg-8">
+          <div className="col-lg-12">
             <div className="tg-tour-about-faq-inner">
               <div className="tg-tour-about-faq">
 
@@ -164,4 +150,4 @@ const faq = () => {
   );
 };
 
-export default faq;
+export default faqsection;

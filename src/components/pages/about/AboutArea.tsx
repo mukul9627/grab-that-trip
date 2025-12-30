@@ -59,17 +59,37 @@ const AboutArea = () => {
                 <div className="row">
                   <div className="col-lg-6 col-md-6 col-sm-6">
                     <div className="tg-about-details-thumb p-relative z-index-9">
-                      <Image className="main-thumb tg-round-15 w-100 mb-20" src={thumb_1} alt="" />
-                      <Image className="main-thumb tg-round-15 w-100 mb-20" src={thumb_2} alt="" />
+                      <Image
+                        className="main-thumb tg-round-15 w-100 mb-20"
+                        src={thumb_1}
+                        alt=""
+                      />
+                      <Image
+                        className="main-thumb tg-round-15 w-100 mb-20"
+                        src={thumb_2}
+                        alt=""
+                      />
                     </div>
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-6">
                     <div className="tg-about-details-thumb-2 p-relative">
                       <div className="tg-chose-3-rounded p-relative mb-30">
-                        <Image className="rotate-infinite-2" src={shape_3} alt="" />
-                        <Image className="tg-chose-3-star" src={shape_4} alt="" />
+                        <Image
+                          className="rotate-infinite-2"
+                          src={shape_3}
+                          alt=""
+                        />
+                        <Image
+                          className="tg-chose-3-star"
+                          src={shape_4}
+                          alt=""
+                        />
                       </div>
-                      <Image className="w-100 tg-round-15" src={thumb_3} alt="" />
+                      <Image
+                        className="w-100 tg-round-15"
+                        src={thumb_3}
+                        alt=""
+                      />
                     </div>
                   </div>
                 </div>
@@ -81,16 +101,20 @@ const AboutArea = () => {
               <div className="tg-chose-content mb-35 ml-60">
                 <div className="tg-chose-section-title mb-30">
                   <h5 className="tg-section-subtitle mb-15">
-                    Explore the world with us
+                    Travel the world your way
                   </h5>
 
-                  <h2 className="mb-15 text-capitalize">About</h2>
+                  <h2 className="mb-15 text-capitalize">About Us</h2>
 
                   <p className="text-capitalize mb-35">
-                    How many times does this happen to you? In the middle of the
-                    night you’re scrolling through your phone. Suddenly an
-                    amazing trip flashes on your phone and by morning, it's gone.
-                    Someone else grabbed what you only dreamed about.
+                    Tired of travel planning stress? We turn travel into an
+                    effortless, flexible, and unforgettable experience. From the
+                    first idea to your return home, we craft journeys that match
+                    your interests, pace, and budget. Whether it’s breath-taking
+                    landscapes, vibrant cities, or cultural adventures, we
+                    handle the details so you can focus on the memories. Every
+                    trip is uniquely yours - seamless, inspiring, and designed
+                    to last a lifetime
                   </p>
 
                   {/* ✅ BUTTON OPENS MODAL */}
@@ -102,7 +126,6 @@ const AboutArea = () => {
                       <Button text="Book Now" />
                     </button>
                   </div>
-
                 </div>
               </div>
             </div>

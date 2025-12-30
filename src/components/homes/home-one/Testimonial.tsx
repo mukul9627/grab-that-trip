@@ -96,7 +96,7 @@ const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
               data-wow-delay=".4s"
               data-wow-duration="1s"
             >
-            <button className="tg-listing-5-slide-prev2 swiper-prev">
+            <button className="tg-listing-5-slide-prev2 swiper-prev mr-10">
               <i className="fa-solid fa-arrow-left-long"></i>
             </button>
             <button className="tg-listing-5-slide-next2 swiper-next">

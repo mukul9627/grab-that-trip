@@ -13,6 +13,7 @@ import Included from "./about/Included";
 import Review from "./about/Review";
 import ReviewDetails from "./about/ReviewDetails";
 import FeatureSidebar from "./FeatureSidebar";
+import Faqsection from "./about/Faqsection";
 
 const secretKey = "MY_PRIVATE_KEY";
 
@@ -375,7 +376,7 @@ const FeatureDetailsArea = () => {
         videoId="eEzD-Y97ges"
       />
 
-      <div className="tg-tour-about-area tg-tour-about-border pt-40 pb-70">
+      <div className="tg-tour-about-area tg-tour-about-border pt-40">
         <div className="container">
           <div className="row">
             <div className="col-xl-8 col-lg-8">
@@ -401,9 +402,10 @@ const FeatureDetailsArea = () => {
                   {/* <ReviewFormArea /> */}
                 </div>
               </div>
+<Faqsection />
             </div>
             <div className="col-xl-4 col-lg-4">
-              <div className="tg-tour-about-sidebar tg-tour-about-sidebar-ms top-sticky mb-50">
+              <div className="tg-tour-about-sidebar tg-tour-about-sidebar-ms top-sticky mb-200">
                 <FeatureSidebar
                   package_id={data.package_id}
                   package_name={data.name}

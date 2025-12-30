@@ -1,6 +1,7 @@
+import FooterOne from "@/layouts/footers/FooterOne";
 import FeatureDetailsArea from "./FeatureDetailsArea";
-import FooterSix from "@/layouts/footers/FooterSix";
 import HeaderOne from "@/layouts/headers/HeaderOne";
+
 
 const FeatureDetailsOne = () => {
   return (
@@ -8,8 +9,9 @@ const FeatureDetailsOne = () => {
       <HeaderOne />
       <main>
         <FeatureDetailsArea />
+
       </main>
-      <FooterSix />
+      <FooterOne />
     </>
   );
 };

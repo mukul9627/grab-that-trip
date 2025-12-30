@@ -49,14 +49,14 @@ export default function PackageTabs() {
   const [encryptedActiveTab, setEncryptedActiveTab] = useState("");
 
   useEffect(() => {
-  if (!activeTab) return;
+    if (!activeTab) return;
 
-  // prevent SSR encryption
-  if (typeof window !== "undefined") {
-    const enc = encodeURIComponent(encryptId(activeTab));
-    setEncryptedActiveTab(enc);
-  }
-}, [activeTab]);
+    // prevent SSR encryption
+    if (typeof window !== "undefined") {
+      const enc = encodeURIComponent(encryptId(activeTab));
+      setEncryptedActiveTab(enc);
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     async function fetchTabs() {
@@ -109,7 +109,7 @@ export default function PackageTabs() {
 
       <div className="container py-12">
         {/* HEADER */}
-        <div className="text-center mb-20 mt-100">
+        <div className="text-center mb-20 mt-140">
           <h3 className="text-3xl font-bold lh-3">
             Find Your Perfect Getaway,
             <br />
@@ -119,311 +119,340 @@ export default function PackageTabs() {
 
         {/* TAB BUTTONS */}
         <div className="tab-wrapper mb-30">
-         <div
-  className="tabs"
-  style={{
-    position: "relative",
-    display: "flex",
-    justifyContent: "center",
-    gap: "20px",
-    margin: "20px auto",
-    paddingBottom: "6px",
-    borderBottom: "2px solid #ddd",   // <-- FULL BOTTOM BORDER
-    width: "fit-content",
-  }}
->
-  {tabs.map((t) => (
-    <button
-      key={t.feature_id}
-      onClick={() => setActiveTab(t.feature_id)}
-      style={{
-        background: "none",
-        border: "none",
-        padding: "10px 20px",
-        fontSize: "16px",
-        cursor: "pointer",
-        position: "relative",
-        fontWeight: activeTab === t.feature_id ? "bold" : "normal",
-        color: activeTab === t.feature_id ? "#007bff" : "#333",
-        width: "120px", // <-- IMPORTANT: fixed tab width
-        textAlign: "center",
-      }}
-    >
-      {t.name}
-    </button>
-  ))}
+          <div
+            className="tabs"
+            style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              gap: "20px",
+              margin: "20px auto",
+              paddingBottom: "6px",
+              borderBottom: "2px solid #ddd", // <-- FULL BOTTOM BORDER
+              width: "fit-content",
+            }}
+          >
+            {tabs.map((t) => (
+              <button
+                key={t.feature_id}
+                onClick={() => setActiveTab(t.feature_id)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  padding: "10px 20px",
+                  fontSize: "16px",
+                  cursor: "pointer",
+                  position: "relative",
+                  fontWeight: activeTab === t.feature_id ? "bold" : "normal",
+                  color: activeTab === t.feature_id ? "#0A6A67" : "#333",
+                  width: "120px", // <-- IMPORTANT: fixed tab width
+                  textAlign: "center",
+                }}
+              >
+                {t.name}
+              </button>
+            ))}
 
-  {/* SLIDER (Underline that moves under the active tab) */}
-  <div
-    style={{
-      position: "absolute",
-      bottom: "-2px",      // <-- sits exactly on border
-      left: "0",
-      width: "120px",      // same as tab width
-      height: "3px",
-      background: "#007bff",
-      transition: "transform 0.3s ease",
-      transform: `translateX(${
-        tabs.findIndex((x) => x.feature_id === activeTab) * 140
-      }px)`,  // 120px width + 20px gap = 140px
-    }}
-  ></div>
-</div>
-
+            {/* SLIDER (Underline that moves under the active tab) */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-2px", // <-- sits exactly on border
+                left: "0",
+                width: "120px", // same as tab width
+                height: "3px",
+                background: "#0A6A67",
+                transition: "transform 0.3s ease",
+                transform: `translateX(${
+                  tabs.findIndex((x) => x.feature_id === activeTab) * 140
+                }px)`, // 120px width + 20px gap = 140px
+              }}
+            ></div>
+          </div>
         </div>
 
         {/* LOADING */}
         {loading && <p className="text-center">Loading packages...</p>}
 
         {/*  SHOW PACKAGES  */}
-{!loading && items.length > 0 && (
+        {!loading && items.length > 0 && (
+          <div className="row gx-15 mb-25">
+            <div className="col-12 mb-40">
+              <div className="row gx-15">
+                {(() => {
+                  // 🔥 Identify current active tab index
+                  const tabIndex = tabs.findIndex(
+                    (t) => t.feature_id === activeTab
+                  );
 
-  <div className="row gx-15 mb-25">
-    <div className="col-12 mb-40">
-      <div className="row gx-15">
+                  // 🔥 RULE: Decide layout for current tab
+                  const isBigLeft =
+                    tabIndex === 0 || // First tab → Big Left
+                    tabIndex === 2 // Third tab → Big Left
+                      ? true
+                      : tabIndex === tabs.length - 1 // Last tab → Big Right
+                      ? false
+                      : false; // Second tab → Big Right
 
-        {(() => {
+                  return items.map((item, index) => {
+                    // --------------------------------------------
+                    // CASE 1: BIG IMAGE LEFT
+                    // --------------------------------------------
+                    if (isBigLeft && index === 0) {
+                      return (
+                        <div key={index} className="col-lg-6 order-lg-1">
+                          <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
+                            <Image
+                              src={`${imageBase}/package/bg/${item.bg_image}`}
+                              alt={item.package_name}
+                              fill
+                              className="object-cover"
+                            />
 
-          // 🔥 Identify current active tab index
-          const tabIndex = tabs.findIndex(t => t.feature_id === activeTab);
+                            <div className="cardpackage-ms" />
 
-          // 🔥 RULE: Decide layout for current tab
-          const isBigLeft =
-            tabIndex === 0         // First tab → Big Left
-            || tabIndex === 2      // Third tab → Big Left
-            ? true
-            : tabIndex === tabs.length - 1 // Last tab → Big Right
-            ? false
-            : false;  // Second tab → Big Right
+                            <div className="cardpackage-ms1">
+                              <Link
+                                href={`/tour-details?pid=${encodeURIComponent(
+                                  encryptId(item.package_id)
+                                )}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <div>
+                                  <p className="fw-semibold small mb-1 text-end">
+                                    {item.days > 1 && `${item.days - 1} Nights`}{" "}
+                                    - {item.days} Days
+                                  </p>
 
-          return items.map((item, index) => {
+                                  <h1 className="cardpackage-ms-h1">
+                                    {item.destination_name}
+                                  </h1>
 
-            // --------------------------------------------
-            // CASE 1: BIG IMAGE LEFT
-            // --------------------------------------------
-            if (isBigLeft && index === 0) {
-              return (
-                <div key={index} className="col-lg-6 order-lg-1">
-                  <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
-                    
-                   
-                      <Image
-                        src={`${imageBase}/package/bg/${item.bg_image}`}
-                        alt={item.package_name}
-                        fill
-                        className="object-cover"
-                      />
-                  
+                                  <p
+                                    className="mt-1"
+                                    style={{ fontSize: "16px" }}
+                                  >
+                                    {item.short_description}
+                                  </p>
+                                </div>
+                              </Link>
 
-                    <div className="cardpackage-ms" />
+                              <div className="d-flex align-items-center justify-content-between">
+                                <div>
+                                  <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
+                                    ₹ {item.offer_price} INR
+                                  </h3>
+                                  <p className="small mt-1">
+                                    OFFER PRICE PER PERSON
+                                  </p>
+                                </div>
 
-                    <div className="cardpackage-ms1">
-                       <Link
-                      href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
-                      target="_blank"
-  rel="noopener noreferrer"
-                    >
-                       <div>
-                        <p className="fw-semibold small mb-1 text-end">
-                          {item.days > 1 && `${item.days - 1} Nights`} - {item.days} Days
-                        </p>
-
-                        <h1 className="cardpackage-ms-h1">{item.destination_name}</h1>
-
-                        <p className="mt-1" style={{ fontSize: "16px" }}>
-                          {item.short_description}
-                        </p>
-                      </div>
-                    </Link>
-                     
-
-                      <div className="d-flex align-items-center justify-content-between">
-                        <div>
-                          <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
-                            ₹ {item.offer_price} INR
-                          </h3>
-                          <p className="small mt-1">OFFER PRICE PER PERSON</p>
+                                <button
+                                  onClick={() => openBookingPopup(item)}
+                                  className="btn btn-light fw-semibold"
+                                  style={{
+                                    borderRadius: "10px",
+                                    padding: "10px 25px",
+                                    backgroundColor: "#C2F4EA",
+                                  }}
+                                >
+                                  BOOK NOW
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
+                      );
+                    }
 
-                        <button
-                          onClick={() => openBookingPopup(item)}
-                          className="btn btn-light fw-semibold"
-                          style={{
-                            borderRadius: "10px",
-                            padding: "10px 25px",
-                            backgroundColor: "#C2F4EA",
-                          }}
-                        >
-                          BOOK NOW
-                        </button>
-                      </div>
-                    </div>
+                    // --------------------------------------------
+                    // CASE 2: BIG IMAGE RIGHT
+                    // --------------------------------------------
+                    if (!isBigLeft && index === 0) {
+                      return (
+                        <div key={index} className="col-lg-6 order-lg-2">
+                          <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
+                            <Link
+                              href={`/tour-details?pid=${encodeURIComponent(
+                                encryptId(item.package_id)
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Image
+                                src={`${imageBase}/package/bg/${item.bg_image}`}
+                                alt={item.package_name}
+                                fill
+                                className="object-cover"
+                              />
+                            </Link>
 
-                  </div>
-                </div>
-              );
-            }
+                            <div className="cardpackage-ms" />
 
-            // --------------------------------------------
-            // CASE 2: BIG IMAGE RIGHT
-            // --------------------------------------------
-            if (!isBigLeft && index === 0) {
-              return (
-                <div key={index} className="col-lg-6 order-lg-2">
-                  <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
+                            <div className="cardpackage-ms1">
+                              <div>
+                                <p className="fw-semibold small mb-1 text-end">
+                                  {item.days > 1 && `${item.days - 1} Nights`} -{" "}
+                                  {item.days} Days
+                                </p>
 
-                    <Link
-                      href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
-                      target="_blank"
-  rel="noopener noreferrer"
-                    >
-                      <Image
-                        src={`${imageBase}/package/bg/${item.bg_image}`}
-                        alt={item.package_name}
-                        fill
-                        className="object-cover"
-                      />
-                    </Link>
+                                <h1 className="cardpackage-ms-h1">
+                                  {item.destination_name}
+                                </h1>
 
-                    <div className="cardpackage-ms" />
+                                <p
+                                  className="mt-1"
+                                  style={{ fontSize: "16px" }}
+                                >
+                                  {item.short_description}
+                                </p>
+                              </div>
 
-                    <div className="cardpackage-ms1">
-                      <div>
-                        <p className="fw-semibold small mb-1 text-end">
-                          {item.days > 1 && `${item.days - 1} Nights`} - {item.days} Days
-                        </p>
+                              <div className="d-flex align-items-center justify-content-between">
+                                <div>
+                                  <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
+                                    ₹ {item.offer_price} INR
+                                  </h3>
+                                  <p className="small mt-1">
+                                    OFFER PRICE PER PERSON
+                                  </p>
+                                </div>
 
-                        <h1 className="cardpackage-ms-h1">{item.destination_name}</h1>
-
-                        <p className="mt-1" style={{ fontSize: "16px" }}>
-                          {item.short_description}
-                        </p>
-                      </div>
-
-                      <div className="d-flex align-items-center justify-content-between">
-                        <div>
-                          <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
-                            ₹ {item.offer_price} INR
-                          </h3>
-                          <p className="small mt-1">OFFER PRICE PER PERSON</p>
+                                <button
+                                  onClick={() => openBookingPopup(item)}
+                                  className="btn btn-light fw-semibold"
+                                  style={{
+                                    borderRadius: "10px",
+                                    padding: "10px 25px",
+                                    backgroundColor: "#C2F4EA",
+                                  }}
+                                >
+                                  BOOK NOW
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
+                      );
+                    }
 
-                        <button
-                          onClick={() => openBookingPopup(item)}
-                          className="btn btn-light fw-semibold"
-                          style={{
-                            borderRadius: "10px",
-                            padding: "10px 25px",
-                            backgroundColor: "#C2F4EA",
-                          }}
-                        >
-                          BOOK NOW
-                        </button>
+                    // --------------------------------------------
+                    // CASE 3: SMALL CARDS (BOTH SIDES)
+                    // --------------------------------------------
+                    return (
+                      <div
+                        key={index}
+                        className={`col-lg-3 col-md-6 col-6 mb-3 ${
+                          isBigLeft ? "order-lg-2" : "order-lg-1"
+                        }`}
+                      >
+                        <div className="card shadow-sm border-0 rightimg-cardpackage d-flex flex-column h-100">
+                          {/* IMAGE */}
+                          <div
+                            className="position-relative"
+                            style={{ height: "223px" }}
+                          >
+                            <Link
+                              href={`/tour-details?pid=${encodeURIComponent(
+                                encryptId(item.package_id)
+                              )}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <Image
+                                src={`${imageBase}/package/bg/${item.bg_image}`}
+                                alt={item.package_name}
+                                fill
+                                className="object-cover"
+                              />
+                            </Link>
+
+                            <span
+                              style={{
+                                position: "absolute",
+                                top: "12px",
+                                left: "12px",
+                                background: "#4b5563",
+                                color: "white",
+                                padding: "4px 10px",
+                                borderRadius: "8px",
+                                fontSize: "12px",
+                              }}
+                            >
+                              Featured
+                            </span>
+                          </div>
+
+                          {/* CARD BODY */}
+                          <div className="p-2 d-flex flex-column flex-grow-1">
+                            <div className="d-flex justify-content-between small text-muted mb-1">
+                              <span>
+                                {item.days > 1 && `${item.days - 1} Nights`} -{" "}
+                                {item.days} Days
+                              </span>
+                              <span>
+                                ⭐ {Number(item.average_rating).toFixed(1)} (
+                                {item.total_reviews})
+                              </span>
+                            </div>
+
+                            <h6 className="mb-1 tab-section-mukul">
+                              {item.package_name}
+                            </h6>
+
+                            <p className="text-muted small mb-2">
+                              {item.destination_name}
+                            </p>
+
+                            {/* PRICE — FIXED AT BOTTOM */}
+                            <div className="py-3 px-1 d-flex justify-content-between align-items-center tab-ms-cad mt-auto">
+                              <h6 className="fw-bold mb-0">
+                                <span className="small text-muted" style={{fontWeight: "300"}}>From </span>₹{" "}
+                                {item.offer_price}
+                              </h6>
+                              <span className="small text-muted">
+                                PER PERSON
+                              </span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-
-                  </div>
-                </div>
-              );
-            }
-
-            // --------------------------------------------
-            // CASE 3: SMALL CARDS (BOTH SIDES)
-            // --------------------------------------------
-            return (
-              <div
-                key={index}
-                className={`col-lg-3 col-md-6 col-6 mb-3 ${
-                  isBigLeft ? "order-lg-2" : "order-lg-1"
-                }`}
-              >
-                <div className="card shadow-sm border-0 rightimg-cardpackage">
-
-                  <div className="position-relative" style={{ height: "223px" }}>
-                    <Link
-                      href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
-                      target="_blank"
-  rel="noopener noreferrer"
-                    >
-                      <Image
-                        src={`${imageBase}/package/bg/${item.bg_image}`}
-                        alt={item.package_name}
-                        fill
-                        className="object-cover"
-                      />
-                    </Link>
-
-                    <span
-                      style={{
-                        position: "absolute",
-                        top: "12px",
-                        left: "12px",
-                        background: "#4b5563",
-                        color: "white",
-                        padding: "4px 10px",
-                        borderRadius: "8px",
-                        fontSize: "12px",
-                      }}
-                    >
-                      Featured
-                    </span>
-                  </div>
-
-                  <div className="p-2">
-                    <div className="d-flex justify-content-between small text-muted mb-3">
-                      <span>
-                        {item.days > 1 && `${item.days - 1} Nights`} - {item.days} Days
-                      </span>
-                      <span>
-                        ⭐ {Number(item.average_rating).toFixed(1)} ({item.total_reviews})
-                      </span>
-                    </div>
-
-                    <h6 className="fw-bold mb-2">{item.package_name}</h6>
-
-                    <p className="text-muted small mb-3">{item.destination_name}</p>
-
-                    <div className="d-flex justify-content-between align-items-center">
-                      <h6 className="fw-bold mb-0">
-                        <span className="small text-muted">From </span>₹ {item.offer_price}
-                      </h6>
-                      <span className="small text-muted">PER PERSON</span>
-                    </div>
-                  </div>
-
-                </div>
+                    );
+                  });
+                })()}
               </div>
-            );
-
-          });
-
-        })()}
-        
-      </div>
-    </div>
-  </div>
-
-)}
-
+            </div>
+          </div>
+        )}
 
         <div className="col-12">
           <div className="text-center mt-15">
             {encryptedActiveTab && (
-  <Link
-    href={`/tour-grid-1?type=${encryptedActiveTab}`}
-    target="_blank"
-  rel="noopener noreferrer"
-    className="tg-btn tg-btn-transparent tg-btn-su-transparent"
-  >
-    See More Tours
-  </Link>
-)}
-
+              <Link
+                href={`/holidays?type=${encryptedActiveTab}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tg-btn tg-btn-transparent tg-btn-su-transparent"
+              >
+                See More Tours
+              </Link>
+            )}
           </div>
         </div>
 
         {/* CSS */}
         <style jsx>{`
+          h6 {
+            font-size: 18px;
+          }
+          .tab-section-mukul {
+            font-weight: 600; /* semi-bold */
+          }
+          .tab-ms-cad {
+            position: relative;
+            top: 12px;
+          }
           .leftimg-cardpackage {
             position: relative;
             border-radius: 20px;

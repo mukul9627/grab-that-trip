@@ -80,7 +80,7 @@ curated to give you authentic experiences wherever you travel.
               data-wow-delay=".4s"
               data-wow-duration="1s"
             >
-              <button className="tg-listing-5-slide-prev">
+              <button className="tg-listing-5-slide-prev mr-10">
                 <i className="fa-solid fa-arrow-left-long"></i>
               </button>
               <button className="tg-listing-5-slide-next">
@@ -129,7 +129,7 @@ curated to give you authentic experiences wherever you travel.
 
                        <div className="tg-location-content text-center">
                               <span className="tg-location-time location-based-mukul">{item.destination_name}</span>
-                              <h3 className="tg-location-title mb-0"><Link href="/map-listing"> {item.package_name}</Link></h3>
+                              <h3 className="tg-location-title mb-0" style={{marginTop: "-16px"}}><Link href="/map-listing"> {item.package_name}</Link></h3>
                            </div>
                            {/* <div className="tg-location-border one"></div>
                            <div className="tg-location-border two"></div> */}
@@ -171,7 +171,7 @@ curated to give you authentic experiences wherever you travel.
               ))}
                <div className="col-12">
                   <div className="text-center mt-15">
-                     <Link  href={`tour-grid-1?pid=${encodeURIComponent(encryptId(featureType)
+                     <Link  href={`activities?pid=${encodeURIComponent(encryptId(featureType)
 )}`} className="tg-btn tg-btn-transparent tg-btn-su-transparent">See More Tours</Link>
                   </div>
                </div>

@@ -18,19 +18,19 @@ const choose_data: DataType[] = [
       id: 1,
       icon: (<><Choose6 /></>),
       title: "Travel on your terms",
-      desc: "Life changes. Plans change. Your trip should change with them. Modify dates, swap destinations, or adjust activities without the headache.",
+      desc: "Life changes, plans change, your trip should too. Whether it’s adjusting dates, swapping destinations, or changing activities, we make it simple and stress-free so you can focus on the fun, not the logistics.",
    },
    {
       id: 2,
       icon: (<><Choose7 /></>),
       title: "Moments that last",
-      desc: "Anyone can book a hotel. We create the experiences that make you glad you went. Not just sightseeing, but the stories you'll tell at dinner parties",
+      desc: "We don’t just book hotels or tours, we create experiences that stay with you. From breath-taking sights and hidden gems to the little surprises along the way, every moment is designed to make your trip unforgettable.",
    },
    {
       id: 3,
       icon: (<><Choose8 /></>),
-      title: "Real humans, real help",
-      desc: "Flights get delayed. Plans fall through. Questions pop up at 2 AM. That's when you need us most, and that's exactly when we're there. Real people, real solutions, real time.",
+      title: "Expert Help Anytime",
+      desc: "Flights get delayed, plans fall through, or questions pop up in the middle of the night. That’s when we’re there for you, experts offering real solutions in real time, so you can relax and enjoy your journey.",
    },
 ];
 
@@ -43,9 +43,8 @@ const Choose = () => {
                <div className="col-xl-6 col-lg-7 col-md-9">
                   <div className="tg-chose-section-title text-center mb-35">
                      <h5 className="tg-section-subtitle mb-15 wow fadeInUp" data-wow-delay=".3s" data-wow-duration=".1s">What we do</h5>
-                     <h2 className="mb-15 text-capitalize wow fadeInUp" data-wow-delay=".4s" data-wow-duration=".9s">We Arrange the Best Tour<br /> Ever Possible</h2>
-                     <p className="text-capitalize wow fadeInUp mb-35" data-wow-delay=".5s" data-wow-duration=".9s"> when an unknown printer took a galley of type and scrambled make type
-                        specimen bookhas survived not only five.</p>
+                     <h2 className="mb-15 text-capitalize wow fadeInUp" data-wow-delay=".4s" data-wow-duration=".9s">We Craft Unforgettable Journeys<br /> Ever Possible</h2>
+                     <p className="text-capitalize wow fadeInUp mb-35" data-wow-delay=".5s" data-wow-duration=".9s"> Travel should be effortless, flexible, and full of stories you’ll love to share. From planning to return, we make every trip seamless and personal.</p>
                   </div>
                </div>
             </div>

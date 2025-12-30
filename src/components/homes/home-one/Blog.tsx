@@ -95,7 +95,7 @@ const Blog = () => {
                <div className="col-lg-12 text-center">
                     <p className="text-capitalize wow fadeInUp" data-wow-delay=".5s" data-wow-duration=".9s">Want to see our recent News & Updates. 
 
-                     <Link href="/Blog" className="hover:text-blue-500"> Click Here to View More</Link>
+                     <Link href="/Blog" className="hover:text-blue-500"> <strong style={{color: "#0a6a67"}}>Click Here to View More</strong></Link>
                     </p>
                </div>
             </div>

@@ -56,7 +56,7 @@ const Location = () => {
                 data-wow-delay=".4s"
                 data-wow-duration=".9s"
               >
-                Best Places near you
+               Popular World Travel Picks
               </h5>
               <h2
                 className="tg-section-su-title text-capitalize wow fadeInUp"
@@ -74,7 +74,7 @@ const Location = () => {
               data-wow-delay=".4s"
               data-wow-duration="1s"
             >
-              <button className="tg-listing-5-slide-prev">
+              <button className="tg-listing-5-slide-prev mr-10">
                 <i className="fa-solid fa-arrow-left-long"></i>
               </button>
               <button className="tg-listing-5-slide-next">

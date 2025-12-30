@@ -22,7 +22,7 @@ export default function CardSection() {
     <section
       className="relative w-full  flex items-center bg-center bg-cover bg-no-repeat"
       style={{
-        height: "700px",
+        height: "760px",
         backgroundImage: 'url("/assets/img/bg/Why_choose_us.jpg")',
       }}
     >
@@ -70,7 +70,7 @@ export default function CardSection() {
                 ></div>
                 <div>
                   <h3 className="h5 fw-bold">{item.title}</h3>
-                  <p className="text-muted">{item.desc}</p>
+                  <p className="text-muted mb-1">{item.desc}</p>
                 </div>
               </div>
             ))}

@@ -10,7 +10,10 @@ import { useDispatch } from "react-redux";
 import { addToWishlist } from "@/redux/features/wishlistSlice";
 import FeatureTop from "./FeatureTop";
 import FeatureSidebar from "./FeatureSidebar";
-import { getPackagesByFeatureId,getPackagesByFeatureType } from "@/hooks/packageDetails";
+import {
+  getPackagesByFeatureId,
+  getPackagesByFeatureType,
+} from "@/hooks/packageDetails";
 
 import CryptoJS from "crypto-js";
 
@@ -31,7 +34,10 @@ export default function FeatureArea() {
   const itemsPerPage = 9;
   const [itemOffset, setItemOffset] = useState(0);
 
-  const currentItems = filteredData.slice(itemOffset, itemOffset + itemsPerPage);
+  const currentItems = filteredData.slice(
+    itemOffset,
+    itemOffset + itemsPerPage
+  );
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
   const startOffset = itemOffset + 1;
@@ -72,47 +78,45 @@ export default function FeatureArea() {
   //   loadData();
   // }, [searchParams]);
 
-
   useEffect(() => {
-  const encryptedDestination = searchParams.get("pid");
-  const encryptedFeature = searchParams.get("type");
+    const encryptedDestination = searchParams.get("pid");
+    const encryptedFeature = searchParams.get("type");
 
-  let featureId = "7";
-  let destinationId: string | null = null;
+    let featureId = "7";
+    let destinationId: string | null = null;
 
-  if (encryptedDestination) {
-    destinationId = decryptId(encryptedDestination);
-  }
-
-  if (encryptedFeature) {
-    const decrypted = decryptId(encryptedFeature);
-    featureId = decrypted || "7";
-  } else if (searchParams.get("feature_id")) {
-    featureId = searchParams.get("feature_id")!;
-  }
-
-  async function loadData() {
-    setLoading(true);
-
-    let data = [];
-
-    if (destinationId) {
-      // ✅ DESTINATION BASED API
-      data = await getPackagesByFeatureType(destinationId);
-    } else {
-      // ✅ EXISTING FEATURE BASED API
-      data = await getPackagesByFeatureId(featureId);
+    if (encryptedDestination) {
+      destinationId = decryptId(encryptedDestination);
     }
 
-    setApiData(data);
-    setFilteredData(data);
-    setItemOffset(0);
-    setLoading(false);
-  }
+    if (encryptedFeature) {
+      const decrypted = decryptId(encryptedFeature);
+      featureId = decrypted || "7";
+    } else if (searchParams.get("feature_id")) {
+      featureId = searchParams.get("feature_id")!;
+    }
 
-  loadData();
-}, [searchParams]);
+    async function loadData() {
+      setLoading(true);
 
+      let data = [];
+
+      if (destinationId) {
+        // ✅ DESTINATION BASED API
+        data = await getPackagesByFeatureType(destinationId);
+      } else {
+        // ✅ EXISTING FEATURE BASED API
+        data = await getPackagesByFeatureId(featureId);
+      }
+
+      setApiData(data);
+      setFilteredData(data);
+      setItemOffset(0);
+      setLoading(false);
+    }
+
+    loadData();
+  }, [searchParams]);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     setItemOffset(selected * itemsPerPage);
@@ -131,7 +135,7 @@ export default function FeatureArea() {
     <div className="tg-listing-grid-area mb-85 mt-85">
       <div className="container">
         <div className="row">
-           {/* SIDEBAR */}
+          {/* SIDEBAR */}
           <FeatureSidebar
             fullData={apiData}
             setProducts={setFilteredData}
@@ -175,9 +179,14 @@ export default function FeatureArea() {
                       isListView ? "list-card-open" : ""
                     }`}
                   >
-                    {currentItems.map((item: any) => (
+                    {/* {currentItems.map((item: any) => (
                       <div
                         key={item.package_id}
+                        className="col-xxl-4 col-xl-6 col-lg-6 col-md-6 tg-grid-full"
+                      > */}
+                    {currentItems.map((item: any, index: number) => (
+                      <div
+                        key={`${item.package_id}-${index}`}
                         className="col-xxl-4 col-xl-6 col-lg-6 col-md-6 tg-grid-full"
                       >
                         <div className="tg-listing-card-item mb-30">
@@ -263,19 +272,19 @@ export default function FeatureArea() {
                             {/* BOOK NOW */}
                             <div
                               className="tg-listing-card-price-mukul d-flex align-items-end justify-content-between"
-                              style={{ cursor: "pointer", background: "#fff" }}
+                              style={{ cursor: "pointer", background: "#fff", fontSize: "16px" }}
                             >
                               <div className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center">
-                                <span className="tg-listing-card-currency-amount mr-5">
-                                  Book Now
+                                <span className="tg-listing-card-currency-amount mr-5" style={{ fontSize: "16px" }}>
+                                 View Tours
                                 </span>
                               </div>
 
-                              <div className="tg-listing-card-review-mukul space">
+                              {/* <div className="tg-listing-card-review-mukul space">
                                 <span className="tg-listing-rating-icon-mukul ">
                                   <i className="fa-sharp fa-solid fa-phone"></i>
                                 </span>
-                              </div>
+                              </div> */}
                             </div>
                           </div>
                         </div>

@@ -4411,7 +4411,7 @@ textarea {
   transform: scale(1.1);
 }
 .tg-listing-card-currency-amount {
-  font-weight: 700;
+  font-weight: 500;
   font-size: 20px;
   line-height: 24px;
   text-transform: capitalize;
@@ -7344,7 +7344,7 @@ textarea {
 }
 .tg-footer-space {
   margin-top: -120px;
-  padding-top: 240px;
+  padding-top: 127px ;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .tg-footer-space {

@@ -3,6 +3,7 @@ import FooterSix from "@/layouts/footers/FooterSix"
 import AboutArea from "./AboutArea"
 import Choose from "./Choose"
 // import Cta from "./Cta"
+import Vision from "./VisionArea"
 import HeaderOne from "@/layouts/headers/HeaderOne"
 import FooterOne from "@/layouts/footers/FooterOne"
 
@@ -15,6 +16,7 @@ const About = () => {
             <AboutArea />
             <Choose />
             {/* <Cta /> */}
+            <Vision />
          </main>
          <FooterOne />
       </>

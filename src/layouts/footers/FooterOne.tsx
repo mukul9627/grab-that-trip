@@ -20,7 +20,7 @@ const FooterOne = () => {
                            {/* <p className="mb-20">Pharetra maecenas felisey vestibulum
                               convallis mollis nullam congue sittle
                               rivers of Finland Quebec.</p> */}
-                           <div className="tg-footer-form mb-30">
+                           <div className="tg-footer-form mb-30 ms-footer">
                               <form onSubmit={(e) => e.preventDefault()}>
                                  <input type="email" placeholder="Enter your mail" />
                                  <button className="tg-footer-form-btn" type="submit">
@@ -40,7 +40,7 @@ const FooterOne = () => {
                         </div>
                      </div>
                      <div className="col-xl-2 col-lg-3 col-md-5 col-sm-6">
-                        <div className="tg-footer-widget tg-footer-link ml-80 mb-40">
+                        <div className="tg-footer-widget tg-footer-link mb-40">
                            <h3 className="tg-footer-widget-title mb-25">Quick Links</h3>
                            <ul>
                               <li><Link href="/about">About Us</Link></li>

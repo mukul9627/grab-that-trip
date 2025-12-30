@@ -15,10 +15,22 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
   const [activeMood, setActiveMood] = useState<number | null>(null);
   const [inputValue, setInputValue] = useState("");
 
+  // const handleMoodClick = (mood: MoodType) => {
+  //   setActiveMood(mood.feature_id);
+  //   onMoodChange(mood.slug);
+  // };
+
   const handleMoodClick = (mood: MoodType) => {
-    setActiveMood(mood.feature_id);
-    onMoodChange(mood.slug);
-  };
+  if (activeMood === mood.feature_id) {
+    // clicked again → reload page
+    window.location.reload();
+    return;
+  }
+
+  // normal behavior
+  setActiveMood(mood.feature_id);
+  onMoodChange(mood.slug);
+};
 
   const iconBase = process.env.NEXT_PUBLIC_IMAGE_URL;
   const isButtonActive = activeMood || inputValue.trim();
