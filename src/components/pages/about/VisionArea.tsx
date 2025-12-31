@@ -16,6 +16,7 @@ import Choose2 from "@/svg/home-one/Choose2";
 interface DataType {
   id: number;
   icon: JSX.Element;
+  image: string;
   title: string;
   desc: string;
 }
@@ -28,6 +29,7 @@ const choose_data: DataType[] = [
         <Choose1 />
       </>
     ),
+     image: "/assets/img/icon/Vision.svg",
     title: "Our Vision ",
     desc: "Our vision is to build a travel brand people can trust. We want to make travel more accessible and enjoyable by combining smart planning with meaningful experiences. By keeping flexibility and simplicity at the heart of everything we do, we aim to help travellers explore confidently, travel freely, and create memories that truly matter.",
   },
@@ -38,6 +40,7 @@ const choose_data: DataType[] = [
         <Choose2 />
       </>
     ),
+     image: "/assets/img/icon/Mission.svg",
     title: "Our Mission ",
     desc: "Our mission is to make travel planning simple and reliable for every traveller. We create well-planned domestic and international travel packages that save time and reduce stress. By offering flexible choices, clear guidance, and dependable support, we help people focus less on planning and more on enjoying their journey from start to finish",
   },
@@ -122,7 +125,12 @@ const VisionArea = () => {
                   data-wow-delay=".6s"
                   data-wow-duration=".9s"
                 >
-                  <span className="tg-chose-list-icon mr-20">{item.icon}</span>
+                  <span className="tg-chose-list-icon mr-20">  <Image 
+                            src={item.image}
+                            alt={item.title}
+                            width={60}
+                            height={60}
+                          /></span>
                   <div className="tg-chose-list-content">
                     <h4 className="tg-chose-list-title mb-5">{item.title}</h4>
                     <p>{item.desc}</p>

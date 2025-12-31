@@ -182,14 +182,14 @@ export default function FeatureArea() {
                       >
                         <div className="tg-listing-card-item mb-30">
                           {/* IMAGE */}
-                          <div className="tg-listing-card-thumb fix mb-15 p-relative">
+                          <div className="tg-listing-card-thumb fix p-relative">
                             <Link href={`/tour-details?id=${item.package_id}`}>
                               <Image
                                 className="tg-card-border w-100"
                                 src={`${imgBase}/package/bg/${item.bg_image}`}
                                 alt={item.package_name}
-                                width={400}
-                                height={300}
+                                width={284}
+                                height={244}
                               />
                             </Link>
 
@@ -211,7 +211,7 @@ export default function FeatureArea() {
                           </div>
 
                           {/* RATING */}
-                          <div className="tg-listing-card-review flex items-center justify-between space tg-listing-card-review-mukul">
+                          <div className="tg-listing-card-review flex items-center justify-between space tg-listing-card-review-mukul pr-17 pt-10 pb-0">
                             <span className="tg-listing-card-duration-time">
                               {item.days} Days
                             </span>
@@ -230,7 +230,7 @@ export default function FeatureArea() {
                           {/* CONTENT */}
                           <div className="tg-listing-main-content">
                             <div className="tg-listing-card-content">
-                              <h4 className="tg-listing-card-title">
+                              <h4 className="tg-listing-card-title mb-0">
                                 <Link
                                   href={`/tour-details?id=${item.package_id}`}
                                 >
@@ -246,14 +246,14 @@ export default function FeatureArea() {
                                 <span className="tg-listing-card-currency-amount mr-5">
                                   {item.base_price && (
                                     <del className="tg-listing-card-currency-old">
-                                      ₹{item.base_price}
+                                      INR {item.base_price}
                                     </del>
                                   )}
                                 </span>
 
-                                <span>
-                                  ₹{item.offer_price}
-                                  <span className="tg-listing-card-activity-person">
+                                <span style={{fontSize: "22px", paddingRight: "2px"}}>
+                                 <strong>INR {item.offer_price}</strong>
+                                  <span className="tg-listing-card-activity-person" style={{marginTop: "4px"}}>
                                     /Person
                                   </span>
                                 </span>
@@ -266,7 +266,7 @@ export default function FeatureArea() {
                               style={{ cursor: "pointer", background: "#fff" }}
                             >
                               <div className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center">
-                                <span className="tg-listing-card-currency-amount mr-5">
+                                <span className="tg-listing-card-currency-amount mr-5 fw-medium fs-6">
                                   Book Now
                                 </span>
                               </div>

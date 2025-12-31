@@ -84,7 +84,7 @@ const FeatureSidebar = ({
         <div>
           <h5>{package_name}</h5>
           <p className="price">
-            ₹{offer_price} <span>₹{base_price}</span>
+            INR{offer_price} <span>INR{base_price}</span>
           </p>
         </div>
       </div>

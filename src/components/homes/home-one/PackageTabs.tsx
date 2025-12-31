@@ -241,7 +241,7 @@ export default function PackageTabs() {
                               <div className="d-flex align-items-center justify-content-between">
                                 <div>
                                   <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
-                                    ₹ {item.offer_price} INR
+                                    INR {item.offer_price} 
                                   </h3>
                                   <p className="small mt-1">
                                     OFFER PRICE PER PERSON
@@ -312,7 +312,7 @@ export default function PackageTabs() {
                               <div className="d-flex align-items-center justify-content-between">
                                 <div>
                                   <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
-                                    ₹ {item.offer_price} INR
+                                    INR {item.offer_price}
                                   </h3>
                                   <p className="small mt-1">
                                     OFFER PRICE PER PERSON
@@ -408,7 +408,7 @@ export default function PackageTabs() {
                             {/* PRICE — FIXED AT BOTTOM */}
                             <div className="py-3 px-1 d-flex justify-content-between align-items-center tab-ms-cad mt-auto">
                               <h6 className="fw-bold mb-0">
-                                <span className="small text-muted" style={{fontWeight: "300"}}>From </span>₹{" "}
+                                <span className="small text-muted" style={{fontWeight: "300"}}>From </span>INR{" "}
                                 {item.offer_price}
                               </h6>
                               <span className="small text-muted">

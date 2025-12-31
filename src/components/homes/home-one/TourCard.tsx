@@ -105,7 +105,7 @@ export default function TourCard({
         {price && (
           <div className="mt-3">
             <h4 className={`${large ? "text-3xl" : "text-xl"} font-bold`}>
-              ₹ {price}
+              INR {price}
             </h4>
             <p className="text-xs opacity-80">Per Person</p>
           </div>

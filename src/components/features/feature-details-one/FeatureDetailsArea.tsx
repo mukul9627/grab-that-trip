@@ -362,7 +362,7 @@ const FeatureDetailsArea = () => {
               <div className="col-lg-4">
                 <div className="tg-tour-details-video-feature-price mb-15">
                   <p>
-                    From <span>₹{data.offer_price}</span> / Person
+                    From <span>INR {data.offer_price}</span> / Person
                   </p>
                 </div>
               </div>

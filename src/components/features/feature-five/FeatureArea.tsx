@@ -255,13 +255,13 @@ export default function FeatureArea() {
                                 <span className="tg-listing-card-currency-amount mr-5">
                                   {item.base_price && (
                                     <del className="tg-listing-card-currency-old">
-                                      ₹{item.base_price}
+                                      INR{item.base_price}
                                     </del>
                                   )}
                                 </span>
 
                                 <span>
-                                  ₹{item.offer_price}
+                                  INR{item.offer_price}
                                   <span className="tg-listing-card-activity-person">
                                     /Person
                                   </span>

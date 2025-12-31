@@ -9,6 +9,7 @@ export interface MoodType {
   slug: string;
   description: string;
   icon_image: string;
+  bg_image: string;
 }
 
 interface MoodApiResponse {

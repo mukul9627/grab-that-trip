@@ -9,7 +9,6 @@ const FeatureDetailsOne = () => {
       <HeaderOne />
       <main>
         <FeatureDetailsArea />
-
       </main>
       <FooterOne />
     </>

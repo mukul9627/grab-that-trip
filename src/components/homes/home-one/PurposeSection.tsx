@@ -145,7 +145,7 @@ export default function PurposeSection() {
 
         {/* ================= CUSTOM SWIPER NAVIGATION BUTTONS ================= */}
 <div className="row mb-3">
-  <div className="col-lg-12 tg-location-su-slider-navigation1 d-flex justify-content-between align-items-center">
+  <div className="col-lg-12 tg-location-su-slider-navigation1 d-flex justify-content-between align-items-center mobile-view-code">
     
     {/* LEFT ARROW */}
     <button className="tg-listing-5-slide-prev1">
@@ -227,10 +227,10 @@ export default function PurposeSection() {
                       <div className="p-4 border-t flex justify-between items-center">
                         <div>
                           <div className="text-gray-400 line-through text-sm">
-                            ₹{item.base_price.toLocaleString()}
+                            INR{item.base_price.toLocaleString()}
                           </div>
                           <div className="font-bold text-blue-600 text-lg">
-                            ₹{item.offer_price.toLocaleString()}
+                            INR{item.offer_price.toLocaleString()}
                             <span className="text-gray-600 text-sm ml-1">
                               /person
                             </span>
@@ -271,17 +271,17 @@ export default function PurposeSection() {
 
                       {/* Price  */}
                       <div className="tg-listing-card-duration-tour pt-25">
-                        <span className="tg-listing-card-currency-amount mr-5">
+                        <span className="tg-listing-card-currency-amount mr-5 fs-22">
                           {item.base_price && (
                             <del className="tg-listing-card-currency-old" style={{color:"#bfbfbf"}}>
-                              ₹{item.base_price}
+                              INR {item.base_price}
                             </del>
                           )}
                         </span>
                         <span style={{fontSize: "22px"}}>
-                          <span className="currency-symbol fw-medium fs-10">₹</span>
+                          <span className="currency-symbol" style={{fontSize: "22px", paddingRight: "2px"}}><strong>INR</strong></span>
                          <strong>{item.offer_price}</strong> 
-                          <span className="tg-listing-card-activity-person mt-2" style={{fontSize: "10px"}}>
+                          <span className="tg-listing-card-activity-person mt-2" style={{fontSize: "14px"}}>
                             /Person
                           </span>
                         </span>
@@ -333,6 +333,23 @@ export default function PurposeSection() {
           </div>
         </div>
       </section>
+
+<style jsx>{`
+
+// .tg-listing-card-duration-tour span{
+// font-size: 22px;
+// font-weight: bolder;
+// }
+          @media (max-width: 991px) {
+.mobile-view-code .tg-listing-5-slide-prev1, .tg-listing-5-slide-next1{
+display: none;
+}
+
+}
+      `}</style>
+     
     </>
+
+    
   );
 }

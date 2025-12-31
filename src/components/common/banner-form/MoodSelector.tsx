@@ -7,7 +7,7 @@ import Link from "next/link";
 import CryptoJS from "crypto-js";
 
 interface MoodSelectorProps {
-  onMoodChange: (slug: string) => void;
+  onMoodChange: (bgImageFile: string) => void;
 }
 
 export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
@@ -29,7 +29,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
 
   // normal behavior
   setActiveMood(mood.feature_id);
-  onMoodChange(mood.slug);
+  onMoodChange(mood.bg_image);
 };
 
   const iconBase = process.env.NEXT_PUBLIC_IMAGE_URL;
@@ -39,6 +39,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
   const encryptId = (id: number | string) => {
     return CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
   };
+  const selectedMood = moods.find((m) => m.feature_id === activeMood);
 
   return (
     <section className="relative w-full h-[320px] moodSelector">
@@ -104,11 +105,12 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
         >
           Find my Destination
         </button> */}
-        {activeMood && (
+        {/* {activeMood && (
           <>
           <div className="card-underline">.</div>
   <Link
-    href={`/holidays/${moods.find(m => m.feature_id === activeMood)?.slug}`}
+    // href={`/holidays/${moods.find(m => m.feature_id === activeMood)?.slug}`}
+     href={`/holidays?pid=${encodeURIComponent(encryptId(mood.feature_id))}`}
     target="_blank"
     rel="noopener noreferrer"
   >
@@ -119,7 +121,29 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
 </div>
   </Link></>
           
-)}
+)} */}
+
+
+  {selectedMood && (
+        <>
+          <div className="card-underline">.</div>
+
+          <Link
+            href={`/holidays?pid=${encodeURIComponent(
+              encryptId(selectedMood.feature_id)
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <div className="flex md:justify-end find-my-destination-button-div">
+              <button className="find-my-destination-button btn-active">
+                Search Package 
+                {/* {selectedMood.feature_id} */}
+              </button>
+            </div>
+          </Link>
+        </>
+      )}
      
       {/* </div> */}
 
@@ -229,6 +253,17 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
           .grid-container {
             grid-template-columns: repeat(2, 1fr) !important;
           }
+            .moodSelector {
+              width: 100%;
+        margin-left: 0px;
+        background: rgba(228, 228, 228, .25);
+        -webkit-backdrop-filter: blur(3px);
+        backdrop-filter: blur(3px);
+        padding: 17px 12px 38px 7px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 30px;
+        }
         }
         @media (max-width: 520px) {
           .grid-container {

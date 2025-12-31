@@ -121,7 +121,7 @@ export default function FeatureSidebar({
               />
               <div className="d-flex align-items-center mt-15">
                 <span className="input-range">
-                  ₹{priceValue[0]} - ₹{priceValue[1]}
+                  INR {priceValue[0]} - INR {priceValue[1]}
                 </span>
               </div>
             </>

@@ -719,12 +719,12 @@
         color: var(--tg-common-black);
     }
     & .tg-btn-header {
-        color: var(--tg-common-white);
+        color: var(--tg-common-black);
         border: 1px solid var(--tg-theme-primary);
-        background: var(--tg-theme-primary);
+        background: transparent;
         &:hover{
-            color: var(--tg-theme-primary);
-            background: transparent;
+            color: var(--tg-common-white);
+            background: var(--tg-theme-primary);
         }
     }
     & .tgmenu-offcanvas-open-btn span {
@@ -775,3 +775,12 @@
         color: var(--tg-common-black);
     }
 }
+
+.mood-input {
+  &::placeholder {
+     color: rgba(255, 255, 255, 0.85);
+          font-size: 12px;
+          font-style: italic;
+  }
+}
+

@@ -43,9 +43,12 @@
 }
 
 .cardsection-button-mukul{
-  width: 12rem;
-  border-radius: 15px;
-  color: #0a6a67 ;
+ width: 160px;
+    height: 44px;
+    border-radius: 10px;
+    color: #0a6a67;
+    font-weight: 600;
+    font-size: 14px;
 }
 
 .location-based-mukul{

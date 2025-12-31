@@ -1,17 +1,19 @@
-import HeaderThree from "@/layouts/headers/HeaderThree"
+
 import ErrorArea from "./ErrorArea"
 import FooterFive from "@/layouts/footers/FooterFive"
 import BreadCrumb from "@/components/common/BreadCrumb"
+import HeaderOne from "@/layouts/headers/HeaderOne"
+import FooterOne from "@/layouts/footers/FooterOne"
 
 const NotFound = () => {
   return (
     <>
-      <HeaderThree />
+      <HeaderOne />
       <main>
         <BreadCrumb title="404 Error Page" sub_title="404" />
         <ErrorArea />
       </main>
-      <FooterFive />
+      <FooterOne />
     </>
   )
 }

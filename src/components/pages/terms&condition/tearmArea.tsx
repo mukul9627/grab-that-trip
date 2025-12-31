@@ -105,7 +105,7 @@ const TermsArea = () => {
                 processed and a confirmation email/voucher is issued.
               </p>
               <p className="mb-10">
-                • All prices are quoted in INR (₹) unless mentioned otherwise
+                • All prices are quoted in INR (INR) unless mentioned otherwise
                 and are subject to change based on supplier availability.
               </p>
               <p className="mb-10">

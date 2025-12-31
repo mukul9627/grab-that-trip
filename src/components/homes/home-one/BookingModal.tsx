@@ -103,8 +103,8 @@ export default function BookingModal({
           <h2 className="modal-title">{package_name}</h2>
 
           <p className="modal-price">
-            <span className="old">₹{base_price}</span>
-            <span className="new">₹{offer_price}</span>
+            <span className="old">INR{base_price}</span>
+            <span className="new">INR{offer_price}</span>
           </p>
 
           <div className="modal-form">

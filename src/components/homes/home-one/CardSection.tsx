@@ -1,18 +1,21 @@
 "use client";
 import Link from "next/link";
-import Button from "@/components/common/Button";
+import Image from "next/image";
 
 export default function CardSection() {
   const cardData = [
     {
+      image: "/assets/img/icon/Why Choose Us-01.svg",
       title: "We match destinations to your mood, not just your budget. ",
       desc: "Most travel sites show you what's cheap. We show you what's right.",
     },
     {
+      image: "/assets/img/icon/Why Choose Us-02.svg",
       title: "Every itinerary is built around your purpose, not a template.",
       desc: "Cookie-cutter trips waste your time and money. Custom planning saves both.",
     },
     {
+      image: "/assets/img/icon/Why Choose Us-03.svg",
       title: "Real travellers, real expertise, real recommendations. ",
       desc: "We've been there. We know what works. And we'll tell you what doesn't.",
     },
@@ -20,54 +23,43 @@ export default function CardSection() {
 
   return (
     <section
-      className="relative w-full  flex items-center bg-center bg-cover bg-no-repeat"
+      className="relative w-full flex items-center bg-center bg-cover bg-no-repeat"
       style={{
         height: "760px",
         backgroundImage: 'url("/assets/img/bg/Why_choose_us.jpg")',
       }}
     >
-      {/* overlay (optional) */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-black/40" />
 
       <div className="container relative z-20">
         <div className="row">
-          {/* LEFT COL-6 */}
           <div className="col-12 col-md-6 d-flex flex-column justify-content-center text-white">
-            <h2 className="text-3xl font-bold leading-snug mb-4 text-white">
+            <h2 className="text-3xl font-bold leading-snug mb-4">
               Why Travellers Trust Us ?
             </h2>
-            {/* <p className="text-lg mb-6">
-              Are you tired of the typical tourist destinations and looking to
-              step out of your comfort zone?
-            </p> */}
-
-            {/* <button className="bg-white text-black px-6 py-3 rounded-md font-semibold hover:bg-gray-100 cardsection-button-mukul">
-              READ MORE
-            </button> */}
 
             <Link href="/about">
-              <button className="bg-white  px-6 py-3 rounded-md font-semibold hover:bg-gray-100 cardsection-button-mukul">
+              <button className="bg-white rounded-md font-semibold hover:bg-gray-100 cardsection-button-mukul">
                 READ MORE
               </button>
             </Link>
           </div>
 
-          {/* RIGHT COL-6 */}
           <div className="col-12 col-md-6 d-flex flex-column gap-4 mt-4 mt-md-0 pt-100">
             {cardData.map((item, index) => (
               <div
                 key={index}
                 className="bg-opacity rounded-cardsection shadow-lg p-4 d-flex gap-3"
               >
-                <div
-                  className="rounded-circle bg-teal-700"
-                  style={{
-                    width: 75,
-                    height: 60,
-                    background: "#0A6A67",
-                    marginTop: "15px",
-                  }}
-                ></div>
+                <div>
+                  <Image
+                    src={item.image}
+                    alt="icon"
+                    width={75}
+                    height={75}
+                  />
+                </div>
+
                 <div>
                   <h3 className="h5 fw-bold">{item.title}</h3>
                   <p className="text-muted mb-1">{item.desc}</p>
