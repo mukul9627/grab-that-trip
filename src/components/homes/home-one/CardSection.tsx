@@ -33,7 +33,7 @@ export default function CardSection() {
 
       <div className="container relative z-20">
         <div className="row">
-          <div className="col-12 col-md-6 d-flex flex-column justify-content-center text-white">
+          <div className="col-12 col-md-6 d-flex flex-column justify-content-center text-white mt-4 mt-md-0">
             <h2 className="text-3xl font-bold leading-snug mb-4">
               Why Travellers Trust Us ?
             </h2>
@@ -49,7 +49,7 @@ export default function CardSection() {
             {cardData.map((item, index) => (
               <div
                 key={index}
-                className="bg-opacity rounded-cardsection shadow-lg p-4 d-flex gap-3"
+                className="bg-opacity rounded-cardsection shadow-lg p-2 p-md-4  d-flex gap-3"
               >
                 <div>
                   <Image

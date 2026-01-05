@@ -1,37 +1,42 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import type { SwiperOptions } from "swiper/types";
 import { Autoplay, Navigation } from "swiper/modules";
 import Image from "next/image";
 import Link from "next/link";
 import CryptoJS from "crypto-js";
 import { usePackageForActivities } from "@/hooks/usePackageForActivities";
-import location_bg from "@/assets/img/destination/tu/bg.png";
-import location7_1 from "@/assets/img/location/location-5/location.jpg"
 
-const setting = {
+import location_bg from "@/assets/img/destination/tu/bg.png";
+
+const setting: SwiperOptions = {
   slidesPerView: 4,
   loop: true,
   spaceBetween: 30,
+
   autoplay: {
     delay: 300000,
     disableOnInteraction: false,
   },
+
   navigation: {
     prevEl: ".tg-listing-5-slide-prev",
     nextEl: ".tg-listing-5-slide-next",
   },
+
   breakpoints: {
     1400: { slidesPerView: 4 },
     1200: { slidesPerView: 3 },
     768: { slidesPerView: 2 },
-    0: { slidesPerView: 1 },
+    0: { slidesPerView: "auto" }, // now valid
   },
 };
- const secretKey = "MY_PRIVATE_KEY"; // change this
-  const encryptId = (id: number | string) => {
-    return CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
-  };
+
+const secretKey = "MY_PRIVATE_KEY";
+
+const encryptId = (id: number | string) =>
+  CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
 
 const LocationBased = () => {
   const { destinations, loading, error } = usePackageForActivities();
@@ -40,73 +45,55 @@ const LocationBased = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading destinations.</p>;
 
-  const secretKey = "MY_PRIVATE_KEY"; // change this
-const encryptId = (id: number | string) => {
-  return CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
-};
+  const featureType = destinations[0]?.feature_id;
 
-const featureType = destinations[0]?.feature_id;
   return (
-    <div className="tg-location-area p-relative z-index-1 pb-140 pt-120 locationp-mar-m">
-      <div className="tg-location-su-bg">
-        <Image src={location_bg} alt="location background" />
-      </div>
-
-      <div className="container">
-        <div className="row align-items-center">
-          <div className="col-lg-9">
-            <div className="tg-location-section-title mb-30">
-              <h2
-                className="mb-15"
-                data-wow-delay=".4s"
-                data-wow-duration=".9s"
-              >
-                Location Based On Activities
-              </h2>
-              <p
-                className=""
-                data-wow-delay=".5s"
-                data-wow-duration=".9s"
-              >
-                Discover activities unique to every destination, from iconic sights to local hidden gems, 
-curated to give you authentic experiences wherever you travel.
-              </p>
-            </div>
-          </div>
-
-          <div className="col-lg-3">
-            <div
-              className="tg-listing-5-slider-navigation tg-location-su-slider-navigation text-end mb-30 wow fadeInUp"
-              data-wow-delay=".4s"
-              data-wow-duration="1s"
-            >
-              <button className="tg-listing-5-slide-prev mr-10">
-                <i className="fa-solid fa-arrow-left-long"></i>
-              </button>
-              <button className="tg-listing-5-slide-next">
-                <i className="fa-solid fa-arrow-right-long"></i>
-              </button>
-            </div>
-          </div>
+    <>
+      <div className="tg-location-area p-relative z-index-1 pb-140 pt-120">
+        <div className="tg-location-su-bg">
+          <Image src={location_bg} alt="location background" />
         </div>
 
-        <div className="row">
-          <div className="col-12">
-            <Swiper
-              {...setting}
-              modules={[Autoplay, Navigation]}
-              className="swiper-container tg-location-su-slider"
-            >
-              {destinations.map((item) => (
-                <SwiperSlide key={item.package_id}>
-                    <div className="tg-location-wrap p-relative mb-30">
-                           <div className="tg-location-thumb">
-                               <Link
-                      href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
-                      target="_blank"
-  rel="noopener noreferrer"
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-lg-9 col-8">
+              <div className="tg-location-section-title mb-30">
+                <h2>Location Based On Activities</h2>
+                <p>Discover activities unique to every destination…</p>
+              </div>
+            </div>
+
+            <div className="col-lg-3 col-4">
+              <div
+                className="tg-listing-5-slider-navigation tg-location-su-slider-navigation text-end mb-30 wow fadeInUp"
+                data-wow-delay=".4s"
+                data-wow-duration="1s"
+              >
+                <button className="tg-listing-5-slide-prev mr-10">
+                  <i className="fa-solid fa-arrow-left-long"></i>
+                </button>
+                <button className="tg-listing-5-slide-next">
+                  <i className="fa-solid fa-arrow-right-long"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <Swiper
+            {...setting}
+            modules={[Autoplay, Navigation]}
+            className="tg-location-su-slider custom-mobile-slider"
+          >
+            {destinations.map((item) => (
+              <SwiperSlide key={item.package_id}>
+                <div className="tg-location-wrap">
+                  <div className="tg-location-thumb">
+                    <Link
+                      href={`/tour-details?pid=${encodeURIComponent(
+                        encryptId(item.package_id)
+                      )}`}
                     >
-                       <Image
+                      <Image
                         src={`${imageBase}/package/bg/${item.bg_image}`}
                         alt={item.package_name}
                         width={234}
@@ -114,72 +101,57 @@ curated to give you authentic experiences wherever you travel.
                         className="tg-round-25"
                       />
                     </Link>
-                     
-                    </div>
+                  </div>
+                  <div className="tg-location-content tg-location-su-content">
+                    <div className="tg-location-content text-center">
+                      <span className="tg-location-time location-based-mukul">
+                        {item.destination_name}
+                      </span>
 
-                    <div className="tg-location-content tg-location-su-content">
-                      {/* <div className="content">
-                        <h3 className="tg-location-title mb-5">
-                          <Link href="/tour-grid-1">{item.name}</Link>
-                        </h3>
-                        <span className="tg-location-su-duration">
-                          {item.country}
-                        </span>
-                      </div> */}
-
-                       <div className="tg-location-content text-center">
-                              <span className="tg-location-time location-based-mukul">{item.destination_name}</span>
-                              <h3 className="tg-location-title mb-0" style={{marginTop: "-16px"}}><Link href="/map-listing"> {item.package_name}</Link></h3>
-                           </div>
-                           {/* <div className="tg-location-border one"></div>
-                           <div className="tg-location-border two"></div> */}
-
-                      {/* <Link className="icons" href="/tour-grid-1">
-                        <svg
-                          width="16"
-                          height="16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M2 13.0969L13.0969 2M13.0969 2H2M13.0969 2V13.0969"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </Link> */}
+                      <h3>
+                        <Link href="/map-listing">{item.package_name}</Link>
+                      </h3>
                     </div>
                   </div>
-                  {/* <div className="col-lg-3 col-md-6 col-sm-6 wow fadeInUp" data-wow-delay=".3s" data-wow-duration=".9s">
-                     <div className="bg-white tg-round-25 p-relative z-index-1">
-                        <div className="tg-location-wrap p-relative mb-30">
-                           <div className="tg-location-thumb">
-                             <Image className="w-100" src={location7_1} alt="location" />
-                           </div>
-                           <div className="tg-location-content text-center">
-                              <span className="tg-location-time">{item.country}</span>
-                              <h3 className="tg-location-title mb-0"><Link href="/map-listing">Data</Link></h3>
-                           </div>
-                           <div className="tg-location-border one"></div>
-                           <div className="tg-location-border two"></div>
-                        </div>
-                     </div>
-                  </div> */}
-                </SwiperSlide>
-              ))}
-               <div className="col-12">
-                  <div className="text-center mt-15">
-                     <Link  href={`activities?pid=${encodeURIComponent(encryptId(featureType)
-)}`} className="tg-btn tg-btn-transparent tg-btn-su-transparent">See More Tours</Link>
-                  </div>
-               </div>
-            </Swiper>
-          </div>
+                </div>
+              </SwiperSlide>
+            ))}
+
+            <div className="text-center mt-15">
+              <Link
+                href={`activities?pid=${encodeURIComponent(
+                  encryptId(featureType)
+                )}`}
+                className="tg-btn tg-btn-transparent"
+              >
+                See More Tours
+              </Link>
+            </div>
+          </Swiper>
         </div>
       </div>
-    </div>
+
+      {/* GLOBAL CSS APPLIED LOCALLY */}
+      <style jsx global>{`
+        /* MOBILE WIDTH FIX */
+        @media (max-width: 768px) {
+          .custom-mobile-slider .swiper-slide {
+            width: 298px !important;
+          }
+
+          .custom-mobile-slider .swiper-wrapper {
+            display: flex;
+          }
+
+          .tg-location-thumb img {
+            width: 100% !important;
+            height: auto !important;
+            object-fit: cover;
+            border-radius: 12px;
+          }
+        }
+      `}</style>
+    </>
   );
 };
 

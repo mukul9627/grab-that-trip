@@ -1,29 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useBooking } from "@/hooks/useBooking";
+import { useBookingAbout } from "@/hooks/useBooking";
 import { countryCodes } from "@/data/countryCodes";
 
 type BookingModalProps = {
   open: boolean;
   onClose: () => void;
-  package_id: number;
-  package_name: string;
-  base_price: number;
-  offer_price: number;
 };
 
-export default function BookingModal({
+export default function AboutBookingModal({
   open,
   onClose,
-  package_id,
-  package_name,
-  base_price,
-  offer_price,
 }: BookingModalProps) {
   if (!open) return null;
 
-  const { loading, sendEnquiry } = useBooking();
+  const { loading, sendEnquiry } = useBookingAbout();
 
   const [form, setForm] = useState({
     full_name: "",
@@ -65,7 +57,6 @@ export default function BookingModal({
       return;
     }
     const payload = {
-      PackageId: package_id,
       FullName: form.full_name,
       Email: form.email,
       CountryCode: form.country_code,
@@ -96,16 +87,11 @@ export default function BookingModal({
       {/* POPUP */}
       <div className="modal-wrapper" onClick={onClose}>
         <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-          <button className="modal-close" onClick={onClose}>
+          <button className="modal-close pb-4" onClick={onClose}>
             ×
           </button>
 
-          <h2 className="modal-title">{package_name}</h2>
-
-          <p className="modal-price">
-            <span className="old">INR{base_price}</span>
-            <span className="new">INR{offer_price}</span>
-          </p>
+          <h2 className="modal-title"></h2>
 
           <div className="modal-form">
             {/* Thank you  */}
@@ -163,10 +149,17 @@ export default function BookingModal({
                   </div>
                   <div className="col-6">
                     {" "}
+                    {/* <input
+                      name="travel_count"
+                      placeholder="Travel Count"
+                      value={form.travel_count}
+                      onChange={updateForm}
+                    /> */}
                     <select
                       name="travel_count"
                       value={form.travel_count}
                       onChange={updateForm}
+                      id=""
                     >
                       <option value="">Travel Count</option>
                       {[...Array(30)].map((_, i) => (

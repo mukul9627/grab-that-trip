@@ -16,6 +16,23 @@ const HeaderOne = () => {
   // mobile search modal toggle
   const [showSearchModal, setShowSearchModal] = useState(false);
 
+    // search text value
+  const [searchText, setSearchText] = useState("");
+
+   // when search icon clicked
+  const handleSearch = () => {
+    if (!searchText.trim()) return;
+
+    alert('NO Data Found')  
+    
+    console.log("Searching for:", searchText);
+
+    // Example redirect (optional)
+    // router.push(`/search?query=${searchText}`);
+
+    setShowSearchModal(false);
+  };
+
   return (
     <>
       <header className="tg-header-height">
@@ -28,15 +45,14 @@ const HeaderOne = () => {
         >
           <div className="container">
             <div className="row align-items-center">
-
               {/* LEFT — LOGO */}
               <div className="col-6 col-lg-3">
                 <div className="logo">
                   <Link className="logo-1" href="/">
-                    <Image src={logo_1} alt="Logo" width={90} height={77} />
+                    <Image className="mobile-view-logo-ms" src={logo_1} alt="Logo" width={90} height={77} />
                   </Link>
                   <Link className="logo-2 d-none" href="/">
-                    <Image src={logo_2} alt="Logo" width={90} height={77} />
+                    <Image className="mobile-view-logo-ms" src={logo_2} alt="Logo" width={90} height={77} />
                   </Link>
                 </div>
               </div>
@@ -59,7 +75,13 @@ const HeaderOne = () => {
                       fill="none"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <circle cx="11" cy="11" r="7" stroke="white" strokeWidth="2" />
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="7"
+                        stroke="white"
+                        strokeWidth="2"
+                      />
                       <line
                         x1="20"
                         y1="20"
@@ -77,13 +99,12 @@ const HeaderOne = () => {
               {/* RIGHT — ICONS */}
               <div className="col-6 col-lg-3">
                 <div className="tg-menu-right-action d-flex align-items-center justify-content-end">
-
                   {/* MOBILE SEARCH ICON */}
                   <div
                     className="mobile-search-icon d-lg-none mr-15"
                     onClick={() => setShowSearchModal(true)}
                   >
-                    🔍
+                    <i className="fas fa-search "></i>
                   </div>
 
                   {/* PHONE ICON */}
@@ -116,30 +137,42 @@ const HeaderOne = () => {
       {/* ==========================
           MOBILE SEARCH MODAL
       =========================== */}
-      {showSearchModal && (
-        <div className="search-modal">
-          <div
-            className="search-modal-backdrop"
-            onClick={() => setShowSearchModal(false)}
-          />
+     {showSearchModal && (
+  <div className="search-modal">
+    <div
+      className="search-modal-backdrop"
+      onClick={() => setShowSearchModal(false)}
+    />
 
-          <div className="search-modal-box">
-            <input
-              type="text"
-              className="mood-input"
-              placeholder="enter: Mood.."
-              autoFocus
-            />
+    <div className="search-modal-box">
 
-            <button
-              className="close-modal"
-              onClick={() => setShowSearchModal(false)}
-            >
-              ✖
-            </button>
-          </div>
-        </div>
-      )}
+      <input
+        type="text"
+        className="mood-input"
+        placeholder="enter: Mood.."
+        autoFocus
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+      />
+
+      <i
+        className="fas fa-search"
+        style={{position:"absolute", top:"32px", right:"58px", cursor:"pointer"}}
+        onClick={handleSearch}
+      />
+
+      <button
+        className="close-modal"
+        onClick={() => setShowSearchModal(false)}
+      >
+        
+      </button>
+
+    </div>
+  </div>
+)}
+
 
       {/* ==========================
           CSS BELOW
@@ -147,29 +180,27 @@ const HeaderOne = () => {
       <style jsx>{`
         /* Desktop search bar */
         .mood-search-wrapper {
-         position: relative;
-    width: 407px;
-    height: 34px;
-    padding: 0 0 0 115px;
+          position: relative;
+          width: 407px;
+          height: 34px;
+          padding: 0 0 0 115px;
         }
 
         .mood-input {
           width: 100%;
-    height: 60%;
-    padding: 13px 55px 16px 24px;
-    -webkit-border-radius: 999px;
-    -moz-border-radius: 999px;
-    border-radius: 999px;
-    border: 2px solid rgba(255, 255, 255, .6);
-    background: rgba(255, 255, 255, .15);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    outline: none;
-    color: #fff;
-    font-size: 16px;
+          height: 60%;
+          padding: 13px 55px 16px 24px;
+          -webkit-border-radius: 999px;
+          -moz-border-radius: 999px;
+          border-radius: 999px;
+          border: 2px solid rgba(255, 255, 255, 0.6);
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          outline: none;
+          color: #fff;
+          font-size: 16px;
         }
-
-        
 
         .search-icon {
           position: absolute;
@@ -192,6 +223,10 @@ const HeaderOne = () => {
         /* Mobile icons */
         .mobile-search-icon,
         .mobile-login-icon {
+          background: rgba(255, 255, 255, 0.19);
+          border-radius: 50px;
+          color: white;
+          padding: 6px 11px;
           font-size: 24px;
           cursor: pointer;
         }
@@ -200,6 +235,35 @@ const HeaderOne = () => {
             MOBILE MODAL
         =========================== */
         @media (max-width: 991px) {
+        .tg-header-tu-menu .tg-header-contact-icon{
+          background: rgba(255, 255, 255, 0.19);
+          color: white
+        }
+           .header-sticky .tg-header-tu-menu {
+             color: black;
+        border: 1px solid #0A6A67;
+           }
+       .header-sticky  .tg-header-contact-icon{
+       color: black;
+        border: 1px solid #0A6A67;
+       }
+        .mobile-search-icon{
+        font-size: 17px;
+        color: white;
+        }
+         .header-sticky  .mobile-search-icon{
+         color: black;
+        border: 1px solid #0A6A67;
+         }
+          .mobile-view-logo-ms {
+    width: 50px !important;
+    height: auto !important;
+  }
+
+ .header-sticky .mobile-login-icon{
+  color: black;
+  border: 1px solid #0A6A67;
+  }
           .mood-search-wrapper {
             display: none;
           }
@@ -222,12 +286,12 @@ const HeaderOne = () => {
             top: 30%;
             transform: translate(-50%, -50%);
             width: 92%;
-            background: white;
+            background: rgba(255,255,255,.19);
             border-radius: 18px;
             padding: 14px 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0px;
           }
 
           .search-modal-box .mood-input {

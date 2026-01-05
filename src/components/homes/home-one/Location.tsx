@@ -42,7 +42,7 @@ const Location = () => {
   };
 
   return (
-    <div className="tg-location-area p-relative z-index-1 pb-140 locationp-mar-m">
+    <div className="tg-location-area p-relative z-index-1 pb-140 mt-140 locationp-mar-m">
       <div className="tg-location-su-bg">
         <Image src={location_bg} alt="location background" />
       </div>

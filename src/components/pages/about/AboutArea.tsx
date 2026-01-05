@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Button from "@/components/common/Button";
-import BookingModal from "@/components/homes/home-one/BookingModal";
+import AboutBookingModal from "@/components/features/feature-details-one/about/AboutBookingModal";
 
 import shape_1 from "@/assets/img/about/details/shape.png";
 import shape_2 from "@/assets/img/about/details/shape-2.png";
@@ -18,24 +18,20 @@ const AboutArea = () => {
   const [openModal, setOpenModal] = useState(false);
 
   // You can replace these with real API values later
-  const selectedPackage = {
-    package_id: 1,
-    package_name: "Custom Travel Package",
-    base_price: 25000,
-    offer_price: 19999,
-  };
+  // const selectedPackage = {
+  //   package_id: 1,
+  //   package_name: "Custom Travel Package",
+  //   base_price: 25000,
+  //   offer_price: 19999,
+  // };
 
   return (
     <>
       {/* ✅ BOOKING MODAL */}
       {openModal && (
-        <BookingModal
+        <AboutBookingModal
           open={openModal}
           onClose={() => setOpenModal(false)}
-          package_id={selectedPackage.package_id}
-          package_name={selectedPackage.package_name}
-          base_price={selectedPackage.base_price}
-          offer_price={selectedPackage.offer_price}
         />
       )}
 

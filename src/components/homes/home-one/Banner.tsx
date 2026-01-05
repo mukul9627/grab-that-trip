@@ -36,9 +36,9 @@ const Banner = () => {
             <h2 className="tg-hero-title">
               Choose a Trip That Matches Your Mood
             </h2>
-            <p className="home-second-p-color mb-10 text-white">
+            {/* <p className="home-second-p-color mb-10 text-white">
               Tell us how you're feeling, and we'll find the perfect destination
-            </p>
+            </p> */}
           </div>
 
           <MoodSelector onMoodChange={handleMoodChange} />
@@ -60,6 +60,12 @@ const Banner = () => {
         .home-banner-mukul {
           transition: opacity 0.6s ease-in-out;
         }
+           @media (max-width: 991px) {
+      .tg-hero-title{
+      font-size: 30px
+      }
+      
+           }
       `}</style>
     </div>
   );

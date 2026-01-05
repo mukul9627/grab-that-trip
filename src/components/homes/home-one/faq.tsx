@@ -102,9 +102,9 @@ const faq = () => {
           {/* Left Blog Card */}
           <div className="col-lg-4">
             <div className="tg-blog-item mb-25 p-0">
-              <div className="tg-blog-thumb fix">
+              <div className="tg-blog-thumb fix ">
                 <Link href="/blog-details">
-                  <Image className="w-100" src={blog_1} alt="blog" style={{height: "19.5rem"}}/>
+                  <Image className="w-100 " src={blog_1} alt="blog" style={{height: "19.5rem"}}/>
                 </Link>
               </div>
             </div>
@@ -147,6 +147,11 @@ const faq = () => {
     </div>
 
   <style jsx>{`
+  @media (max-width: 575px) {
+   img {
+    display: none;
+  }
+}
 .faq-content {
   max-height: 0;
   overflow: hidden;

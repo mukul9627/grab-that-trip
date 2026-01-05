@@ -1,6 +1,6 @@
 "use client";
 
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -38,24 +38,24 @@ export default function PurposeSection() {
   };
 
   useEffect(() => {
-  if (typeof window !== "undefined") {
-    setEncryptedParam(encodeURIComponent(encryptId(selectedFilter)));
-  }
-}, [selectedFilter]);
+    if (typeof window !== "undefined") {
+      setEncryptedParam(encodeURIComponent(encryptId(selectedFilter)));
+    }
+  }, [selectedFilter]);
 
   useEffect(() => {
-  async function loadTabs() {
-    const list = await getFeatureTabs();
-    setTabs(list);
+    async function loadTabs() {
+      const list = await getFeatureTabs();
+      setTabs(list);
 
-    if (list.length > 0) {
-      setSelectedFilter(list[0].id);
-      setFeatureId(list[0].id);
+      if (list.length > 0) {
+        setSelectedFilter(list[0].id);
+        setFeatureId(list[0].id);
+      }
     }
-  }
 
-  loadTabs();
-}, []);
+    loadTabs();
+  }, []);
   const secretKey = "MY_PRIVATE_KEY"; // change this
 
   const encryptId = (id: number | string) => {
@@ -70,7 +70,10 @@ export default function PurposeSection() {
     autoplay: { delay: 30000000, disableOnInteraction: false },
     navigation: true,
     breakpoints: {
-      320: { slidesPerView: 1 },
+      0: {
+        slidesPerView: 1,
+        centeredSlides: true, // ⭐ MOBILE SINGLE FULL SLIDE
+      },
       576: { slidesPerView: 2 },
       768: { slidesPerView: 3 },
       1200: { slidesPerView: 4 },
@@ -128,37 +131,35 @@ export default function PurposeSection() {
             data-wow-duration=".9s"
           >
             {tabs.map((tab: any) => (
-    <button
-      key={tab.id}
-      className={selectedFilter === tab.id ? "active" : ""}
-      onClick={() => {
-        setSelectedFilter(tab.id);
-        setFeatureId(tab.id);
-      }}
-    >
-      <span className="borders"></span>
-      <span>{tab.title}</span>
-    </button>
-  ))}
+              <button
+                key={tab.id}
+                className={selectedFilter === tab.id ? "active" : ""}
+                onClick={() => {
+                  setSelectedFilter(tab.id);
+                  setFeatureId(tab.id);
+                }}
+              >
+                <span className="borders"></span>
+                <span>{tab.title}</span>
+              </button>
+            ))}
           </div>
         </div>
 
         {/* ================= CUSTOM SWIPER NAVIGATION BUTTONS ================= */}
-<div className="row mb-3">
-  <div className="col-lg-12 tg-location-su-slider-navigation1 d-flex justify-content-between align-items-center mobile-view-code">
-    
-    {/* LEFT ARROW */}
-    <button className="tg-listing-5-slide-prev1">
-      <i className="fa-solid fa-arrow-left-long"></i>
-    </button>
+        <div className="row mb-3">
+          <div className="col-lg-12 tg-location-su-slider-navigation1 d-flex justify-content-between align-items-center mobile-view-code">
+            {/* LEFT ARROW */}
+            <button className="tg-listing-5-slide-prev1">
+              <i className="fa-solid fa-arrow-left-long"></i>
+            </button>
 
-    {/* RIGHT ARROW */}
-    <button className="tg-listing-5-slide-next1">
-      <i className="fa-solid fa-arrow-right-long"></i>
-    </button>
-
-  </div>
-</div>
+            {/* RIGHT ARROW */}
+            <button className="tg-listing-5-slide-next1">
+              <i className="fa-solid fa-arrow-right-long"></i>
+            </button>
+          </div>
+        </div>
 
         {/* ===================== LOADING ===================== */}
         {loading && (
@@ -172,7 +173,7 @@ export default function PurposeSection() {
           <Swiper
             {...slider}
             modules={[Autoplay, Navigation]}
-             navigation={{
+            navigation={{
               nextEl: ".tg-listing-5-slide-next1",
               prevEl: ".tg-listing-5-slide-prev1",
             }}
@@ -189,18 +190,20 @@ export default function PurposeSection() {
                       className="tg-listing-card-thumb fix mb-13 p-relative"
                       style={{ height: "244px", width: "284px" }}
                     >
-                     <Link
-  href={`/tour-details?pid=${encodeURIComponent(encryptId(item.package_id))}`}
- target="_blank"
-  rel="noopener noreferrer"
-  >
-  <Image
-    src={`${imageBase}/package/bg/${item.bg_image}`}
-    alt={item.package_name}
-    fill
-    className="object-cover"
-  />
-</Link>
+                      <Link
+                        href={`/tour-details?pid=${encodeURIComponent(
+                          encryptId(item.package_id)
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Image
+                          src={`${imageBase}/package/bg/${item.bg_image}`}
+                          alt={item.package_name}
+                          fill
+                          className="object-cover"
+                        />
+                      </Link>
 
                       {/* <div className="tg-listing-item-wishlist">
                         <a
@@ -273,15 +276,26 @@ export default function PurposeSection() {
                       <div className="tg-listing-card-duration-tour pt-25">
                         <span className="tg-listing-card-currency-amount mr-5 fs-22">
                           {item.base_price && (
-                            <del className="tg-listing-card-currency-old" style={{color:"#bfbfbf"}}>
+                            <del
+                              className="tg-listing-card-currency-old"
+                              style={{ color: "#bfbfbf" }}
+                            >
                               INR {item.base_price}
                             </del>
                           )}
                         </span>
-                        <span style={{fontSize: "22px"}}>
-                          <span className="currency-symbol" style={{fontSize: "22px", paddingRight: "2px"}}><strong>INR</strong></span>
-                         <strong>{item.offer_price}</strong> 
-                          <span className="tg-listing-card-activity-person mt-2" style={{fontSize: "14px"}}>
+                        <span style={{ fontSize: "22px" }}>
+                          <span
+                            className="currency-symbol"
+                            style={{ fontSize: "22px", paddingRight: "2px" }}
+                          >
+                            <strong>INR</strong>
+                          </span>
+                          <strong>{item.offer_price}</strong>
+                          <span
+                            className="tg-listing-card-activity-person mt-2"
+                            style={{ fontSize: "14px" }}
+                          >
                             /Person
                           </span>
                         </span>
@@ -320,36 +334,42 @@ export default function PurposeSection() {
 
         <div className="col-12">
           <div className="text-center mt-15">
-           {encryptedParam && (
-  <Link
-    href={`/holidays?type=${encryptedParam}`}
-    target="_blank"
-  rel="noopener noreferrer"
-    className="tg-btn tg-btn-transparent tg-btn-su-transparent tg-btn-su-transparent-ms"
-  >
-    See More Tours
-  </Link>
-)}{" "}
+            {encryptedParam && (
+              <Link
+                href={`/holidays?type=${encryptedParam}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="tg-btn tg-btn-transparent tg-btn-su-transparent tg-btn-su-transparent-ms"
+              >
+                See More Tours
+              </Link>
+            )}{" "}
           </div>
         </div>
       </section>
 
-<style jsx>{`
+      <style jsx>{`
+        // .tg-listing-card-duration-tour span{
+        // font-size: 22px;
+        // font-weight: bolder;
+        // }
+        @media (max-width: 991px) {
+          .mobile-view-code .tg-listing-5-slide-prev1,
+          .tg-listing-5-slide-next1 {
+            display: none;
+          }
+        }
 
-// .tg-listing-card-duration-tour span{
-// font-size: 22px;
-// font-weight: bolder;
-// }
-          @media (max-width: 991px) {
-.mobile-view-code .tg-listing-5-slide-prev1, .tg-listing-5-slide-next1{
-display: none;
-}
+        @media (max-width: 575px) {
+          .card-purpose {
+            width: 100%;
+          }
 
-}
+          .tg-listing-card-content {
+            width: 100%;
+          }
+        }
       `}</style>
-     
     </>
-
-    
   );
 }
