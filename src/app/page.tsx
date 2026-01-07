@@ -2,7 +2,7 @@ import HomeOne from "@/components/homes/home-one";
 import Wrapper from "@/layouts/Wrapper";
 
 export const metadata = {
-  title: "GTT - Tour & Travel Booking",
+  title: "Grab That Trip - Tour & Travel Booking",
 };
 const page = () => {
   return (

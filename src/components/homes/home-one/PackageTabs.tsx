@@ -256,7 +256,8 @@ export default function PackageTabs() {
                                     style={{
                                       borderRadius: "10px",
                                       padding: "10px 25px",
-                                      backgroundColor: "#C2F4EA",
+                                      backgroundColor: "#0A6A67",
+                                      color: "white"
                                     }}
                                   >
                                     BOOK NOW
@@ -327,7 +328,8 @@ export default function PackageTabs() {
                                     style={{
                                       borderRadius: "10px",
                                       padding: "10px 25px",
-                                      backgroundColor: "#C2F4EA",
+                                      backgroundColor: "#0A6A67",
+                                      color: "white"
                                     }}
                                   >
                                     BOOK NOW

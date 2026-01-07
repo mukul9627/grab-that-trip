@@ -3,9 +3,9 @@ import { JSX } from "react";
 import Link from "next/link";
 
 import shape from "@/assets/img/chose/chose-5/map.png";
-import choose_thumb1 from "@/assets/img/chose/chose-5/chose-2.jpg";
-import choose_thumb2 from "@/assets/img/chose/chose-5/chose-3.jpg";
-import choose_thumb3 from "@/assets/img/chose/chose-5/chose-1.jpg";
+import choose_thumb1 from "@/assets/img/chose/chose-5/2_Making-travel-planning-simple,-smooth-and-personal.jpg";
+import choose_thumb2 from "@/assets/img/chose/chose-5/1_Making-travel-planning-simple,-smooth-and-personal.jpg";
+import choose_thumb3 from "@/assets/img/chose/chose-5/3_Making-travel-planning-simple,-smooth-and-personal.jpg";
 import circle from "@/assets/img/chose/chose-5/text.png";
 import circle2 from "@/assets/img/chose/chose-5/icon.png";
 import Button from "@/components/common/Button";
@@ -61,7 +61,7 @@ const VisionArea = () => {
         alt=""
       />
       <div className="container">
-        <div className="row align-items-center">
+        <div className="row align-items-center p-2">
           <div className="col-lg-6">
             <div className="tg-chose-section-title mb-30">
               {/* <h5 className="tg-section-subtitle mb-15 wow fadeInUp" data-wow-delay=".3s" data-wow-duration=".1s">Dream Your Next Trip</h5> */}
@@ -87,7 +87,7 @@ const VisionArea = () => {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row p-2">
           <div
             className="col-lg-6 wow fadeInLeft"
             data-wow-delay=".4s"
@@ -96,13 +96,13 @@ const VisionArea = () => {
             <div className="tg-chose-5-left mr-40">
               <div className="row">
                 <div className="col-lg-5 col-md-5 col-sm-5">
-                  <div className="tg-chose-5-thumb">
+                  <div className="tg-chose-5-thumb d-none d-md-block">
                     <Image className="mb-20" src={choose_thumb1} alt="" />
                     <Image src={choose_thumb2} alt="" />
                   </div>
                 </div>
                 <div className="col-lg-7 col-md-7 col-sm-7">
-                  <div className="tg-chose-5-thumb-2 p-relative">
+                  <div className="tg-chose-5-thumb-2 p-relative d-none d-md-block">
                     <div className="tg-chose-5-text-round d-none d-sm-block">
                       <div className="tg-chose-3-rounded p-relative mb-20">
                         {/* <Image className="rotate-infinite-2" src={circle} alt="" />
@@ -117,7 +117,7 @@ const VisionArea = () => {
           </div>
 
           <div className="col-lg-6">
-            <div className="tg-chose-list-wrap tg-chose-5-list-wrap pt-40">
+            <div className="tg-chose-list-wrap tg-chose-5-list-wrap pt-40 ">
               {choose_data.map((item) => (
                 <div
                   key={item.id}

@@ -23,6 +23,7 @@ export default function PurposeSection() {
   const [selectedFilter, setSelectedFilter] = useState<number | string>("7");
   const [tabs, setTabs] = useState<any[]>([]);
   const [encryptedParam, setEncryptedParam] = useState<string>("");
+  const [openId, setOpenId] = useState<number | null>(null);
 
   // ⬅️ Reusable HOOK
   const { listingData, loading } = usePurposeSection(featureId);
@@ -265,8 +266,20 @@ export default function PurposeSection() {
                         </div>
                       </div>
 
-                      <h4 className="tg-listing-card-title mb-0">
-                        <Link href="/tour-details">{item.package_name}</Link>
+                      <h4
+                        onClick={() =>
+                          setOpenId(
+                            openId === item.package_id ? null : item.package_id
+                          )
+                        }
+                        className={`tg-listing-card-title mb-0 ${
+                          openId === item.package_id ? "expanded" : ""
+                        }`}
+                      >
+                        <span>
+                          {item.package_name}
+                          {/* <Link href="/tour-details"></Link> */}
+                        </span>
                       </h4>
                       <span className="tg-listing-card-duration-time mb-10">
                         {item.destination_name}
@@ -369,6 +382,33 @@ export default function PurposeSection() {
             width: 100%;
           }
         }
+        //            .package-title span {
+        //   display: -webkit-box;
+        //   -webkit-line-clamp: 1;      /* collapsed height */
+        //   -webkit-box-orient: vertical;
+        //   overflow: hidden;
+        //   position: relative;
+        //   cursor: pointer;
+        // }
+
+        // /* show … */
+        // // .package-title span:after {
+        // //   content: '...';
+        // //   position: absolute;
+        // //   bottom: 0;
+        // //   right: 0;
+        // //   background: #fff;
+        // // }
+
+        // /* When Expanded → show full text */
+        // .package-title.expanded span {
+        //   -webkit-line-clamp: unset;
+        //   overflow: visible;
+        // }
+
+        // .package-title.expanded span:after {
+        //   content: '';
+        // }
       `}</style>
     </>
   );

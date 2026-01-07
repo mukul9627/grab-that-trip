@@ -124,6 +124,8 @@ const FeatureDetailsArea = () => {
 
   const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
 
+  
+
   useEffect(() => {
     if (!data) return;
 
@@ -285,72 +287,105 @@ const FeatureDetailsArea = () => {
               </div>
             </div>
           </div>
-          <div className="row gx-15 mb-25">
-            {/* LEFT BIG IMAGE */}
-            <div className="col-lg-7">
-              {data.images?.[0] && (
-                <div className="tg-tour-details-video-thumb mb-15">
-                  <Image
-                    className="w-100 object-cover"
-                    src={`${imageBase}/package/bg/${data.images[0].image}`}
-                    alt="Gallery Big"
-                    width={706}
-                    height={500}
-                  />
-                </div>
-              )}
+        <div className="mb-25">
+  {/* MOBILE SCROLL GALLERY */}
+  <div className="d-lg-none d-block">
+    <div
+      style={{
+        display: "flex",
+        gap: "10px",
+        overflowX: "auto",
+        scrollSnapType: "x mandatory",
+      }}
+    >
+      {data.images?.map((img, i) => (
+        <div
+          key={i}
+          style={{
+            minWidth: "100%",
+            scrollSnapAlign: "center",
+            borderRadius: "8px",
+            overflow: "hidden",
+          }}
+        >
+          <Image
+            src={`${imageBase}/package/bg/${img.image}`}
+            alt={`Gallery ${i}`}
+            width={800}
+            height={300}
+            className="w-100 object-cover"
+          />
+        </div>
+      ))}
+    </div>
+  </div>
+
+  {/* DESKTOP GRID (your original layout) */}
+  <div className="row gx-15 d-none d-lg-flex">
+    {/* LEFT BIG IMAGE */}
+    <div className="col-lg-7">
+      {data.images?.[0] && (
+        <div className="tg-tour-details-video-thumb mb-15">
+          <Image
+            className="w-100 object-cover"
+            src={`${imageBase}/package/bg/${data.images[0].image}`}
+            alt="Gallery Big"
+            width={706}
+            height={500}
+          />
+        </div>
+      )}
+    </div>
+
+    {/* RIGHT SIDE */}
+    <div className="col-lg-5">
+      <div className="row gx-15">
+        <div className="col-12">
+          {data.images?.[1] && (
+            <div className="tg-tour-details-video-thumb p-relative mb-15">
+              <Image
+                className="w-100 object-cover"
+                src={`${imageBase}/package/bg/${data.images[1].image}`}
+                alt="Gallery Medium"
+                width={503}
+                height={250}
+              />
             </div>
+          )}
+        </div>
 
-            {/* RIGHT SIDE */}
-            <div className="col-lg-5">
-              <div className="row gx-15">
-                {/* TOP IMAGE */}
-                <div className="col-12">
-                  {data.images?.[1] && (
-                    <div className="tg-tour-details-video-thumb p-relative mb-15">
-                      <Image
-                        className="w-100 object-cover"
-                        src={`${imageBase}/package/bg/${data.images[1].image}`}
-                        alt="Gallery Medium"
-                        width={503}
-                        height={250}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* BOTTOM LEFT */}
-                <div className="col-lg-6 col-md-6">
-                  {data.images?.[2] && (
-                    <div className="tg-tour-details-video-thumb mb-15">
-                      <Image
-                        className="w-100 object-cover"
-                        src={`${imageBase}/package/bg/${data.images[2].image}`}
-                        alt="Gallery Small 1"
-                        width={244}
-                        height={238}
-                      />
-                    </div>
-                  )}
-                </div>
-
-                {/* BOTTOM RIGHT */}
-                <div className="col-lg-6 col-md-6">
-                  {data.images?.[3] && (
-                    <div className="tg-tour-details-video-thumb mb-15">
-                      <Image
-                        className="w-100 object-cover"
-                        src={`${imageBase}/package/bg/${data.images[3].image}`}
-                        alt="Gallery Small 2"
-                        width={244}
-                        height={238}
-                      />
-                    </div>
-                  )}
-                </div>
-              </div>
+        <div className="col-lg-6 col-md-6">
+          {data.images?.[2] && (
+            <div className="tg-tour-details-video-thumb mb-15">
+              <Image
+                className="w-100 object-cover"
+                src={`${imageBase}/package/bg/${data.images[2].image}`}
+                alt="Gallery Small 1"
+                width={244}
+                height={238}
+              />
             </div>
-          </div>
+          )}
+        </div>
+
+        <div className="col-lg-6 col-md-6">
+          {data.images?.[3] && (
+            <div className="tg-tour-details-video-thumb mb-15">
+              <Image
+                className="w-100 object-cover"
+                src={`${imageBase}/package/bg/${data.images[3].image}`}
+                alt="Gallery Small 2"
+                width={244}
+                height={238}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
           <div className="tg-tour-details-feature-list-wrap">
             <div className="row align-items-center">

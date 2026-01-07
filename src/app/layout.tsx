@@ -15,8 +15,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning={isDev}>
       <head>
-        <meta name="keywords" content="GTT - Tour & Travel Booking" />
-        <meta name="description" content="GTT is a Modern Tour & Travel Booking." />
+        <meta name="keywords" content="Grab That Trip - Tour & Travel Booking" />
+        <meta name="description" content="Grab That Trip is a Modern Tour & Travel Booking." />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         {/* For IE  */}
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

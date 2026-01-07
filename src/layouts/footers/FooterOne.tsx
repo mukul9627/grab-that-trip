@@ -92,11 +92,11 @@ const FooterOne = () => {
                                  </Link>
                               </li>
                               <li>
-                                 <Link className="d-flex" href="tel:+918908909020 ">
+                                 <Link className="d-flex" href="tel:+918929919292">
                                     <span className="mr-15">
                                        <i className="fa-sharp text-white fa-solid fa-phone"></i>
                                     </span>
-                                   +91 890-8909-020 
+                                   +91 89299 19292
                                  </Link>
                               </li>
                               <li className="d-flex">

@@ -10,9 +10,9 @@ import shape_1 from "@/assets/img/about/details/shape.png";
 import shape_2 from "@/assets/img/about/details/shape-2.png";
 import shape_3 from "@/assets/img/chose/chose-3/circle-text.png";
 import shape_4 from "@/assets/img/chose/chose-3/star.png";
-import thumb_1 from "@/assets/img/about/details/thumb-1.jpg";
-import thumb_2 from "@/assets/img/about/details/thumb-3.jpg";
-import thumb_3 from "@/assets/img/about/details/thumb-2.jpg";
+import thumb_1 from "@/assets/img/about/details/1_Travel_the_world_your_way.jpg";
+import thumb_2 from "@/assets/img/about/details/2_Travel_the_world_your_way.jpg";
+import thumb_3 from "@/assets/img/about/details/3_Travel_the_world_your_way.jpg";
 
 const AboutArea = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -43,10 +43,10 @@ const AboutArea = () => {
         />
 
         <div className="container">
-          <div className="row align-items-center">
+          <div className="row align-items-center p-2">
             {/* LEFT IMAGES */}
             <div className="col-lg-6">
-              <div className="tg-about-details-left p-relative mb-15">
+              <div className="tg-about-details-left p-relative mb-15 d-none d-md-block">
                 <Image
                   className="tg-about-details-map p-absolute"
                   src={shape_2}
@@ -54,21 +54,21 @@ const AboutArea = () => {
                 />
                 <div className="row">
                   <div className="col-lg-6 col-md-6 col-sm-6">
-                    <div className="tg-about-details-thumb p-relative z-index-9">
+                    <div className="tg-about-details-thumb p-relative z-index-9 d-none d-md-block">
                       <Image
                         className="main-thumb tg-round-15 w-100 mb-20"
                         src={thumb_1}
                         alt=""
                       />
                       <Image
-                        className="main-thumb tg-round-15 w-100 mb-20"
+                        className="main-thumb tg-round-15 w-100 mb-20 d-none d-md-block"
                         src={thumb_2}
                         alt=""
                       />
                     </div>
                   </div>
                   <div className="col-lg-6 col-md-6 col-sm-6">
-                    <div className="tg-about-details-thumb-2 p-relative">
+                    <div className="tg-about-details-thumb-2 p-relative d-none d-md-block">
                       <div className="tg-chose-3-rounded p-relative mb-30">
                         <Image
                           className="rotate-infinite-2"

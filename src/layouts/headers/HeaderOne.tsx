@@ -16,15 +16,15 @@ const HeaderOne = () => {
   // mobile search modal toggle
   const [showSearchModal, setShowSearchModal] = useState(false);
 
-    // search text value
+  // search text value
   const [searchText, setSearchText] = useState("");
 
-   // when search icon clicked
+  // when search icon clicked
   const handleSearch = () => {
     if (!searchText.trim()) return;
 
-    alert('NO Data Found')  
-    
+    alert("NO Data Found");
+
     console.log("Searching for:", searchText);
 
     // Example redirect (optional)
@@ -49,10 +49,22 @@ const HeaderOne = () => {
               <div className="col-6 col-lg-3">
                 <div className="logo">
                   <Link className="logo-1" href="/">
-                    <Image className="mobile-view-logo-ms" src={logo_1} alt="Logo" width={90} height={77} />
+                    <Image
+                      className="mobile-view-logo-ms"
+                      src={logo_1}
+                      alt="Logo"
+                      width={90}
+                      height={77}
+                    />
                   </Link>
                   <Link className="logo-2 d-none" href="/">
-                    <Image className="mobile-view-logo-ms" src={logo_2} alt="Logo" width={90} height={77} />
+                    <Image
+                      className="mobile-view-logo-ms"
+                      src={logo_2}
+                      alt="Logo"
+                      width={90}
+                      height={77}
+                    />
                   </Link>
                 </div>
               </div>
@@ -108,17 +120,21 @@ const HeaderOne = () => {
                   </div>
 
                   {/* PHONE ICON */}
-                  <span className="tg-header-contact-icon mr-10 d-none d-lg-block">
-                    <PhoneIcon />
-                  </span>
+                  <Link className="d-flex" href="tel:+918929919292 ">
+                    <span className="tg-header-contact-icon mr-10 d-none d-lg-block MS-phone-icon">
+                      <PhoneIcon />
+                    </span>
+                  </Link>
 
-                  <span className="tg-header-contact-icon d-lg-none mr-15">
-                    <PhoneIcon />
-                  </span>
+                  <Link className="d-flex" href="tel:+918929919292">
+                    <span className="tg-header-contact-icon d-lg-none mr-15 ">
+                      <PhoneIcon />
+                    </span>
+                  </Link>
 
                   {/* LOGIN — DESKTOP */}
                   <div className="tg-header-btn ml-20 d-none d-lg-block">
-                    <Link className="tg-btn-header mr-20" href="/login">
+                    <Link className="tg-btn-header mr-20" href="/#">
                       <UserIcon /> Login
                     </Link>
                   </div>
@@ -137,42 +153,42 @@ const HeaderOne = () => {
       {/* ==========================
           MOBILE SEARCH MODAL
       =========================== */}
-     {showSearchModal && (
-  <div className="search-modal">
-    <div
-      className="search-modal-backdrop"
-      onClick={() => setShowSearchModal(false)}
-    />
+      {showSearchModal && (
+        <div className="search-modal">
+          <div
+            className="search-modal-backdrop"
+            onClick={() => setShowSearchModal(false)}
+          />
 
-    <div className="search-modal-box">
+          <div className="search-modal-box">
+            <input
+              type="text"
+              className="mood-input"
+              placeholder="enter: Mood.."
+              autoFocus
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            />
 
-      <input
-        type="text"
-        className="mood-input"
-        placeholder="enter: Mood.."
-        autoFocus
-        value={searchText}
-        onChange={(e) => setSearchText(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-      />
+            <i
+              className="fas fa-search"
+              style={{
+                position: "absolute",
+                top: "32px",
+                right: "58px",
+                cursor: "pointer",
+              }}
+              onClick={handleSearch}
+            />
 
-      <i
-        className="fas fa-search"
-        style={{position:"absolute", top:"32px", right:"58px", cursor:"pointer"}}
-        onClick={handleSearch}
-      />
-
-      <button
-        className="close-modal"
-        onClick={() => setShowSearchModal(false)}
-      >
-        
-      </button>
-
-    </div>
-  </div>
-)}
-
+            <button
+              className="close-modal"
+              onClick={() => setShowSearchModal(false)}
+            ></button>
+          </div>
+        </div>
+      )}
 
       {/* ==========================
           CSS BELOW
@@ -230,40 +246,50 @@ const HeaderOne = () => {
           font-size: 24px;
           cursor: pointer;
         }
+        .MS-phone-icon {
+          background: rgba(255, 255, 255, 0.19);
+          color: white;
+          border: 1px solid white;
+        }
 
+        .header-sticky .MS-phone-icon {
+          border: 2px solid #0a6a67;
+          background: rgba(10, 106, 103, 0.05);
+          color: black;
+        }
         /* ==========================
             MOBILE MODAL
         =========================== */
         @media (max-width: 991px) {
-        .tg-header-tu-menu .tg-header-contact-icon{
-          background: rgba(255, 255, 255, 0.19);
-          color: white
-        }
-           .header-sticky .tg-header-tu-menu {
-             color: black;
-        border: 1px solid #0A6A67;
-           }
-       .header-sticky  .tg-header-contact-icon{
-       color: black;
-        border: 1px solid #0A6A67;
-       }
-        .mobile-search-icon{
-        font-size: 17px;
-        color: white;
-        }
-         .header-sticky  .mobile-search-icon{
-         color: black;
-        border: 1px solid #0A6A67;
-         }
+          .tg-header-tu-menu .tg-header-contact-icon {
+            background: rgba(255, 255, 255, 0.19);
+            color: white;
+          }
+          .header-sticky .tg-header-tu-menu {
+            color: black;
+            border: 1px solid #0a6a67;
+          }
+          .header-sticky .tg-header-contact-icon {
+            color: black;
+            border: 1px solid #0a6a67;
+          }
+          .mobile-search-icon {
+            font-size: 17px;
+            color: white;
+          }
+          .header-sticky .mobile-search-icon {
+            color: black;
+            border: 1px solid #0a6a67;
+          }
           .mobile-view-logo-ms {
-    width: 50px !important;
-    height: auto !important;
-  }
+            width: 50px !important;
+            height: auto !important;
+          }
 
- .header-sticky .mobile-login-icon{
-  color: black;
-  border: 1px solid #0A6A67;
-  }
+          .header-sticky .mobile-login-icon {
+            color: black;
+            border: 1px solid #0a6a67;
+          }
           .mood-search-wrapper {
             display: none;
           }
@@ -286,7 +312,7 @@ const HeaderOne = () => {
             top: 30%;
             transform: translate(-50%, -50%);
             width: 92%;
-            background: rgba(255,255,255,.19);
+            background: rgba(255, 255, 255, 0.19);
             border-radius: 18px;
             padding: 14px 16px;
             display: flex;

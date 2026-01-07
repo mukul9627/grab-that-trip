@@ -90,14 +90,29 @@ export default function Testimonial() {
         {/* RIGHT — CONTENT */}
         <div className="col-lg-5">
 
-          <div className="text-end mb-3">
+          {/* <div className="text-end mb-3">
             <button className="tg-listing-5-slide-prev2 swiper-prev mr-10">
               <i className="fa-solid fa-arrow-left-long"></i>
             </button>
             <button className="tg-listing-5-slide-next2 swiper-next">
               <i className="fa-solid fa-arrow-right-long"></i>
             </button>
-          </div>
+          </div> */}
+
+         
+              <div
+                className="tg-listing-5-slider-navigation tg-location-su-slider-navigation text-end mb-30 wow fadeInUp"
+                data-wow-delay=".4s"
+                data-wow-duration="1s"
+              >
+                 <button className="tg-listing-5-slide-prev2 swiper-prev mr-10">
+              <i className="fa-solid fa-arrow-left-long"></i>
+            </button>
+            <button className="tg-listing-5-slide-next2 swiper-next">
+              <i className="fa-solid fa-arrow-right-long"></i>
+            </button>
+              </div>
+          
 
           <Swiper
             modules={[Navigation, Controller]}
@@ -127,7 +142,7 @@ export default function Testimonial() {
 
                   <div>
                     <h4 className="author-name text-white">{item.added_by}</h4>
-                    <span className="designation">{item.city}</span>
+                    <span className="designation text-white">{item.city}</span>
                   </div>
                 </div>
 
@@ -140,6 +155,9 @@ export default function Testimonial() {
 </div>
 
       <style jsx>{`
+      .row{
+      gap: 100px;
+      }
         .testimonial-section {
           padding: 80px 0;
           background: #0a6a67;

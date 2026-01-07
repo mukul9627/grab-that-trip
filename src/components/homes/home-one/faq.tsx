@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import blog_1 from "@/assets/img/blog/blog-1.jpg";
+import blog_1 from "@/assets/img/blog/FAQ.jpg";
 
 /* ------------------ TYPES ------------------ */
 type TourPlan = {

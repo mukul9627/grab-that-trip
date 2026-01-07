@@ -1,5 +1,5 @@
 "use client";
-
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import type { SwiperOptions } from "swiper/types";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -40,12 +40,14 @@ const encryptId = (id: number | string) =>
 
 const LocationBased = () => {
   const { destinations, loading, error } = usePackageForActivities();
+    const [openId, setOpenId] = useState<number | null>(null);
   const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading destinations.</p>;
 
   const featureType = destinations[0]?.feature_id;
+
 
   return (
     <>
@@ -108,49 +110,91 @@ const LocationBased = () => {
                         {item.destination_name}
                       </span>
 
-                      <h3>
-                        <Link href="/map-listing">{item.package_name}</Link>
-                      </h3>
+                     <h3
+  onClick={() =>
+    setOpenId(openId === item.package_id ? null : item.package_id)
+  }
+  className={`package-title ${
+    openId === item.package_id ? "expanded" : ""
+  }`}
+>
+  <span>{item.package_name}</span>
+</h3>
                     </div>
                   </div>
                 </div>
               </SwiperSlide>
             ))}
 
+ <div className="col-12">
             <div className="text-center mt-15">
-              <Link
-                href={`activities?pid=${encodeURIComponent(
+             
+                <Link
+                   href={`activities?pid=${encodeURIComponent(
                   encryptId(featureType)
                 )}`}
-                className="tg-btn tg-btn-transparent"
-              >
-                See More Tours
-              </Link>
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="tg-btn tg-btn-transparent tg-btn-su-transparent"
+                >
+                  See More Tours
+                </Link>
             </div>
-          </Swiper>
+          </div>
+           </Swiper>
         </div>
       </div>
 
       {/* GLOBAL CSS APPLIED LOCALLY */}
-      <style jsx global>{`
-        /* MOBILE WIDTH FIX */
-        @media (max-width: 768px) {
-          .custom-mobile-slider .swiper-slide {
-            width: 298px !important;
-          }
+     <style jsx global>{`
+  @media (max-width: 768px) {
+    .custom-mobile-slider .swiper-slide {
+      width: 298px !important;
+    }
 
-          .custom-mobile-slider .swiper-wrapper {
-            display: flex;
-          }
+    .custom-mobile-slider .swiper-wrapper {
+      display: flex;
+    }
 
-          .tg-location-thumb img {
-            width: 100% !important;
-            height: auto !important;
-            object-fit: cover;
-            border-radius: 12px;
-          }
-        }
-      `}</style>
+    .tg-location-thumb img {
+      width: 100% !important;
+      height: auto !important;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+  }
+
+  .package-title span {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;      /* collapsed height */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+
+/* show … */
+.package-title span:after {
+  content: '...';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+}
+
+/* When Expanded → show full text */
+.package-title.expanded span {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.package-title.expanded span:after {
+  content: '';
+}
+
+`}
+</style>
+
     </>
   );
 };

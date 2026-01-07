@@ -82,8 +82,8 @@ const ReviewDetails = ({ reviews }: ReviewDetailsProps) => {
             <li key={review.review_id}>
               <div className="tg-tour-about-cus-review d-flex mb-40">
                 <div className="tg-tour-about-cus-review-thumb tg-tour-about-cus-review-thumb-ms">
-                {/* <span>{review.user_id?.charAt(0).toUpperCase()}</span> */}
-                <span>{review.user_id}</span>
+                <span>{review.user_id?.charAt(0).toUpperCase()}</span>
+                {/* <span>{review.user_id}</span> */}
                 </div>
 
                 <div>

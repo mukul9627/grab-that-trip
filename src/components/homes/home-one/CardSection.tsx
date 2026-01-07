@@ -34,7 +34,7 @@ export default function CardSection() {
       <div className="container relative z-20">
         <div className="row">
           <div className="col-12 col-md-6 d-flex flex-column justify-content-center text-white mt-4 mt-md-0">
-            <h2 className="text-3xl font-bold leading-snug mb-4">
+            <h2 className="text-3xl font-bold leading-snug mb-4 text-white">
               Why Travellers Trust Us ?
             </h2>
 
