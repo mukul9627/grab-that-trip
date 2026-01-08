@@ -10,7 +10,8 @@ import Cta1 from "./Cta"
 import HeroSection1 from "./CardSection";
 import LocationBased from "./LocationBased";
 import PackageTabs from "./PackageTabs";
-import Faq from "./faq"
+import Faq from "./faq";
+import { homeFaqData } from "@/data/FaqData";
 
 const HomeOne = () => {
   return (
@@ -27,7 +28,8 @@ const HomeOne = () => {
          <Testimonial />
          <Blog />
          <Cta1 />
-         <Faq />
+         <Faq  data={homeFaqData}
+      showImage={true}/>
       </main>
       <FooterOne />
     </>

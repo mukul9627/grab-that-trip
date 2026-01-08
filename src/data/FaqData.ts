@@ -57,3 +57,42 @@ const faq_data: FaqData[] = [
 ];
 
 export default faq_data;
+
+
+export const homeFaqData = [
+  {
+    tourplan_id: 1,
+    day_no: 1,
+    activity: "How can I find the best travel deals and discounts?",
+    description:
+      "You can view our latest deals and seasonal offers directly on our Deals page. We also recommend subscribing to our newsletter to receive exclusive discounts and early-bird promotions."
+  },
+  {
+    tourplan_id: 2,
+    day_no: 2,
+    activity: "How can I book affordable travel packages online?",
+    description:
+      "You can book affordable travel packages directly through our website by selecting your destination and dates. Our team also helps you find the best deals based on your budget and travel preferences."
+  },
+  {
+    tourplan_id: 3,
+    day_no: 3,
+    activity: "Do international packages include flights and visas?",
+    description:
+      "Most international packages include flights, accommodation, airport transfers, and sightseeing. Visa assistance and travel insurance are also provided based on the destination and package selected."
+  },
+  {
+    tourplan_id: 4,
+    day_no: 4,
+    activity: "Is it safe to book international packages online?",
+    description:
+      "Yes, booking with us is secure and reliable. We work with trusted international partners, use secure payment gateways, and provide 24/7 travel support during your trip."
+  },
+  {
+    tourplan_id: 5,
+    day_no: 5,
+    activity: "What is the best time to book domestic holiday packages?",
+    description:
+      "Domestic travel packages can be booked year-round. However, booking early during peak seasons and holidays helps secure better prices and availability."
+  }
+];

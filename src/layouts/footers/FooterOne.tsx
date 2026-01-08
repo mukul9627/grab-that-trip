@@ -48,6 +48,7 @@ const FooterOne = () => {
                               <li><Link href="/privacypolicy">Copyrights Policies</Link></li>
                               <li><Link href="/supportpolicy">Support</Link></li>
                               <li><Link href="/bewareoffrauds">Beware Of Frauds</Link></li>
+                              <li><Link href="/blog-grid">Blogs</Link></li>
                            </ul>
                         </div>
                      </div>
