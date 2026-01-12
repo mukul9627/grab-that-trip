@@ -3,12 +3,13 @@ import FeatureDetailsArea from "./FeatureDetailsArea";
 import HeaderOne from "@/layouts/headers/HeaderOne";
 
 
+
 const FeatureDetailsOne = () => {
   return (
     <>
       <HeaderOne />
       <main>
-        <FeatureDetailsArea />
+        <FeatureDetailsArea /> 
       </main>
       <FooterOne />
     </>

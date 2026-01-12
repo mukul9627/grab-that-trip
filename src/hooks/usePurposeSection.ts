@@ -14,6 +14,7 @@ export type ApiPackage = {
   bg_image: string;
   feature_name: string;
   feature_id: number;
+  package_code: string;
 };
 
 export function usePurposeSection(featureId: number) {

@@ -14,6 +14,7 @@ type FeatureTab = {
   feature_id: number;
   feature_type_id: number;
   name: string;
+  package_code: string;
 };
 
 type PackageItem = {
@@ -28,6 +29,7 @@ type PackageItem = {
   bg_image: string;
   short_description: string;
   long_description: string;
+  package_code: string;
 };
 export default function PackageTabs() {
   const [tabs, setTabs] = useState<FeatureTab[]>([]);
@@ -204,7 +206,8 @@ export default function PackageTabs() {
                           <div key={index} className="col-lg-6 order-lg-1">
                             <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
                               <Image
-                                src={`${imageBase}/package/bg/${item.bg_image}`}
+                                // src={`${imageBase}/package/bg/${item.bg_image}`}
+                                 src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                                 alt={item.package_name}
                                 fill
                                 className="object-cover"
@@ -220,6 +223,7 @@ export default function PackageTabs() {
                                   target="_blank"
                                   rel="noopener noreferrer"
                                 >
+                                  {/* {item.package_id} */}
                                   <div>
                                     <p className="fw-semibold small mb-1 text-end">
                                       {item.days > 1 &&
@@ -284,7 +288,7 @@ export default function PackageTabs() {
                                 rel="noopener noreferrer"
                               >
                                 <Image
-                                  src={`${imageBase}/package/bg/${item.bg_image}`}
+                                  src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                                   alt={item.package_name}
                                   fill
                                   className="object-cover"
@@ -365,7 +369,7 @@ export default function PackageTabs() {
                                 rel="noopener noreferrer"
                               >
                                 <Image
-                                  src={`${imageBase}/package/bg/${item.bg_image}`}
+                                  src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                                   alt={item.package_name}
                                   fill
                                   className="object-cover"

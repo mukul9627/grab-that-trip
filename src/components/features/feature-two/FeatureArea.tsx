@@ -32,7 +32,7 @@ export default function FeatureArea() {
   const [filteredData, setFilteredData] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
-    const [selected, setSelected] = useState<any>(null);
+  const [selected, setSelected] = useState<any>(null);
 
   // Pagination
   const itemsPerPage = 9;
@@ -63,35 +63,129 @@ export default function FeatureArea() {
       return null;
     }
   };
+  // useEffect(() => {
+  //   const encryptedDestination = searchParams.get("pid");
+  //   const encryptedFeature = searchParams.get("type");
+
+  //   let featureId = "7";
+  //   let destinationId: string | null = null;
+
+  //   if (encryptedDestination) {
+  //     destinationId = decryptId(encryptedDestination);
+  //   }
+
+  //   if (encryptedFeature) {
+  //     const decrypted = decryptId(encryptedFeature);
+  //     featureId = decrypted || "7";
+  //   } else if (searchParams.get("feature_id")) {
+  //     featureId = searchParams.get("feature_id")!;
+  //   }
+
+  //   async function loadData() {
+  //     setLoading(true);
+
+  //     let data = [];
+
+  //     if (destinationId && Number(destinationId) > 0) {
+  //       // ✅ DESTINATION BASED API
+  //       data = await getPackagesByFeatureType(destinationId,featureId);
+  //     } else {
+  //       // ✅ EXISTING FEATURE BASED API
+  //       data = await getPackagesByFeatureId(featureId);
+  //     }
+
+  //     setApiData(data);
+  //     setFilteredData(data);
+  //     setItemOffset(0);
+  //     setLoading(false);
+  //   }
+
+  //   loadData();
+  // }, [searchParams]);
+
+  //   useEffect(() => {
+  //   const encryptedDid = searchParams.get("did");   // destination_id
+  //   const encryptedType = searchParams.get("type"); // feature_id
+
+  //   let destinationId = 0;
+  //   let featureId = 0;
+
+  //   // 🔓 decrypt destination
+  //   if (encryptedDid) {
+  //     const decrypted = decryptId(encryptedDid);
+  //     destinationId = Number(decrypted) || 0;
+  //   }
+
+  //   // 🔓 decrypt feature
+  //   if (encryptedType) {
+  //     const decrypted = decryptId(encryptedType);
+  //     featureId = Number(decrypted) || 0;
+  //   }
+
+  //   // ✅ CRITICAL FIX:
+  //   // If destination exists → DO NOT force feature 7
+  //   if (destinationId > 0) {
+  //     featureId = 0;
+  //   }
+
+  //   // ✅ Default ONLY when nothing exists
+  //   if (destinationId === 0 && featureId === 0) {
+  //     featureId = 7;
+  //   }
+
+  //   async function loadData() {
+  //     setLoading(true);
+
+  //     // 🔥 ALWAYS use GetPackage
+  //     const data = await getPackagesByFeatureId(
+  //       featureId,
+  //       destinationId
+  //     );
+
+  //     setApiData(data);
+  //     setFilteredData(data);
+  //     setItemOffset(0);
+  //     setLoading(false);
+  //   }
+
+  //   loadData();
+  // }, [searchParams]);
+
   useEffect(() => {
-    const encryptedDestination = searchParams.get("pid");
-    const encryptedFeature = searchParams.get("type");
+    const encryptedDid = searchParams.get("did"); // destination_id
+    const encryptedType = searchParams.get("type"); // feature_id
 
-    let featureId = "7";
-    let destinationId: string | null = null;
+    let destinationId = 0;
+    let featureId = 0;
 
-    if (encryptedDestination) {
-      destinationId = decryptId(encryptedDestination);
+    // 🔓 decrypt destination
+    if (encryptedDid) {
+      const decrypted = decryptId(encryptedDid);
+      destinationId = Number(decrypted) || 0;
     }
 
-    if (encryptedFeature) {
-      const decrypted = decryptId(encryptedFeature);
-      featureId = decrypted || "7";
-    } else if (searchParams.get("feature_id")) {
-      featureId = searchParams.get("feature_id")!;
+    // 🔓 decrypt feature
+    if (encryptedType) {
+      const decrypted = decryptId(encryptedType);
+      featureId = Number(decrypted) || 0;
+    }
+
+    // ✅ Default ONLY when nothing exists
+    if (destinationId === 0 && featureId === 0) {
+      featureId = 7;
     }
 
     async function loadData() {
       setLoading(true);
+      let data: any[] = [];
 
-      let data = [];
-
-      if (destinationId) {
-        // ✅ DESTINATION BASED API
-        data = await getPackagesByFeatureType(destinationId);
-      } else {
-        // ✅ EXISTING FEATURE BASED API
-        data = await getPackagesByFeatureId(featureId);
+      // 🔥 Destination + Feature → Activities API
+      if (destinationId > 0 && featureId > 0) {
+        data = await getPackagesByFeatureType(destinationId, featureId);
+      }
+      // 🔥 Destination only OR Feature only → Main API
+      else {
+        data = await getPackagesByFeatureId(featureId, destinationId);
       }
 
       setApiData(data);
@@ -113,7 +207,7 @@ export default function FeatureArea() {
     },
     [dispatch]
   );
- const openBookingPopup = (item: any) => {
+  const openBookingPopup = (item: any) => {
     setSelected(item);
     setOpenModal(true);
   };
@@ -121,22 +215,22 @@ export default function FeatureArea() {
 
   return (
     <>
-    {openModal && selected && (
-            <BookingModal
-              open={openModal}
-              onClose={() => setOpenModal(false)}
-              package_id={selected.package_id}
-              package_name={selected.package_name}
-              base_price={selected.base_price}
-              offer_price={selected.offer_price}
-            />
-          )}
+      {openModal && selected && (
+        <BookingModal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          package_id={selected.package_id}
+          package_name={selected.package_name}
+          base_price={selected.base_price}
+          offer_price={selected.offer_price}
+        />
+      )}
       <div className="tg-listing-grid-area mb-85 mt-85">
         <div className="container">
           <div className="row">
             {/* SIDEBAR */}
-<div className=" d-none d-md-none"></div>
-            <FeatureSidebar 
+            <div className=" d-none d-md-none"></div>
+            <FeatureSidebar
               fullData={apiData}
               setProducts={setFilteredData}
               resetPage={() => setItemOffset(0)}
@@ -145,24 +239,24 @@ export default function FeatureArea() {
             {/* RIGHT CONTENT */}
             <div className="col-xl-9 col-lg-8">
               <div className="tg-listing-item-box-wrap ml-10">
-                 {/* MOBILE FILTER & CLOSE BUTTON */}
-<div className="d-block d-lg-none mb-20 filter-btn-bar">
-  <div className="d-flex gap-2">
-    <button
-      className="btn btn-outline-primary flex-fill"
-      onClick={() => setIsFilterOpen(true)}
-    >
-      <i className="fa-solid fa-filter mr-5"></i> Filter
-    </button>
+                {/* MOBILE FILTER & CLOSE BUTTON */}
+                <div className="d-block d-lg-none mb-20 filter-btn-bar">
+                  <div className="d-flex gap-2">
+                    <button
+                      className="btn btn-outline-primary flex-fill"
+                      onClick={() => setIsFilterOpen(true)}
+                    >
+                      <i className="fa-solid fa-filter mr-5"></i> Filter
+                    </button>
 
-    <button
-      className="btn btn-outline-danger flex-fill"
-      onClick={() => setIsFilterOpen(false)}
-    >
-      <i className="fa-solid fa-xmark mr-5"></i> Close
-    </button>
-  </div>
-</div>
+                    <button
+                      className="btn btn-outline-danger flex-fill"
+                      onClick={() => setIsFilterOpen(false)}
+                    >
+                      <i className="fa-solid fa-xmark mr-5"></i> Close
+                    </button>
+                  </div>
+                </div>
 
                 {/* TOP BAR */}
                 <FeatureTop
@@ -213,14 +307,14 @@ export default function FeatureArea() {
                               >
                                 <Image
                                   className="tg-card-border w-100"
-                                  src={`${imgBase}/package/bg/${item.bg_image}`}
+                                  src={`${imgBase}/package/${item.package_code}/${item.bg_image}`}
                                   alt={item.package_name}
                                   width={284}
                                   height={244}
                                 />
                               </Link>
                               {/* <span>{item.package_id}</span> */}
-                              
+
                               {/* WISHLIST BUTTON */}
                               {/* <div className="tg-listing-item-wishlist">
                               <a
@@ -260,7 +354,9 @@ export default function FeatureArea() {
                               <div className="tg-listing-card-content">
                                 <h4 className="tg-listing-card-title mb-0">
                                   <Link
-                                    href={`/tour-details?id=${item.package_id}`}
+                                    href={`/tour-details?pid=${encodeURIComponent(
+                                      encryptId(item.package_id)
+                                    )}`}
                                   >
                                     {item.package_name}
                                   </Link>
@@ -285,6 +381,7 @@ export default function FeatureArea() {
                                       paddingRight: "2px",
                                     }}
                                   >
+                                    {/* {item.package_id} */}
                                     <strong>INR {item.offer_price}</strong>
                                     <span
                                       className="tg-listing-card-activity-person"
@@ -304,8 +401,10 @@ export default function FeatureArea() {
                                   background: "#fff",
                                 }}
                               >
-                                <div className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center" 
-                                onClick={() => openBookingPopup(item)}>
+                                <div
+                                  className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center"
+                                  onClick={() => openBookingPopup(item)}
+                                >
                                   <span className="tg-listing-card-currency-amount mr-5 fw-medium fs-6">
                                     Book Now
                                   </span>
@@ -346,7 +445,7 @@ export default function FeatureArea() {
         </div>
 
         {/* MOBILE FILTER MODAL */}
-      {isFilterOpen && (
+        {isFilterOpen && (
           <div className="filter-modal-overlay">
             <div className="filter-modal">
               <div className="filter-modal-header">
@@ -423,7 +522,6 @@ export default function FeatureArea() {
           }
         }
       `}</style>
-
     </>
   );
 }

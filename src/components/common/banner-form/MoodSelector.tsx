@@ -61,6 +61,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
             }`}
             onClick={() => handleMoodClick(mood)}
           >
+            {/* {mood.feature_id} */}
             {/* <Link
               href={`/holidays?pid=${encodeURIComponent(
                 encryptId(mood.feature_id)
@@ -128,12 +129,11 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
           <div className="card-underline">.</div>
 
           <Link
-            href={`/holidays?pid=${encodeURIComponent(
-              encryptId(selectedMood.feature_id)
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+  href={`/holidays?type=${encodeURIComponent(
+    encryptId(selectedMood.feature_id)
+  )}`}
+  target="_blank"
+>
             <div className="flex md:justify-end find-my-destination-button-div">
               <button className="find-my-destination-button btn-active">
                 Search Package

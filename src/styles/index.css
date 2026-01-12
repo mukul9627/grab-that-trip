@@ -96,10 +96,32 @@ border-radius: 0 0 12px 12px;
     font-size: 20px;
 }
 
-.mukulsharma{
-  width: 284px !important;
-  min-height: 540px !important;
+/* .mukulsharma{
+  width: 284px ;
+  min-height: 540px ;
+} */
+ @media screen and (min-width: 1024px) {
+  .mukulsharma {
+    width: 284px;
+    min-height: 540px;
+  }
+  .ms-desktop-view{
+     height: 244px; width: 284px
+  }
 }
+
+@media screen and (min-width: 1200px) {
+  .mukulsharma {
+    width: 284px;
+    height: 540px;
+  }
+  .ms-desktop-view{
+     height: 244px;
+      width: 284px
+  }
+}
+
+
 
 .card-purpose{
   border-radius: 12px 12px 12px 12px;

@@ -6,8 +6,7 @@ import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import defaultFaqImage from "@/assets/img/blog/FAQ.jpg";
 
-
-type FAQ = {
+export type FAQ = {
   tourplan_id: number;
   day_no: number;
   activity: string;
@@ -22,13 +21,10 @@ type Props = {
   data: FAQ[];
   showImage?: boolean;
   image?: StaticImageData;
+  isHome?: boolean; // 👈 new
 };
 
-export default function FAQSection({
-  data,
-  showImage = true,
-  image,
-}: Props) {
+export default function FAQSection({ data, showImage = true, image,isHome }: Props) {
   const [faqList, setFaqList] = useState<FAQItem[]>([]);
 
   // First item open by default
@@ -53,45 +49,45 @@ export default function FAQSection({
 
   return (
     <>
-      <div className="tg-blog-area pt-135 pb-200">
+     <div
+  className={`tg-blog-area ${isHome ? "mukul-padding" : ""}`}
+>
         <div className="container">
           <div className="row">
-
-            {/* TITLE */}
-            <div className="col-lg-12">
-              <div className="tg-location-section-title text-center mb-30">
-                <h2 className="mb-15 text-capitalize">FAQ</h2>
-                <p className="text-capitalize">
-                  Are you tired of the typical tourist destinations and
-                  <br />
-                  looking to step out of your comfort zone
-                </p>
-              </div>
-            </div>
-
-            {/* LEFT IMAGE */}
             {showImage && (
-              <div className="col-lg-4 d-none d-lg-block">
-                <div className="tg-blog-item mb-25 p-0">
-                  <div className="tg-blog-thumb fix">
-                    <Link href="#">
-                      <Image
-                        className="w-100"
-                        src={image ?? defaultFaqImage}
-                        alt="faq"
-                        style={{ height: "19.5rem", objectFit: "cover" }}
-                      />
-                    </Link>
+              <>
+                <div className="col-lg-12">
+                  <div className="tg-location-section-title text-center mb-30">
+                    <h2 className="mb-15 text-capitalize">FAQ</h2>
+                    <p className="text-capitalize">
+                      Are you tired of the typical tourist destinations and
+                      <br />
+                      looking to step out of your comfort zone
+                    </p>
                   </div>
                 </div>
-              </div>
+
+                <div className="col-lg-4 d-none d-lg-block">
+                  <div className="tg-blog-item mb-25 p-0">
+                    <div className="tg-blog-thumb fix">
+                      <Link href="#">
+                        <Image
+                          className="w-100"
+                          src={image ?? defaultFaqImage}
+                          alt="faq"
+                          style={{ height: "19.5rem", objectFit: "cover" }}
+                        />
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </>
             )}
 
             {/* FAQ ACCORDION */}
             <div className={showImage ? "col-lg-8" : "col-lg-12"}>
               <div className="tg-tour-about-faq-inner">
                 <div className="tg-tour-about-faq">
-
                   {faqList.map((item) => (
                     <div key={item.tourplan_id} className="accordion-item">
                       <h2 className="accordion-header">
@@ -113,17 +109,19 @@ export default function FAQSection({
                       </div>
                     </div>
                   ))}
-
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
 
       {/* STYLES */}
       <style jsx>{`
+      .mukul-padding{
+      padding-top: 135px;
+      padding-bottom: 200px;
+      }
         .faq-content {
           max-height: 0;
           overflow: hidden;

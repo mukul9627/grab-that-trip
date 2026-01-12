@@ -56,7 +56,7 @@ const Location = () => {
                 data-wow-delay=".4s"
                 data-wow-duration=".9s"
               >
-               Popular World Travel Picks
+                Popular World Travel Picks
               </h5>
               <h2
                 className="tg-section-su-title text-capitalize wow fadeInUp"
@@ -115,25 +115,32 @@ const Location = () => {
 
                     <div className="tg-location-content tg-location-su-content">
                       <div className="content">
-                         <Link href={`/holidays?pid=${encodeURIComponent(
+                        <Link
+                          href={`/holidays?did=${encodeURIComponent(
+                            encryptId(item.destination_id)
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {" "}
+                          <h3 className="tg-location-title mb-5">
+                            {item.name}
+                            {/* {item.destination_id} */}
+                          </h3>
+                          <span className="tg-location-su-duration">
+                            {item.country}
+                          </span>
+                        </Link>
+                      </div>
+
+                      <Link
+                        className="icons"
+                        href={`/holidays?did=${encodeURIComponent(
                           encryptId(item.destination_id)
                         )}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                      > <h3 className="tg-location-title mb-5">
-                         {item.name}
-                        </h3>
-                        <span className="tg-location-su-duration">
-                          {item.country}
-                        </span></Link>
-                       
-                      </div>
-
-                      <Link className="icons" href={`/holidays?pid=${encodeURIComponent(
-                          encryptId(item.destination_id)
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer">
+                      >
                         <svg
                           width="16"
                           height="16"

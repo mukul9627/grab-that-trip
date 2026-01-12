@@ -46,14 +46,13 @@ const BlogArea = () => {
                       <Link href={`/blog-details/${item.slug}`}>
                         <Image
                           src={`${imageBase}/blog/${item.featured_image}`}
-                        //   src={`${imageBase}/package/bg/${item.bg_image}`}
                           alt={item.title}
                           width={400}
                           height={250}
                           className="w-100"
                         />
                       </Link>
-{item.slug}
+{/* {item.slug}  */}
                       <h2 className="tg-blog-standard-title mt-15">
                         <Link href={`/blog-details/${item.slug}`}>
                           {item.title}

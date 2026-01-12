@@ -14,6 +14,7 @@ import Review from "./about/Review";
 import ReviewDetails from "./about/ReviewDetails";
 import FeatureSidebar from "./FeatureSidebar";
 import Faqsection from "./about/Faqsection";
+import Cat1 from "@/components/homes/home-one/Cta"
 
 const secretKey = "MY_PRIVATE_KEY";
 
@@ -35,6 +36,7 @@ type PackageDetail = {
   inclusions: any[];
   tourplans: any[];
   images: any[];
+  package_code: any[];
 };
 
 type Review = {
@@ -309,7 +311,8 @@ const FeatureDetailsArea = () => {
           }}
         >
           <Image
-            src={`${imageBase}/package/bg/${img.image}`}
+            // src={`${imageBase}/package/bg/${img.image}`}
+             src={`${imageBase}/package/${data.package_code}/${img.image}`}
             alt={`Gallery ${i}`}
             width={800}
             height={300}
@@ -328,7 +331,8 @@ const FeatureDetailsArea = () => {
         <div className="tg-tour-details-video-thumb mb-15">
           <Image
             className="w-100 object-cover"
-            src={`${imageBase}/package/bg/${data.images[0].image}`}
+             src={`${imageBase}/package/${data.package_code}/${data.images[0].image}`}
+            // src={`${imageBase}/package/bg/${data.images[0].image}`}
             alt="Gallery Big"
             width={706}
             height={500}
@@ -345,7 +349,7 @@ const FeatureDetailsArea = () => {
             <div className="tg-tour-details-video-thumb p-relative mb-15">
               <Image
                 className="w-100 object-cover"
-                src={`${imageBase}/package/bg/${data.images[1].image}`}
+                  src={`${imageBase}/package/${data.package_code}/${data.images[1].image}`}
                 alt="Gallery Medium"
                 width={503}
                 height={250}
@@ -359,7 +363,7 @@ const FeatureDetailsArea = () => {
             <div className="tg-tour-details-video-thumb mb-15">
               <Image
                 className="w-100 object-cover"
-                src={`${imageBase}/package/bg/${data.images[2].image}`}
+                src={`${imageBase}/package/${data.package_code}/${data.images[2].image}`}
                 alt="Gallery Small 1"
                 width={244}
                 height={238}
@@ -373,7 +377,7 @@ const FeatureDetailsArea = () => {
             <div className="tg-tour-details-video-thumb mb-15">
               <Image
                 className="w-100 object-cover"
-                src={`${imageBase}/package/bg/${data.images[3].image}`}
+                 src={`${imageBase}/package/${data.package_code}/${data.images[3].image}`}
                 alt="Gallery Small 2"
                 width={244}
                 height={238}
@@ -452,6 +456,10 @@ const FeatureDetailsArea = () => {
           </div>
         </div>
       </div>
+      <div className="mb-120">
+        <Cat1 />
+      </div>
+        
     </>
   );
 };

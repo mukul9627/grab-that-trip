@@ -29,7 +29,7 @@ const HomeOne = () => {
          <Blog />
          <Cta1 />
          <Faq  data={homeFaqData}
-      showImage={true}/>
+      showImage={true} isHome/>
       </main>
       <FooterOne />
     </>

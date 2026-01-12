@@ -31,7 +31,7 @@ const FooterOne = () => {
                               </form>
                            </div>
                            <div className="tg-footer-social">
-                              <Link href="https://www.facebook.com/people/Grabthat-Trip/pfbid0b79xXU1aunu95TGt3sqoVNGNcCmNaS2wa6TQbdRi1nH1fBGTddwCmoVaqbWVnHbDl/?rdid=gUae60n45mNSxj4t&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1Wm2c4xmih%2F"><i className="fa-brands fa-facebook-f"></i></Link>
+                              <Link href="https://www.facebook.com/people/Grab-That-Trip/61581532384160/?rdid=zxuu7QEfecEgLe35&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BqpAomK3v%2F"><i className="fa-brands fa-facebook-f"></i></Link>
                               {/* <Link href="#"><i className="fa-brands fa-twitter"></i></Link> */}
                               <Link href="https://www.instagram.com/grabthattrip/"><i className="fa-brands fa-instagram"></i></Link>
                               <Link href="https://www.linkedin.com/in/grab-that-trip-7716b0398/?utm_source=share_via&utm_content=profile&utm_medium=member_android"><i className="fa-brands fa-linkedin"></i></Link>
@@ -106,11 +106,20 @@ const FooterOne = () => {
                                        <path d="M11.9987 5.60006V12.0001L16.2654 14.1334M22.6654 12.0002C22.6654 17.8912 17.8897 22.6668 11.9987 22.6668C6.10766 22.6668 1.33203 17.8912 1.33203 12.0002C1.33203 6.10912 6.10766 1.3335 11.9987 1.3335C17.8897 1.3335 22.6654 6.10912 22.6654 12.0002Z" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                                     </svg>
                                  </span>
+                                 
                                  <p className="mb-0">
                                     Mon – Sat: 9 am – 6 pm,<br />
                                     Sunday: <span className="text-white d-inline-block">CLOSED</span>
                                  </p>
+
                               </li>
+                             <li>
+  <p className="mb-0 d-flex align-items-center gap-2">
+    <i className="fas fa-envelope text-white"></i>
+    <span className="text-white">info@grabthattrip.com</span>
+  </p>
+</li>
+
                            </ul>
                         </div>
                      </div>

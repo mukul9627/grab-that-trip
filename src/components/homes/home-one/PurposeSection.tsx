@@ -187,10 +187,7 @@ export default function PurposeSection() {
                   {/* MY code */}
 
                   <div className="card card-purpose">
-                    <div
-                      className="tg-listing-card-thumb fix mb-13 p-relative"
-                      style={{ height: "244px", width: "284px" }}
-                    >
+                    <div className="tg-listing-card-thumb fix mb-13 p-relative ms-desktop-view ms-mobile-view">
                       <Link
                         href={`/tour-details?pid=${encodeURIComponent(
                           encryptId(item.package_id)
@@ -199,35 +196,13 @@ export default function PurposeSection() {
                         rel="noopener noreferrer"
                       >
                         <Image
-                          src={`${imageBase}/package/bg/${item.bg_image}`}
+                          // src={`${imageBase}/package/bg/${item.bg_image}`}
+                          src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                           alt={item.package_name}
                           fill
                           className="object-cover"
                         />
                       </Link>
-
-                      {/* <div className="tg-listing-item-wishlist">
-                        <a
-                          onClick={() => handleAddToWishlist(item)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          <svg
-                            width="20"
-                            height="18"
-                            viewBox="0 0 20 18"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M10.5167 16.3416C10.2334 16.4416 9.76675 16.4416 9.48341 16.3416C7.06675 15.5166 1.66675 12.075 1.66675 6.24165C1.66675 3.66665 3.74175 1.58331 6.30008 1.58331C7.81675 1.58331 9.15841 2.31665 10.0001 3.44998C10.8417 2.31665 12.1917 1.58331 13.7001 1.58331C16.2584 1.58331 18.3334 3.66665 18.3334 6.24165C18.3334 12.075 12.9334 15.5166 10.5167 16.3416Z"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </a>
-                      </div> */}
                       <div className="p-4 border-t flex justify-between items-center">
                         <div>
                           <div className="text-gray-400 line-through text-sm">
@@ -247,9 +222,7 @@ export default function PurposeSection() {
                       </div>
                     </div>
                     <div
-                      className="tg-listing-card-content"
-                      style={{ width: "284px" }}
-                    >
+                      className="tg-listing-card-content ms-mobile-title">
                       <div className="tg-listing-card-review flex items-center justify-between space tg-listing-card-review-mukul pb-1">
                         <span className="tg-listing-card-duration-time">
                           {item.days} Days
@@ -374,6 +347,14 @@ export default function PurposeSection() {
         }
 
         @media (max-width: 575px) {
+          .ms-mobile-view {
+    width: 406px;
+    height: 284px;
+  }
+
+  .ms-mobile-title {
+    width: 403px;
+  }
           .card-purpose {
             width: 100%;
           }

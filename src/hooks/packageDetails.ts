@@ -1,5 +1,9 @@
 import axios from "axios";
 
+/* =======================
+   TYPES
+======================= */
+
 type PackageItem = {
   package_id: number;
   package_name: string;
@@ -10,14 +14,21 @@ type PackageItem = {
   base_price: number;
   offer_price: number;
   destination_name: string;
+  package_code: string;
 };
-
 
 type PackagesApiResponse = {
   data: PackageItem[];
 };
 
-async function getPackagesByFeatureId(featureId: string | number) {
+/* =======================
+   FEATURE BASED API
+   (feature_id + destination_id)
+======================= */
+async function getPackagesByFeatureId(
+  featureId: string | number,
+  destinationId: string | number
+): Promise<PackageItem[]> {
   try {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -26,33 +37,40 @@ async function getPackagesByFeatureId(featureId: string | number) {
       {
         params: {
           feature_id: featureId,
-          destination_id: 0,
+          destination_id: destinationId,
           package_id: 0,
           is_active: true,
           priority: 0,
         },
-        headers: { "Cache-Control": "no-cache" },
+        headers: {
+          "Cache-Control": "no-cache",
+        },
       }
     );
 
     return response.data?.data || [];
   } catch (error: any) {
-    console.error("❌ API ERROR:", error.message);
+    console.error("❌ GetPackage API ERROR:", error.message);
     return [];
   }
 }
 
-
-async function getPackagesByFeatureType(destinationId: string | number) {
+/* =======================
+   DESTINATION BASED API
+======================= */
+async function getPackagesByFeatureType(
+  destinationId: string | number,
+  featureId: string | number
+): Promise<PackageItem[]> {
   try {
     const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-    const res = await axios.get<PackagesApiResponse>(
+    const response = await axios.get<PackagesApiResponse>(
       `${API_URL}Home/GetPackageForActivities`,
       {
         params: {
-          feature_id: 0,
-          destination_id: destinationId, // ✅ key change
+          feature_id: featureId,
+          destination_id: destinationId,
           package_id: 0,
           is_active: true,
           priority: 0,
@@ -62,19 +80,17 @@ async function getPackagesByFeatureType(destinationId: string | number) {
       }
     );
 
-    return res.data?.data || [];
-  } catch {
+    return response.data?.data || [];
+  } catch (error: any) {
+    console.error("❌ GetPackageForActivities API ERROR:", error.message);
     return [];
   }
 }
 
-
-
-
+/* =======================
+   EXPORTS
+======================= */
 export {
-getPackagesByFeatureId,
-getPackagesByFeatureType
-
-}
-
-
+  getPackagesByFeatureId,
+  getPackagesByFeatureType,
+};

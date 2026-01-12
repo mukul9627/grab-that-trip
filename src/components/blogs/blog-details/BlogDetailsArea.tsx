@@ -6,42 +6,39 @@ import { useParams } from "next/navigation";
 // import BlogForm from "@/components/forms/BlogForm";
 import BlogSidebar from "../blog-sidebar";
 import Faq from "@/components/homes/home-one/faq";
-import { useBlogDetails} from "@/hooks/useBlogDetails";
+import { useBlogDetails } from "@/hooks/useBlogDetails";
 
 import img_1 from "@/assets/img/blog/sidebar/standard-3.jpg";
 import img_2 from "@/assets/img/blog/details/video.jpg";
 
-
-
-
-
 const BlogDetailsArea = () => {
+  const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
 
- const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
-  
- const { slug } = useParams<{ slug: string }>();
+  const { slug } = useParams<{ slug: string }>();
   console.log("Slug:", slug);
-  const { blogDetails, faqData, loading, error } = useBlogDetails(slug as string);
- 
+  const { blogDetails, faqData, blogTag, blogCategory,  blogRecentPost,loading, error } = useBlogDetails(
+    slug as string
+  );
 
   if (loading) return <p className="text-center">Loading blog...</p>;
   if (error) return <p className="text-danger text-center">{error}</p>;
   if (!blogDetails) return null;
   return (
-    <div className="tg-blog-grid-area pt-130 pb-80">
+  <>
+   <div className="tg-blog-grid-area pt-130 pb-80">
       <div className="container">
         <div className="row">
-          <div className="col-xl-9 col-lg-8">
+          <div className="col-xl-9 col-lg-8 pb-12">
             <div className="tg-blog-details-wrap tg-blog-lg-spacing mr-50 mb-50">
               <div className="tg-blog-standard-item mb-35">
                 <div className="tg-blog-standard-thumb mb-15">
-                 <Image
-  src={`${imageBase}/blog/${blogDetails.banner_image}`}
-  alt={blogDetails.title || "Blog banner image"}
-  width={900}
-  height={400}
-  className="w-100"
-/>
+                  <Image
+                    src={`${imageBase}/blog/${blogDetails.banner_image}`}
+                    alt={blogDetails.title || "Blog banner image"}
+                    width={900}
+                    height={400}
+                    className="w-100"
+                  />
                 </div>
                 <div className="tg-blog-standard-content">
                   <div className="tg-blog-standard-date mb-10">
@@ -97,11 +94,13 @@ const BlogDetailsArea = () => {
                       5 mins Read
                     </span>
                   </div>
-                  <h2 className="tg-blog-standard-title">{blogDetails.title}</h2>
+                  <h2 className="tg-blog-standard-title">
+                    {blogDetails.title}
+                  </h2>
                   <div
-  className="blog-content"
-  dangerouslySetInnerHTML={{ __html: blogDetails.content }}
-/>
+                    className="blog-content"
+                    dangerouslySetInnerHTML={{ __html: blogDetails.content }}
+                  />
                 </div>
               </div>
               {/* <blockquote className="tg-blog-blockquote p-relative mb-25">
@@ -174,16 +173,17 @@ const BlogDetailsArea = () => {
               <div className="tg-blog-details-tag mb-40 d-flex flex-wrap justify-content-between align-items-center">
                 <div className="tg-blog-sidebar-tag-list d-flex flex-wrap align-items-center">
                   <h5 className="tg-blog-sidebar-title mr-10">Tags:</h5>
-                  <ul>
-                    <li>
-                      <Link href="#">Bath Cleaning</Link>
+                  <ul> {blogTag.map((Tag,i) => (
+                      
+                    <li key={i}>
+                      {/* <Link href="#">{Tag.tag_name}</Link> */}
+                      <span className="tag-name-ms">{Tag.tag_name}</span>
                     </li>
-                    <li>
-                      <Link href="#">Cleaning</Link>
-                    </li>
-                  </ul>
+                  
+                   ))}</ul>
+                
                 </div>
-                <div className="tg-blog-details-social mb-10">
+                {/* <div className="tg-blog-details-social mb-10">
                   <span>Share:</span>
                   <Link href="#">
                     <i className="fa-brands fa-facebook-f"></i>
@@ -200,40 +200,58 @@ const BlogDetailsArea = () => {
                   <Link href="#">
                     <i className="fa-brands fa-youtube"></i>
                   </Link>
-                </div>
+                </div> */}
               </div>
-           <div className="tg-tour-about-cus-review-wrap tg-blog-details-review mb-25">
-         <ul>
-            <li className="mb-40">
-               <div className="tg-tour-about-cus-review d-flex">
-                  <div className="tg-tour-about-cus-review-thumb">
-                     {/* <Image src={comment} alt="avatar" /> */}
-                  </div>
-                  <div>
-                     <div className="tg-tour-about-cus-name">
-                        <span>Author</span>
-                        <h6>{blogDetails.author_name}</h6>
-                     </div>
-                     <p className="text-capitalize lh-28 mb-10">Finanappreciate your trust greatly Our clients choose dentace ducts because know we are the best area Awaitingare really.Seorem.</p>
-                  </div>
-               </div>
-            </li>
-         </ul>
-      </div>
-            <div className="tg-tour-about-review-form tg-blog-details-review-form">
-  <h4 className="tg-tour-about-title mb-10">FAQ</h4>
-  {loading && <p>Loading FAQs...</p>}
-  {error && <p className="text-danger">{error}</p>}
-  {!loading && !error && <Faq data={faqData} showImage={false} />}
-</div>
+              <div className="tg-tour-about-cus-review-wrap tg-blog-details-review mb-25">
+                <ul>
+                  <li className="mb-40">
+                    <div className="tg-tour-about-cus-review d-flex">
+                      <div className="tg-tour-about-cus-review-thumb">
+                        {/* <Image src={comment} alt="avatar" /> */}
+                      </div>
+                      <div>
+                        <div className="tg-tour-about-cus-name">
+                          <span>Author</span>
+                          <h6>{blogDetails.author_name}</h6>
+                        </div>
+                        <p className="text-capitalize lh-28 mb-10">
+                          Finanappreciate your trust greatly Our clients choose
+                          dentace ducts because know we are the best area
+                          Awaitingare really.Seorem.
+                        </p>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div className="tg-tour-about-review-form tg-blog-details-review-form pb-120">
+                <h4 className="tg-tour-about-title mb-10">FAQ</h4>
+                {loading && <p>Loading FAQs...</p>}
+                <Faq data={faqData} showImage={false} />
+              </div>
             </div>
           </div>
-          <div className="col-xl-3 col-lg-4">
+          <div className="col-xl-3 col-lg-4 pb-35">
             <BlogSidebar />
           </div>
         </div>
       </div>
     </div>
+  <style jsx>{`
+    .tg-blog-sidebar-tag-list ul li .tag-name-ms {
+    font-weight: 400;
+    font-size: 14px;
+    text-transform: capitalize;
+    color: var(--tg-theme-primary);
+    background: #f0e9ff;
+    border-radius: 5px;
+    padding: 4px 12px;
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 7px;
+}
+    `}</style></>
+   
   );
 };
 

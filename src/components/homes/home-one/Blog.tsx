@@ -1,39 +1,22 @@
-import Image, { StaticImageData } from "next/image"
+"use client";
+import Image from "next/image"
 import Link from "next/link"
+import { useBlogDetails } from "@/hooks/useBlogDetails";
 
-import blog_1 from "@/assets/img/blog/blog-1.jpg"
-import blog_2 from "@/assets/img/blog/blog-2.jpg"
-import blog_3 from "@/assets/img/blog/blog-3.jpg"
 
-interface DataType {
-   id: number;
-   thumb: StaticImageData;
-   tag: string;
-   title: string;
-   date: string;
-   time: string;
-}
 
-const blog_data: DataType[] = [
-   {
-      id: 1,
-      thumb: blog_2,
-      tag: "Hiking",
-      title: "Wine Country Escapes: Vineyard Tours for Connoisseurs",
-      date: "26th Sep, 2024",
-      time: "5 mins Read"
-   },
-   {
-      id: 2,
-      thumb: blog_3,
-      tag: "Adventure",
-      title: "Thrills & Chills: Extreme Sports Tours for Adrenaline",
-      date: "26th Sep, 2024",
-      time: "5 mins Read"
-   },
-];
+
 
 const Blog = () => {
+    const { blogRecentPostThree = [], loading, error } = useBlogDetails();
+      const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
+
+      const getReadingTime = (html: string) => {
+  const text = html.replace(/<[^>]+>/g, ""); // remove HTML tags
+  const words = text.trim().split(/\s+/).length;
+  const minutes = Math.max(1, Math.ceil(words / 200));
+  return `${minutes} mins Read`;
+};
    return (
       <div className="tg-blog-area pt-135 pb-170">
          <div className="container">
@@ -47,55 +30,105 @@ const Blog = () => {
                   </div>
                </div>
 
-               <div className="col-lg-5 wow fadeInLeft" data-wow-delay=".4s" data-wow-duration=".9s">
-                  <div className="tg-blog-item mb-25">
-                     <div className="tg-blog-thumb fix">
-                        <Link href="/blog-details"><Image className="w-100" src={blog_1} alt="blog" /></Link>
-                     </div>
-                     <div className="tg-blog-content  p-relative">
-                        <span className="tg-blog-tag p-absolute">Travel River</span>
-                        <h3 className="tg-blog-title"><Link href="/blog-details">Spiritual Sojourn: Pilgrimagee Tours
-                           for Soul Seekers</Link></h3>
-                        <div className="tg-blog-date">
-                           <span className="mr-20"><i className="fa-light fa-calendar"></i> 26th Sep, 2024</span>
-                           <span><i className="fa-regular fa-clock"></i> 5 mins Read</span>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+              {blogRecentPostThree.length > 0 && (
+  <div className="col-lg-5 wow fadeInLeft" data-wow-delay=".4s" data-wow-duration=".9s">
+    <div className="tg-blog-item mb-2">
+      <div className="tg-blog-thumb fix">
+        {/* Example image */}
+        <Link href={`/blog-details/${blogRecentPostThree[0].slug}`}>
+          <Image
+            src={`${imageBase}/blog/${blogRecentPostThree[0].featured_image}`}
+            alt={blogRecentPostThree[0].title}
+            width={600}
+            height={320}
+            className="w-100"
+          />
+        </Link>
+      </div>
+      <div className="tg-blog-content p-relative">
+        <span className="tg-blog-tag p-absolute">Latest</span>
 
-               <div className="col-lg-7">
-                  <div className="row">
-                     {blog_data.map((item) => (
-                        <div key={item.id} className="col-12 wow fadeInRight" data-wow-delay=".4s" data-wow-duration=".9s">
-                           <div className="tg-blog-item mb-20">
-                              <div className="row align-items-center">
-                                 <div className="col-lg-5">
-                                    <div className="tg-blog-thumb fix">
-                                       <Link href="/blog-details"><Image className="w-100" src={item.thumb} alt="blog" /></Link>
-                                    </div>
-                                 </div>
-                                 <div className="col-lg-7">
-                                    <div className="tg-blog-contents">
-                                       <span className="tg-blog-tag d-inline-block mb-10">{item.tag}</span>
-                                       <h3 className="tg-blog-title title-2 mb-0"><Link href="blog-details">{item.title}</Link></h3>
-                                       <div className="tg-blog-date">
-                                          <span className="mr-20"><i className="fa-light fa-calendar"></i>{item.date}</span>
-                                          <span><i className="fa-regular fa-clock"></i> {item.time}</span>
-                                       </div>
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     ))}
-                  </div>
-               </div>
+        <h3 className="tg-blog-title">
+           <Link href={`/blog-details/${blogRecentPostThree[0].slug}`}>
+            {blogRecentPostThree[0].title}
+          </Link>
+        </h3>
+
+        <div className="tg-blog-date">
+          <span className="mr-20">
+            <i className="fa-light fa-calendar"></i>
+            {new Date(blogRecentPostThree[0].created_at).toISOString().split("T")[0]}
+          </span>
+
+          <span>
+            <i className="fa-regular fa-clock"></i>
+            {getReadingTime(blogRecentPostThree[0].content)}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+              <div className="col-lg-7">
+  <div className="row">
+    {blogRecentPostThree.slice(1).map((item) => (
+      <div
+        key={item.blog_id}
+        className="col-12 wow fadeInRight"
+        data-wow-delay=".4s"
+        data-wow-duration=".9s"
+      >
+        <div className="tg-blog-item mb-20">
+          <div className="row align-items-center">
+            <div className="col-lg-5">
+              <div className="tg-blog-thumb fix">
+                <Link href={`/blog-details/${item.slug}`}>
+                  <Image
+                    src={`${imageBase}/blog/${item.featured_image}`}
+                    alt={item.title}
+                    width={300}
+                    height={200}
+                    className="w-100"
+                  />
+                </Link>
+              </div>
+            </div>
+
+            <div className="col-lg-7">
+              <div className="tg-blog-contents">
+                <h3 className="tg-blog-title title-2 mb-0">
+                <Link href={`/blog-details/${item.slug}`}>
+                    {item.title}
+                  </Link>
+                </h3>
+
+                <div className="tg-blog-date">
+                  <span className="mr-20">
+                    <i className="fa-light fa-calendar"></i>
+                    {new Date(item.created_at).toISOString().split("T")[0]}
+                  </span>
+
+                  <span>
+                    <i className="fa-regular fa-clock"></i>
+                    {getReadingTime(item.content)}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
 
                <div className="col-lg-12 text-center">
                     <p className="text-capitalize wow fadeInUp" data-wow-delay=".5s" data-wow-duration=".9s">Want to see our recent News & Updates. 
 
-                     <Link href="/Blog" className="hover:text-blue-500"> <strong style={{color: "#0a6a67"}}>Click Here to View More</strong></Link>
+                     <Link href="/blog-grid" className="hover:text-blue-500"> <strong style={{color: "#0a6a67"}}>Click Here to View More</strong></Link>
                     </p>
                </div>
             </div>

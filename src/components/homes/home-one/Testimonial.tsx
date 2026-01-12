@@ -18,6 +18,31 @@ export default function Testimonial() {
   const [imgSwiper, setImgSwiper] = useState<SwiperType | null>(null);
   const [textSwiper, setTextSwiper] = useState<SwiperType | null>(null);
 
+  const getInitials = (name: string) => {
+  return name
+    .replace(/&/g, "")        // remove &
+    .split(" ")               // split words
+    .filter(Boolean)          // remove empty values
+    .map(word => word[0])     // take first letter
+    .join(" ")
+    .toUpperCase();
+};
+
+const getAvatarColor = (name: string) => {
+  const colors = [
+    "#CADEF3", // red
+    "#3b82f6", // blue
+    "#eab308", // yellow
+  ];
+
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 3) - hash);
+  }
+
+  return colors[Math.abs(hash) % colors.length];
+};
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading testimonials.</p>;
 
@@ -136,8 +161,9 @@ export default function Testimonial() {
                 <p className="desc text-white">{item.description}</p>
 
                 <div className="author-block">
-                  <div className="author-avatar">
-                    <Image src={avatar} alt="author" />
+                  <div className="author-avatar"  style={{ backgroundColor: getAvatarColor(item.added_by) }}>
+                    {/* <Image src={avatar} alt="author" /> */}
+                   {getInitials(item.added_by)}
                   </div>
 
                   <div>
@@ -155,6 +181,21 @@ export default function Testimonial() {
 </div>
 
       <style jsx>{`
+      .author-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  font-size: 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+}
+
       .row{
       gap: 100px;
       }
