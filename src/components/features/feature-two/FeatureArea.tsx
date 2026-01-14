@@ -2,6 +2,7 @@
 "use client";
 
 import Image from "next/image";
+import type { ReactElement } from "react";
 import Link from "next/link";
 import ReactPaginate from "react-paginate";
 import { useEffect, useState, useCallback } from "react";
@@ -11,16 +12,15 @@ import { addToWishlist } from "@/redux/features/wishlistSlice";
 import FeatureTop from "./FeatureTop";
 import FeatureSidebar from "./FeatureSidebar";
 import BookingModal from "@/components/homes/home-one/BookingModal";
-import {
-  getPackagesByFeatureId,
-  getPackagesByFeatureType,
-} from "@/hooks/packageDetails";
-
+import { getPackagesBySlug } from "@/hooks/packageDetails";
 import CryptoJS from "crypto-js";
 
 const secretKey = "MY_PRIVATE_KEY";
+interface FeatureAreaProps {
+  slug: string;
+}
 
-export default function FeatureArea() {
+export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
   const searchParams = useSearchParams();
   const dispatch = useDispatch();
 
@@ -151,41 +151,17 @@ export default function FeatureArea() {
   //   loadData();
   // }, [searchParams]);
 
+  // 🔥 LOAD DATA BY SLUG
   useEffect(() => {
-    const encryptedDid = searchParams.get("did"); // destination_id
-    const encryptedType = searchParams.get("type"); // feature_id
-
-    let destinationId = 0;
-    let featureId = 0;
-
-    // 🔓 decrypt destination
-    if (encryptedDid) {
-      const decrypted = decryptId(encryptedDid);
-      destinationId = Number(decrypted) || 0;
-    }
-
-    // 🔓 decrypt feature
-    if (encryptedType) {
-      const decrypted = decryptId(encryptedType);
-      featureId = Number(decrypted) || 0;
-    }
-
-    // ✅ Default ONLY when nothing exists
-    if (destinationId === 0 && featureId === 0) {
-      featureId = 7;
-    }
+    if (!slug) return;
 
     async function loadData() {
       setLoading(true);
-      let data: any[] = [];
 
-      // 🔥 Destination + Feature → Activities API
-      if (destinationId > 0 && featureId > 0) {
-        data = await getPackagesByFeatureType(destinationId, featureId);
-      }
-      // 🔥 Destination only OR Feature only → Main API
-      else {
-        data = await getPackagesByFeatureId(featureId, destinationId);
+      let data = await getPackagesBySlug(slug, "feature");
+
+      if (data.length === 0) {
+        data = await getPackagesBySlug(slug, "destination");
       }
 
       setApiData(data);
@@ -195,7 +171,7 @@ export default function FeatureArea() {
     }
 
     loadData();
-  }, [searchParams]);
+  }, [slug]);
 
   const handlePageClick = ({ selected }: { selected: number }) => {
     setItemOffset(selected * itemsPerPage);
@@ -300,11 +276,7 @@ export default function FeatureArea() {
                           <div className="tg-listing-card-item mb-30">
                             {/* IMAGE */}
                             <div className="tg-listing-card-thumb fix p-relative">
-                              <Link
-                                href={`/tour-details?pid=${encodeURIComponent(
-                                  encryptId(item.package_id)
-                                )}`}
-                              >
+                              <Link href={`/packages/${item.slug}`}>
                                 <Image
                                   className="tg-card-border w-100"
                                   src={`${imgBase}/package/${item.package_code}/${item.bg_image}`}
@@ -353,11 +325,7 @@ export default function FeatureArea() {
                             <div className="tg-listing-main-content">
                               <div className="tg-listing-card-content">
                                 <h4 className="tg-listing-card-title mb-0">
-                                  <Link
-                                    href={`/tour-details?pid=${encodeURIComponent(
-                                      encryptId(item.package_id)
-                                    )}`}
-                                  >
+                                  <Link href={`/packages/${item.slug}`}>
                                     {item.package_name}
                                   </Link>
                                 </h4>

@@ -40,14 +40,13 @@ const encryptId = (id: number | string) =>
 
 const LocationBased = () => {
   const { destinations, loading, error } = usePackageForActivities();
-    const [openId, setOpenId] = useState<number | null>(null);
+  const [openId, setOpenId] = useState<number | null>(null);
   const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error loading destinations.</p>;
 
   const featureType = destinations[0]?.feature_id;
-
 
   return (
     <>
@@ -87,17 +86,16 @@ const LocationBased = () => {
             className="tg-location-su-slider custom-mobile-slider"
           >
             {destinations.map((item) => (
-              <SwiperSlide key={item.package_id}>
+              <SwiperSlide key={item.feature_type_id}>
                 <div className="tg-location-wrap">
                   <div className="tg-location-thumb">
                     <Link
-                      href={`/tour-details?pid=${encodeURIComponent(
-                        encryptId(item.package_id)
-                      )}`}
+                      href={`/holidays/${item.slug}`}
+                      rel="noopener noreferrer"
                     >
                       <Image
-                        src={`${imageBase}/package/bg/${item.bg_image}`}
-                        alt={item.package_name}
+                        src={`${imageBase}/bg/${item.bg_image}`}
+                        alt={item.name}
                         width={234}
                         height={234}
                         className="tg-round-25"
@@ -107,94 +105,93 @@ const LocationBased = () => {
                   <div className="tg-location-content tg-location-su-content">
                     <div className="tg-location-content text-center">
                       <span className="tg-location-time location-based-mukul">
-                        {item.destination_name}
+                        {item.name}
                       </span>
 
-                     <h3
-  onClick={() =>
-    setOpenId(openId === item.package_id ? null : item.package_id)
-  }
-  className={`package-title ${
-    openId === item.package_id ? "expanded" : ""
-  }`}
->
-  <span>{item.package_name}</span>
-</h3>
+                      <h3
+                        onClick={() =>
+                          setOpenId(
+                            openId === item.feature_type_id
+                              ? null
+                              : item.feature_type_id
+                          )
+                        }
+                        className={`package-title ${
+                          openId === item.feature_type_id ? "expanded" : ""
+                        }`}
+                      >
+                        <span>{item.description}</span>
+                      </h3>
                     </div>
                   </div>
                 </div>
               </SwiperSlide>
             ))}
 
- <div className="col-12">
-            <div className="text-center mt-15">
-             
+            <div className="col-12">
+              <div className="text-center mt-15">
                 <Link
-                   href={`activities?pid=${encodeURIComponent(
-                  encryptId(featureType)
-                )}`}
-                  target="_blank"
+                  href="/activities"
                   rel="noopener noreferrer"
                   className="tg-btn tg-btn-transparent tg-btn-su-transparent"
                 >
                   See More Tours
                 </Link>
+              </div>
             </div>
-          </div>
-           </Swiper>
+          </Swiper>
         </div>
       </div>
 
       {/* GLOBAL CSS APPLIED LOCALLY */}
-     <style jsx global>{`
-  @media (max-width: 768px) {
-    .custom-mobile-slider .swiper-slide {
-      width: 298px !important;
-    }
+      <style jsx global>
+        {`
+          @media (max-width: 768px) {
+            .custom-mobile-slider .swiper-slide {
+              width: 298px !important;
+            }
 
-    .custom-mobile-slider .swiper-wrapper {
-      display: flex;
-    }
+            .custom-mobile-slider .swiper-wrapper {
+              display: flex;
+            }
 
-    .tg-location-thumb img {
-      width: 100% !important;
-      height: auto !important;
-      object-fit: cover;
-      border-radius: 12px;
-    }
-  }
+            .tg-location-thumb img {
+              width: 100% !important;
+              height: auto !important;
+              object-fit: cover;
+              border-radius: 12px;
+            }
+          }
 
-  .package-title span {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;      /* collapsed height */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-}
+          .package-title span {
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* collapsed height */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+          }
 
-/* show … */
-.package-title span:after {
-  content: '...';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: #fff;
-}
+          /* show … */
+          .package-title span:after {
+            content: "...";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #fff;
+          }
 
-/* When Expanded → show full text */
-.package-title.expanded span {
-  -webkit-line-clamp: unset;
-  overflow: visible;
-}
+          /* When Expanded → show full text */
+          .package-title.expanded span {
+            -webkit-line-clamp: unset;
+            overflow: visible;
+          }
 
-.package-title.expanded span:after {
-  content: '';
-}
-
-`}
-</style>
-
+          .package-title.expanded span:after {
+            content: "";
+          }
+        `}
+      </style>
     </>
   );
 };

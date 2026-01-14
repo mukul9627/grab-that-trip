@@ -15,6 +15,7 @@ export type ApiPackage = {
   feature_name: string;
   feature_id: number;
   package_code: string;
+  slug: string;
 };
 
 export function usePurposeSection(featureId: number) {

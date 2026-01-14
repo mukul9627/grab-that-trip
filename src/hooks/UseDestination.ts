@@ -13,6 +13,7 @@ export interface Destination {
   long_description: string;
   hero_image_url: string;
   is_top_destination: boolean;
+  slug: string;
 }
 
 interface DestinationResponse {
@@ -60,4 +61,46 @@ export function useDestinations() {
   }, []);
 
   return { destinations, loading, error };
+}
+
+
+export function useDestinationsList() {
+  const [destinationsList, setDestinationsList] = useState<Destination[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const API = process.env.NEXT_PUBLIC_API_URL;
+
+    const fetchData = async () => {
+      try {
+        if (!API) {
+          setError("Missing API URL");
+          return;
+        }
+
+        const res = await axios.get<DestinationResponse>(
+          `${API}home/GetDestination/0/false`,
+          {
+            headers: { "Cache-Control": "no-cache" },
+          }
+        );
+
+        if (res.data.status === "True") {
+          setDestinationsList(res.data.data);
+        } else {
+          setError("Invalid API response");
+        }
+      } catch (err: unknown) {
+        const e = err as Error;
+        setError(e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  return { destinationsList, loading, error };
 }

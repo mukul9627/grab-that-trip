@@ -37,6 +37,7 @@ type PackageDetail = {
   tourplans: any[];
   images: any[];
   package_code: any[];
+  
 };
 
 type Review = {
@@ -115,7 +116,11 @@ type Review = {
 //   return <div id="map" style={{ width: "100%", height: "450px" }}></div>;
 // };
 
-const FeatureDetailsArea = () => {
+interface FeatureDetailsAreaProps {
+  slug: string;
+}
+
+const FeatureDetailsArea = ({ slug }: FeatureDetailsAreaProps) => {
   const searchParams = useSearchParams();
   const encryptedId = searchParams.get("pid");
 
@@ -149,28 +154,50 @@ const FeatureDetailsArea = () => {
     fetchReviews();
   }, [data]);
 
-  useEffect(() => {
-    if (!encryptedId) return;
+  // useEffect(() => {
+  //   if (!encryptedId) return;
 
-    const packageId = decryptId(encryptedId);
+  //   const packageId = decryptId(encryptedId);
 
-    async function fetchDetail() {
-      try {
-        const res = await fetch(
-          `https://gtt.dbbworldwide.com/Home/GetPackageDetail?package_id=${packageId}`,
-          { cache: "no-store" }
-        );
-        const json = await res.json();
-        setData(json.data?.[0] || null);
-      } catch (err) {
-        console.error("Detail API error:", err);
-      } finally {
-        setLoading(false);
-      }
+  //   async function fetchDetail() {
+  //     try {
+  //       const res = await fetch(
+  //         `https://gtt.dbbworldwide.com/Home/GetPackageDetailBySlug?slug=${slug}`,
+  //         { cache: "no-store" }
+  //       );
+  //       const json = await res.json();
+  //       setData(json.data?.[0] || null);
+  //     } catch (err) {
+  //       console.error("Detail API error:", err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+
+  //   fetchDetail();
+  // }, [encryptedId]);
+
+useEffect(() => {
+  if (!slug) return;
+
+  async function fetchDetail() {
+    try {
+      const res = await fetch(
+        `https://gtt.dbbworldwide.com/Home/GetPackageDetailBySlug?slug=${slug}`,
+        { cache: "no-store" }
+      );
+      const json = await res.json();
+      setData(json.data?.[0] || null);
+    } catch (err) {
+      console.error("Detail API error:", err);
+    } finally {
+      setLoading(false);
     }
+  }
 
-    fetchDetail();
-  }, [encryptedId]);
+  fetchDetail();
+}, [slug]);
+
 
   if (loading) {
     return <div className="text-center py-10">Loading package details...</div>;

@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import UseSticky from "@/hooks/UseSticky";
 import PhoneIcon from "@/svg/PhoneIcon";
 import UserIcon from "@/svg/UserIcon";
+import Whatsapp from "@/svg/Whatsapp";
 
 import logo_1 from "@/assets/img/logo/GrabThatTrip_White.svg";
 import logo_2 from "@/assets/img/logo/GrabThatTrip_Colour.svg";
@@ -31,6 +32,82 @@ const HeaderOne = () => {
     // router.push(`/search?query=${searchText}`);
 
     setShowSearchModal(false);
+  };
+
+  /* =======================
+   TYPES
+======================= */
+  type KeywordItem = {
+    id: number;
+    keywords: string;
+    is_active: boolean;
+  };
+
+  /* =======================
+     STATES
+  ======================= */
+  const [suggestions, setSuggestions] = useState<KeywordItem[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+
+  /* =======================
+     API CALL
+  ======================= */
+  const fetchKeywords = async (value: string) => {
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `https://gtt.dbbworldwide.com/Home/GetKeyWord?keyword=${value}`
+      );
+      const json = await res.json();
+
+      if (json.status === "True") {
+        setSuggestions(json.data);
+      } else {
+        setSuggestions([]);
+      }
+    } catch (error) {
+      console.error("Keyword fetch error:", error);
+      setSuggestions([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  /* =======================
+     INPUT CHANGE HANDLER
+  ======================= */
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchText(value);
+
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    // ❌ No API call before 3 letters
+    if (value.trim().length < 3) {
+      setSuggestions([]);
+      return;
+    }
+
+    // ✅ API call per letter after 3 letters
+    debounceRef.current = setTimeout(() => {
+      fetchKeywords(value);
+    }, 300);
+  };
+
+  /* =======================
+     SELECT SUGGESTION
+  ======================= */
+  const handleSelect = (keyword: string) => {
+    setSearchText(keyword);
+    setSuggestions([]);
+    setShowSearchModal(false);
+
+    // Example redirect
+    // router.push(`/search?query=${keyword}`);
   };
 
   return (
@@ -69,42 +146,61 @@ const HeaderOne = () => {
                 </div>
               </div>
 
-              {/* SEARCH — DESKTOP ONLY */}
+              {/* DESKTOP SEARCH */}
               <div className="col-lg-6 d-none d-lg-block">
-                <div className="tgmenu__navbar-wrap">
-                  <div className="mood-search-wrapper">
-                    <input
-                      type="search"
-                      className="mood-input"
-                      placeholder="enter: Mood.."
-                    />
+                <div className="mood-search-wrapper">
+                  <input
+                    type="search"
+                    className="mood-input"
+                    placeholder="enter: Mood.."
+                    value={searchText}
+                    onChange={handleInputChange}
+                  />
 
-                    <svg
-                      className="search-icon"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="11"
-                        cy="11"
-                        r="7"
-                        stroke="white"
-                        strokeWidth="2"
-                      />
-                      <line
-                        x1="20"
-                        y1="20"
-                        x2="16.65"
-                        y2="16.65"
-                        stroke="white"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                      />
-                    </svg>
-                  </div>
+                  {/* SEARCH ICON */}
+                  <svg
+                    className="search-icon"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="11"
+                      cy="11"
+                      r="7"
+                      stroke="white"
+                      strokeWidth="2"
+                    />
+                    <line
+                      x1="20"
+                      y1="20"
+                      x2="16.65"
+                      y2="16.65"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+
+                  {/* DROPDOWN */}
+                  {suggestions.length > 0 && (
+                    <ul className="search-suggestions">
+                      {suggestions.map((item) => (
+                        <li
+                          key={item.id}
+                          onClick={() => handleSelect(item.keywords)}
+                        >
+                          {item.keywords}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+
+                  {loading && (
+                    <div className="search-loading">Searching...</div>
+                  )}
                 </div>
               </div>
 
@@ -132,17 +228,42 @@ const HeaderOne = () => {
                     </span>
                   </Link>
 
+                  <Link
+                    className="d-flex"
+                    href="https://wa.me/918929919292"
+                    target="_blank"
+                    rel="noopener noreferrer"
+              
+                  >
+                    <span className="tg-header-contact-icon mr-10 d-none d-lg-block MS-phone-icon">
+                      <Whatsapp />
+                    </span>
+                  </Link>
+
+                  <Link
+                    href="https://wa.me/918929919292"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="d-flex"
+                  >
+                    <span className="tg-header-contact-icon d-lg-none mr-15">
+                      <Whatsapp />
+                    </span>
+                  </Link>
+
                   {/* LOGIN — DESKTOP */}
-                  <div className="tg-header-btn ml-20 d-none d-lg-block">
+                  {/* <div className="tg-header-btn ml-20 d-none d-lg-block">
                     <Link className="tg-btn-header mr-20" href="/#">
+
                       <UserIcon /> Login
                     </Link>
-                  </div>
+                  </div> */}
 
                   {/* LOGIN — MOBILE ICON */}
-                  <div className="mobile-login-icon d-lg-none">
+                  {/* <div className="mobile-login-icon d-lg-none">
+                   
                     <UserIcon />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -165,10 +286,9 @@ const HeaderOne = () => {
               type="text"
               className="mood-input"
               placeholder="enter: Mood.."
-              autoFocus
               value={searchText}
-              onChange={(e) => setSearchText(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+              onChange={handleInputChange}
+              autoFocus
             />
 
             <i
@@ -182,6 +302,16 @@ const HeaderOne = () => {
               onClick={handleSearch}
             />
 
+            {suggestions.length > 0 && (
+              <ul className="search-suggestions">
+                {suggestions.map((item) => (
+                  <li key={item.id} onClick={() => handleSelect(item.keywords)}>
+                    {item.keywords}
+                  </li>
+                ))}
+              </ul>
+            )}
+
             <button
               className="close-modal"
               onClick={() => setShowSearchModal(false)}
@@ -194,6 +324,26 @@ const HeaderOne = () => {
           CSS BELOW
       =========================== */}
       <style jsx>{`
+        .search-suggestions {
+          position: absolute;
+          top: 48px;
+          width: 100%;
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          z-index: 999;
+        }
+
+        .search-suggestions li {
+          padding: 10px 16px;
+          cursor: pointer;
+          color: #333;
+        }
+
+        .search-suggestions li:hover {
+          background: #f2f2f2;
+        }
+
         /* Desktop search bar */
         .mood-search-wrapper {
           position: relative;

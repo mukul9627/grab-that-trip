@@ -3,21 +3,17 @@ import FeatureArea from "./FeatureArea"
 import BreadCrumb from "./BreadCrumb"
 import BannerForm from "./BannerForm"
 
-interface FeatureTwoProps {
-  slug: string;
-}
-
-const FeatureTwo = ({ slug }: FeatureTwoProps) => {
+const FeatureSix = () => {
    return (
       <>
          <HeaderOne />
          <main>
             <BreadCrumb />
             {/* <BannerForm /> */}
-            <FeatureArea slug={slug} />
+            <FeatureArea />
          </main>
       </>
    )
 }
 
-export default FeatureTwo
+export default FeatureSix

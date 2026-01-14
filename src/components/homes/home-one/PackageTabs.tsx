@@ -15,6 +15,7 @@ type FeatureTab = {
   feature_type_id: number;
   name: string;
   package_code: string;
+  slug: string; // 👈 REQUIRED
 };
 
 type PackageItem = {
@@ -30,10 +31,13 @@ type PackageItem = {
   short_description: string;
   long_description: string;
   package_code: string;
+  slug: string;
 };
 export default function PackageTabs() {
   const [tabs, setTabs] = useState<FeatureTab[]>([]);
-  const [activeTab, setActiveTab] = useState<number>(0);
+  // const [activeTab, setActiveTab] = useState<number>(0);
+  const [activeTab, setActiveTab] = useState<FeatureTab | null>(null);
+
   const [items, setItems] = useState<PackageItem[]>([]);
   const [loading, setLoading] = useState(false);
   const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
@@ -49,24 +53,22 @@ export default function PackageTabs() {
   // 1️⃣ GET TABS FROM API
   // -------------------------------
   const [encryptedActiveTab, setEncryptedActiveTab] = useState("");
+  const activeFeatureId = activeTab?.feature_id ?? 0;
 
   useEffect(() => {
-    if (!activeTab) return;
+    if (typeof window === "undefined") return;
+    if (activeFeatureId === null) return;
 
-    // prevent SSR encryption
-    if (typeof window !== "undefined") {
-      const enc = encodeURIComponent(encryptId(activeTab));
-      setEncryptedActiveTab(enc);
-    }
-  }, [activeTab]);
+    const enc = encodeURIComponent(encryptId(activeFeatureId));
+    setEncryptedActiveTab(enc);
+  }, [activeFeatureId]);
 
   useEffect(() => {
     async function fetchTabs() {
       const res = await getFeatureTabTow();
-
-      if (res?.data?.length > 0) {
+      if (res?.data?.length) {
         setTabs(res.data);
-        setActiveTab(res.data[0].feature_id); // first tab selected
+        setActiveTab(res.data[0]);
       }
     }
     fetchTabs();
@@ -76,17 +78,17 @@ export default function PackageTabs() {
   // 2️⃣ GET PACKAGES WHEN TAB CHANGES
   // -------------------------------
   useEffect(() => {
-    if (activeTab === null) return; // ← FIX
+    if (activeFeatureId === null) return;
 
     async function loadPackages() {
       setLoading(true);
-      const pkg = await getPackagesByFeatureId(activeTab);
+      const pkg = await getPackagesByFeatureId(activeFeatureId);
       setItems(pkg);
       setLoading(false);
     }
 
     loadPackages();
-  }, [activeTab]);
+  }, [activeFeatureId]);
 
   const secretKey = "MY_PRIVATE_KEY"; // change this
   const encryptId = (id: number | string) => {
@@ -138,7 +140,7 @@ export default function PackageTabs() {
               {tabs.map((t) => (
                 <button
                   key={t.feature_id}
-                  onClick={() => setActiveTab(t.feature_id)}
+                  onClick={() => setActiveTab(t)}
                   style={{
                     background: "none",
                     border: "none",
@@ -146,8 +148,10 @@ export default function PackageTabs() {
                     fontSize: "16px",
                     cursor: "pointer",
                     position: "relative",
-                    fontWeight: activeTab === t.feature_id ? "bold" : "normal",
-                    color: activeTab === t.feature_id ? "#0A6A67" : "#333",
+                    fontWeight:
+                      activeFeatureId === t.feature_id ? "bold" : "normal",
+                    color:
+                      activeFeatureId === t.feature_id ? "#0A6A67" : "#333",
                     width: "120px", // <-- IMPORTANT: fixed tab width
                     textAlign: "center",
                   }}
@@ -167,7 +171,9 @@ export default function PackageTabs() {
                   background: "#0A6A67",
                   transition: "transform 0.3s ease",
                   transform: `translateX(${
-                    tabs.findIndex((x) => x.feature_id === activeTab) * 140
+                    tabs.findIndex(
+                      (x) => x.feature_id === activeTab?.feature_id
+                    ) * 140
                   }px)`, // 120px width + 20px gap = 140px
                 }}
               ></div>
@@ -185,7 +191,7 @@ export default function PackageTabs() {
                   {(() => {
                     // 🔥 Identify current active tab index
                     const tabIndex = tabs.findIndex(
-                      (t) => t.feature_id === activeTab
+                      (t) => t.feature_id === activeTab?.feature_id
                     );
 
                     // 🔥 RULE: Decide layout for current tab
@@ -207,7 +213,7 @@ export default function PackageTabs() {
                             <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
                               <Image
                                 // src={`${imageBase}/package/bg/${item.bg_image}`}
-                                 src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
+                                src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                                 alt={item.package_name}
                                 fill
                                 className="object-cover"
@@ -217,10 +223,7 @@ export default function PackageTabs() {
 
                               <div className="cardpackage-ms1">
                                 <Link
-                                  href={`/tour-details?pid=${encodeURIComponent(
-                                    encryptId(item.package_id)
-                                  )}`}
-                                  target="_blank"
+                                  href={`/packages/${item.slug}`}
                                   rel="noopener noreferrer"
                                 >
                                   {/* {item.package_id} */}
@@ -261,7 +264,7 @@ export default function PackageTabs() {
                                       borderRadius: "10px",
                                       padding: "10px 25px",
                                       backgroundColor: "#0A6A67",
-                                      color: "white"
+                                      color: "white",
                                     }}
                                   >
                                     BOOK NOW
@@ -281,12 +284,9 @@ export default function PackageTabs() {
                           <div key={index} className="col-lg-6 order-lg-2">
                             <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
                               <Link
-                                href={`/tour-details?pid=${encodeURIComponent(
-                                  encryptId(item.package_id)
-                                )}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
+                                  href={`/packages/${item.slug}`}
+                                  rel="noopener noreferrer"
+                                >
                                 <Image
                                   src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                                   alt={item.package_name}
@@ -333,7 +333,7 @@ export default function PackageTabs() {
                                       borderRadius: "10px",
                                       padding: "10px 25px",
                                       backgroundColor: "#0A6A67",
-                                      color: "white"
+                                      color: "white",
                                     }}
                                   >
                                     BOOK NOW
@@ -361,13 +361,10 @@ export default function PackageTabs() {
                               className="position-relative"
                               style={{ height: "223px" }}
                             >
-                              <Link
-                                href={`/tour-details?pid=${encodeURIComponent(
-                                  encryptId(item.package_id)
-                                )}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
+                               <Link
+                                  href={`/packages/${item.slug}`}
+                                  rel="noopener noreferrer"
+                                >
                                 <Image
                                   src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                                   alt={item.package_name}
@@ -441,10 +438,9 @@ export default function PackageTabs() {
 
           <div className="col-12">
             <div className="text-center mt-15">
-              {encryptedActiveTab && (
+              {activeTab?.slug && (
                 <Link
-                  href={`/holidays?type=${encryptedActiveTab}`}
-                  target="_blank"
+                  href={`/holidays/${activeTab.slug}`}
                   rel="noopener noreferrer"
                   className="tg-btn tg-btn-transparent tg-btn-su-transparent"
                 >

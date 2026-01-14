@@ -5,15 +5,22 @@ import { Suspense } from "react";
 export const metadata = {
   title: "GTT - Tour & Travel Booking",
 };
-const page = () => {
+
+interface PageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+const Page = async ({ params }: PageProps) => {
+  const { slug } = await params;
   return (
     <Wrapper>
       <Suspense fallback={<div>Loading tour details...</div>}>
-       <FeatureDetailsOne />
+        <FeatureDetailsOne slug={slug} />
       </Suspense>
-     
     </Wrapper>
-  )
-}
+  );
+};
 
-export default page
+export default Page;

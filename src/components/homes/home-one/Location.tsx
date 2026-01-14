@@ -93,16 +93,14 @@ const Location = () => {
             >
               {destinations.map((item) => (
                 <SwiperSlide key={item.destination_id}>
-                  <div className="tg-location-3-wrap p-relative mb-30 tg-round-25">
-                    <div className="tg-location-thumb tg-round-25">
-                      {/* <h1>{item.destination_id}</h1> */}
-                      <Link
-                        href={`/holidays?pid=${encodeURIComponent(
-                          encryptId(item.destination_id)
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                  <Link
+                    href={`/holidays/${item.slug}`}
+                    rel="noopener noreferrer"
+                  >
+                    <div className="tg-location-3-wrap p-relative mb-30 tg-round-25">
+                      <div className="tg-location-thumb tg-round-25">
+                        {/* <h1>{item.destination_id}</h1> */}
+
                         <Image
                           src={`${imageBase}/bg/${item.hero_image_url}`}
                           alt={item.name}
@@ -110,19 +108,15 @@ const Location = () => {
                           height={330}
                           className="tg-round-25"
                         />
-                      </Link>
-                    </div>
+                      </div>
 
-                    <div className="tg-location-content tg-location-su-content">
-                      <div className="content">
-                        <Link
-                          href={`/holidays?did=${encodeURIComponent(
-                            encryptId(item.destination_id)
-                          )}`}
-                          target="_blank"
+                      <div className="tg-location-content tg-location-su-content">
+                        <div className="content">
+                          {/* <Link
+                          href={`/holidays/${item.name}`}
+                          
                           rel="noopener noreferrer"
-                        >
-                          {" "}
+                        > */}{" "}
                           <h3 className="tg-location-title mb-5">
                             {item.name}
                             {/* {item.destination_id} */}
@@ -130,17 +124,15 @@ const Location = () => {
                           <span className="tg-location-su-duration">
                             {item.country}
                           </span>
-                        </Link>
-                      </div>
+                          {/* </Link> */}
+                        </div>
 
-                      <Link
+                        {/* <Link
                         className="icons"
-                        href={`/holidays?did=${encodeURIComponent(
-                          encryptId(item.destination_id)
-                        )}`}
-                        target="_blank"
+                        href={`/holidays/${item.name}`}
+                        
                         rel="noopener noreferrer"
-                      >
+                      > */}
                         <svg
                           width="16"
                           height="16"
@@ -155,11 +147,23 @@ const Location = () => {
                             strokeLinejoin="round"
                           />
                         </svg>
-                      </Link>
+                        {/* </Link> */}
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </SwiperSlide>
               ))}
+              <div className="col-12">
+                <div className="text-center mt-15">
+                  <Link
+                    href="/destinations"
+                    rel="noopener noreferrer"
+                    className="tg-btn tg-btn-transparent tg-btn-su-transparent"
+                  >
+                    See More Tours
+                  </Link>
+                </div>
+              </div>
             </Swiper>
           </div>
         </div>

@@ -19,11 +19,12 @@ const encryptId = (id: number | string) => {
   return CryptoJS.AES.encrypt(id.toString(), secretKey).toString();
 };
 export default function PurposeSection() {
-  const [featureId, setFeatureId] = useState<number>(7);
-  const [selectedFilter, setSelectedFilter] = useState<number | string>("7");
+  const [featureId, setFeatureId] = useState<number>(0);
+  const [selectedFilter, setSelectedFilter] = useState<number>(0);
   const [tabs, setTabs] = useState<any[]>([]);
   const [encryptedParam, setEncryptedParam] = useState<string>("");
   const [openId, setOpenId] = useState<number | null>(null);
+  const [selectedSlug, setSelectedSlug] = useState<string>("");
 
   // ⬅️ Reusable HOOK
   const { listingData, loading } = usePurposeSection(featureId);
@@ -50,8 +51,9 @@ export default function PurposeSection() {
       setTabs(list);
 
       if (list.length > 0) {
-        setSelectedFilter(list[0].id);
         setFeatureId(list[0].id);
+        setSelectedFilter(list[0].id);
+        setSelectedSlug(list[0].slug); // ✅ DEFAULT SLUG
       }
     }
 
@@ -131,6 +133,20 @@ export default function PurposeSection() {
             data-wow-delay=".5s"
             data-wow-duration=".9s"
           >
+            {/* {tabs.map((tab: any) => (
+              <button
+                key={tab.id}
+                className={selectedFilter === tab.id ? "active" : ""}
+                onClick={() => {
+                  setSelectedFilter(tab.id);
+                  setFeatureId(tab.id);
+                }}
+              >
+                <span className="borders"></span>
+                <span>{tab.title}</span>
+              </button>
+            ))} */}
+
             {tabs.map((tab: any) => (
               <button
                 key={tab.id}
@@ -138,6 +154,7 @@ export default function PurposeSection() {
                 onClick={() => {
                   setSelectedFilter(tab.id);
                   setFeatureId(tab.id);
+                  setSelectedSlug(tab.slug); // ✅ THIS FIXES IT
                 }}
               >
                 <span className="borders"></span>
@@ -189,14 +206,10 @@ export default function PurposeSection() {
                   <div className="card card-purpose">
                     <div className="tg-listing-card-thumb fix mb-13 p-relative ms-desktop-view ms-mobile-view">
                       <Link
-                        href={`/tour-details?pid=${encodeURIComponent(
-                          encryptId(item.package_id)
-                        )}`}
-                        target="_blank"
+                        href={`/packages/${item.slug}`}
                         rel="noopener noreferrer"
                       >
                         <Image
-                          // src={`${imageBase}/package/bg/${item.bg_image}`}
                           src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                           alt={item.package_name}
                           fill
@@ -221,8 +234,7 @@ export default function PurposeSection() {
                         </div>
                       </div>
                     </div>
-                    <div
-                      className="tg-listing-card-content ms-mobile-title">
+                    <div className="tg-listing-card-content ms-mobile-title">
                       <div className="tg-listing-card-review flex items-center justify-between space tg-listing-card-review-mukul pb-1">
                         <span className="tg-listing-card-duration-time">
                           {item.days} Days
@@ -305,6 +317,7 @@ export default function PurposeSection() {
                       </div>
                     </div>
                   </div>
+
                   {/* MY code end */}
                 </SwiperSlide>
               ))}
@@ -319,17 +332,16 @@ export default function PurposeSection() {
         )}
 
         <div className="col-12">
-          <div className="text-center mt-15">
-            {encryptedParam && (
+          <div className="text-center mt-15 mobile-mt-75 ">
+            {selectedSlug && (
               <Link
-                href={`/holidays?type=${encryptedParam}`}
-                target="_blank"
+                href={`/holidays/${selectedSlug}`}
                 rel="noopener noreferrer"
                 className="tg-btn tg-btn-transparent tg-btn-su-transparent tg-btn-su-transparent-ms"
               >
                 See More Tours
               </Link>
-            )}{" "}
+            )}
           </div>
         </div>
       </section>
@@ -347,14 +359,17 @@ export default function PurposeSection() {
         }
 
         @media (max-width: 575px) {
+          .mobile-mt-75 {
+            margin-top: 75px;
+          }
           .ms-mobile-view {
-    width: 406px;
-    height: 284px;
-  }
+            width: 406px;
+            height: 284px;
+          }
 
-  .ms-mobile-title {
-    width: 403px;
-  }
+          .ms-mobile-title {
+            width: 403px;
+          }
           .card-purpose {
             width: 100%;
           }

@@ -1,4 +1,4 @@
-import FeatureTwo from "@/components/features/feature-two";
+import FeatureSix from "@/components/features/feature-six";
 import Wrapper from "@/layouts/Wrapper";
 import { Suspense } from "react";
 
@@ -10,7 +10,7 @@ const Page = () => {
   return (
     <Wrapper>
       <Suspense fallback={<div>Loading...</div>}>
-        <FeatureTwo />
+        <FeatureSix/>
       </Suspense>
     </Wrapper>
   );

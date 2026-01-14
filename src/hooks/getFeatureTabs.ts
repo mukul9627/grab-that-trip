@@ -6,6 +6,12 @@ type FeatureTabsApiResponse = {
     name: string;
     slug: string;
     display_order: number;
+     is_active: number;
+            icon_image: string;
+            bg_image: string;
+            feature_type: string;
+            gtt_package_features: string;
+            articles: string;
   }[];
 };
 

@@ -115,9 +115,18 @@ const FooterOne = () => {
                               </li>
                              <li>
   <p className="mb-0 d-flex align-items-center gap-2">
+  <a
+     href="https://mail.google.com/mail/?view=cm&to=info@grabthattrip.com"
+  target="_blank"
+  rel="noopener noreferrer"
+    className="d-flex align-items-center gap-2 text-white text-decoration-none"
+  >
     <i className="fas fa-envelope text-white"></i>
     <span className="text-white">info@grabthattrip.com</span>
-  </p>
+  </a>
+</p>
+
+
 </li>
 
                            </ul>
