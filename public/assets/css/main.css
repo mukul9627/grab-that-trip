@@ -6757,7 +6757,7 @@ textarea {
   font-size: 14px;
   text-transform: capitalize;
   color: var(--tg-theme-primary);
-  background: #f0e9ff;
+  background: #e6fffe;
   border-radius: 5px;
   padding: 4px 12px;
   display: inline-block;
@@ -7252,13 +7252,13 @@ textarea {
 }
 .tg-footer-widget p {
   line-height: 24px;
-  text-transform: capitalize;
+  text-transform: inherit;
   color: #acadb5;
   font-size: 15px;
 }
 .tg-footer-widget-title {
   font-size: 20px;
-  text-transform: capitalize;
+  text-transform: inherit;
   color: var(--tg-common-white);
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {

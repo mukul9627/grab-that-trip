@@ -230,7 +230,7 @@ useEffect(() => {
                     <i className="fa-sharp fa-solid fa-angle-right"></i>
                   </li>
                   <li>
-                    <Link href="/tour-grid-1">Tour Grid</Link>
+                    <Link href="#">Packages</Link>
                   </li>
                   <li>
                     <i className="fa-sharp fa-solid fa-angle-right"></i>

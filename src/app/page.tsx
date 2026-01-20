@@ -10,6 +10,7 @@ const page = () => {
       <HomeOne />
     </Wrapper>
   )
+  
 }
 
 export default page 

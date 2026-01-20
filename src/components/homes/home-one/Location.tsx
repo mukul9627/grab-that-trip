@@ -112,11 +112,6 @@ const Location = () => {
 
                       <div className="tg-location-content tg-location-su-content">
                         <div className="content">
-                          {/* <Link
-                          href={`/holidays/${item.name}`}
-                          
-                          rel="noopener noreferrer"
-                        > */}{" "}
                           <h3 className="tg-location-title mb-5">
                             {item.name}
                             {/* {item.destination_id} */}
@@ -124,15 +119,8 @@ const Location = () => {
                           <span className="tg-location-su-duration">
                             {item.country}
                           </span>
-                          {/* </Link> */}
                         </div>
 
-                        {/* <Link
-                        className="icons"
-                        href={`/holidays/${item.name}`}
-                        
-                        rel="noopener noreferrer"
-                      > */}
                         <svg
                           width="16"
                           height="16"
@@ -147,7 +135,6 @@ const Location = () => {
                             strokeLinejoin="round"
                           />
                         </svg>
-                        {/* </Link> */}
                       </div>
                     </div>
                   </Link>

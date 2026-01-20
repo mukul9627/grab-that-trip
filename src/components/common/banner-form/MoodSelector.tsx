@@ -128,7 +128,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
         <>
           <div className="card-underline">.</div>
 {/* {selectedMood.slug} */}
-        <Link href={`/holidays/${selectedMood.slug}`} target="_blank">
+        <Link href={`/holidays/${selectedMood.slug}`}>
   <div className="flex md:justify-end find-my-destination-button-div">
     <button className="find-my-destination-button btn-active">
       Search Package

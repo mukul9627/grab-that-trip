@@ -296,8 +296,11 @@ export default function PackageTabs() {
                               </Link>
 
                               <div className="cardpackage-ms" />
-
-                              <div className="cardpackage-ms1">
+ <Link
+                                  href={`/packages/${item.slug}`}
+                                  rel="noopener noreferrer"
+                                >
+                                   <div className="cardpackage-ms1">
                                 <div>
                                   <p className="fw-semibold small mb-1 text-end">
                                     {item.days > 1 && `${item.days - 1} Nights`}{" "}
@@ -340,6 +343,8 @@ export default function PackageTabs() {
                                   </button>
                                 </div>
                               </div>
+                                </Link>
+                             
                             </div>
                           </div>
                         );

@@ -170,7 +170,7 @@ const HeaderOne = () => {
                       cx="11"
                       cy="11"
                       r="7"
-                      stroke="white"
+                      stroke="currentColor"
                       strokeWidth="2"
                     />
                     <line
@@ -178,7 +178,7 @@ const HeaderOne = () => {
                       y1="20"
                       x2="16.65"
                       y2="16.65"
-                      stroke="white"
+                      stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"
                     />
@@ -216,7 +216,7 @@ const HeaderOne = () => {
                   </div>
 
                   {/* PHONE ICON */}
-                  <Link className="d-flex" href="tel:+918929919292 ">
+                  {/* <Link className="d-flex" href="tel:+918929919292 ">
                     <span className="tg-header-contact-icon mr-10 d-none d-lg-block MS-phone-icon">
                       <PhoneIcon />
                     </span>
@@ -226,22 +226,25 @@ const HeaderOne = () => {
                     <span className="tg-header-contact-icon d-lg-none mr-15 ">
                       <PhoneIcon />
                     </span>
-                  </Link>
+                  </Link> */}
 
                   <Link
-                    className="d-flex"
-                    href="https://wa.me/918929919292"
+                    href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                      `Hi, I’m planning a trip and would like to know about your packages.`
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-              
+                    className="d-flex"
                   >
                     <span className="tg-header-contact-icon mr-10 d-none d-lg-block MS-phone-icon">
-                      <Whatsapp />
+                      <Whatsapp className="headerone-home-ms mb-1 ml-3" />
                     </span>
                   </Link>
 
                   <Link
-                    href="https://wa.me/918929919292"
+                    href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                      `Hi, I’m planning a trip and would like to know about your packages.`
+                    )}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="d-flex"
@@ -324,6 +327,15 @@ const HeaderOne = () => {
           CSS BELOW
       =========================== */}
       <style jsx>{`
+
+      .header-sticky .headerone svg {
+    margin-left: 1px !important;
+    margin-top: -3px !important;
+}
+          .headerone-home-ms svg {
+          margin-left: 1px !important;
+          margin-top: -2px !important;
+        }
         .search-suggestions {
           position: absolute;
           top: 48px;
@@ -355,7 +367,7 @@ const HeaderOne = () => {
         .mood-input {
           width: 100%;
           height: 60%;
-          padding: 13px 55px 16px 24px;
+          padding: 13px 55px 16px 13px;
           -webkit-border-radius: 999px;
           -moz-border-radius: 999px;
           border-radius: 999px;
@@ -373,6 +385,17 @@ const HeaderOne = () => {
           right: 22px;
           top: 50%;
           transform: translateY(-50%);
+        }
+
+        /* Normal header (default) */
+        .search-icon {
+          color: white;
+          transition: color 0.3s ease;
+        }
+
+        /* Sticky header */
+        .header-sticky .search-icon {
+          color: black;
         }
 
         /* Sticky header overrides */

@@ -1,33 +1,85 @@
-"use client"
 import "../styles/index.css";
 import "../../public/assets/scss/main.scss";
-import { Provider } from "react-redux";
-import store from "@/redux/store";
+import Script from "next/script";
+import Providers from "./providers";
+
+export const metadata = {
+  title: "Grab That Trip - Tour & Travel Booking",
+  description: "Grab That Trip is a Modern Tour & Travel Booking Platform",
+  keywords: ["travel booking", "tour packages", "Grab That Trip"],
+  verification: {
+    google: "nyhlmGhnEPLi551_V46J-0PTtEey2XTL6fs9QXH6W14",
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-
-  const isDev = process.env.NODE_ENV === 'development'
-
   return (
-    <html lang="en" suppressHydrationWarning={isDev}>
+    <html lang="en">
       <head>
-        <meta name="keywords" content="Grab That Trip - Tour & Travel Booking" />
-        <meta name="description" content="Grab That Trip is a Modern Tour & Travel Booking." />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        {/* For IE  */}
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <link rel="icon" href="/GrabThatTrip_Colour.svg" sizes="any" />
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Outfit:wght@100..900&display=swap" />
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+          name="robots"
+          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+        />
+        <meta property="og:type" content="website"></meta>
+
+        {/* <!-- Google tag (gtag.js) --> */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-2PVSFQMRLR"
+        ></script>
+        <script>
+          {` window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-2PVSFQMRLR');`}
+        </script>
+        {/* 🔹 Google Tag Manager */}
+        <Script id="gtm-script" strategy="afterInteractive">
+          {`
+            (function(w,d,s,l,i){w[l]=w[l]||[];
+            w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
+            var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+            j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;
+            f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-NGC3CW2J');
+          `}
+        </Script>
+
+        <meta
+          name="google-site-verification"
+          content="nyhlmGhnEPLi551_V46J-0PTtEey2XTL6fs9QXH6W14"
+        />
+
+        <link rel="icon" href="/GrabThatTrip_Colour.jpg" sizes="any" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&family=Outfit:wght@100..900&display=swap"
+        />
       </head>
-      <body suppressHydrationWarning={true}>
-        <Provider store={store}>
-          {children}
-        </Provider>
+
+      <body>
+        {/* 🔹 GTM noscript */}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-NGC3CW2J"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
+        {/* ✅ Client Providers */}
+        <Providers>{children}</Providers>
       </body>
     </html>
-  )
+  );
 }

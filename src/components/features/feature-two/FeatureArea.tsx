@@ -10,10 +10,14 @@ import { useSearchParams } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { addToWishlist } from "@/redux/features/wishlistSlice";
 import FeatureTop from "./FeatureTop";
-import FeatureSidebar from "./FeatureSidebar";
+import Whatsapp from "@/svg/Whatsapp";
+// import FeatureSidebar from "./FeatureSidebar";
+import FeatureSidebar, { FeatureSidebarTow } from "./FeatureSidebar";
+
 import BookingModal from "@/components/homes/home-one/BookingModal";
 import { getPackagesBySlug } from "@/hooks/packageDetails";
 import CryptoJS from "crypto-js";
+import WhatsApp from "@/assets/img/cart/whatsapp_1.svg";
 
 const secretKey = "MY_PRIVATE_KEY";
 interface FeatureAreaProps {
@@ -205,7 +209,8 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
         <div className="container">
           <div className="row">
             {/* SIDEBAR */}
-            <div className=" d-none d-md-none"></div>
+            {/* DESKTOP SIDEBAR */}
+
             <FeatureSidebar
               fullData={apiData}
               setProducts={setFilteredData}
@@ -219,18 +224,21 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
                 <div className="d-block d-lg-none mb-20 filter-btn-bar">
                   <div className="d-flex gap-2">
                     <button
-                      className="btn btn-outline-primary flex-fill"
-                      onClick={() => setIsFilterOpen(true)}
+                      className="btn btn-outline-primary w-50"
+                      onClick={() => {
+                        // alert("Filter clicked"); // THIS WILL FIRE
+                        setIsFilterOpen(true);
+                      }}
                     >
                       <i className="fa-solid fa-filter mr-5"></i> Filter
                     </button>
 
-                    <button
+                    {/* <button
                       className="btn btn-outline-danger flex-fill"
                       onClick={() => setIsFilterOpen(false)}
                     >
                       <i className="fa-solid fa-xmark mr-5"></i> Close
-                    </button>
+                    </button> */}
                   </div>
                 </div>
 
@@ -377,12 +385,34 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
                                     Book Now
                                   </span>
                                 </div>
-
-                                <div className="tg-listing-card-review-mukul space">
-                                  <span className="tg-listing-rating-icon-mukul ">
-                                    <i className="fa-sharp fa-solid fa-phone"></i>
-                                  </span>
-                                </div>
+                                <Link
+                                  href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                                    `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`
+                                  )}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="d-flex"
+                                >
+                                  <div className="tg-listing-card-review-mukul space">
+                                    <span
+                                      className="tg-listing-rating-icon-mukul"
+                                      style={{
+                                        cursor: "pointer",
+                                        position: "relative",
+                                        width: "28px",
+                                        height: "28px",
+                                      }}
+                                    >
+                                      <Image
+                                        src={WhatsApp}
+                                        alt={item?.package_name || "WhatsApp"}
+                                        fill
+                                        sizes="28px"
+                                        className="object-cover"
+                                      />
+                                    </span>
+                                  </div>
+                                </Link>
                               </div>
                             </div>
                           </div>
@@ -412,30 +442,15 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
           </div>
         </div>
 
-        {/* MOBILE FILTER MODAL */}
         {isFilterOpen && (
-          <div className="filter-modal-overlay">
-            <div className="filter-modal">
-              <div className="filter-modal-header">
-                <h5>Filters</h5>
-                <button
-                  className="filter-close-btn"
-                  onClick={() => setIsFilterOpen(false)}
-                >
-                  <i className="fa-solid fa-xmark"></i>
-                </button>
-              </div>
-
-              <FeatureSidebar
-                fullData={apiData}
-                setProducts={(data) => {
-                  setFilteredData(data);
-                  setIsFilterOpen(false);
-                }}
-                resetPage={() => setItemOffset(0)}
-              />
-            </div>
-          </div>
+          <FeatureSidebarTow
+            fullData={apiData}
+            setProducts={(data) => {
+              setFilteredData(data);
+            }}
+            resetPage={() => setItemOffset(0)}
+            onClose={() => setIsFilterOpen(false)}
+          />
         )}
       </div>
 

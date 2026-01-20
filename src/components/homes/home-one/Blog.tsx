@@ -35,7 +35,7 @@ const Blog = () => {
     <div className="tg-blog-item mb-2">
       <div className="tg-blog-thumb fix">
         {/* Example image */}
-        <Link href={`/blog-details/${blogRecentPostThree[0].slug}`}>
+        <Link href={`/blog/${blogRecentPostThree[0].slug}`}>
           <Image
             src={`${imageBase}/blog/${blogRecentPostThree[0].featured_image}`}
             alt={blogRecentPostThree[0].title}
@@ -49,7 +49,7 @@ const Blog = () => {
         <span className="tg-blog-tag p-absolute">Latest</span>
 
         <h3 className="tg-blog-title">
-           <Link href={`/blog-details/${blogRecentPostThree[0].slug}`}>
+           <Link href={`/blog/${blogRecentPostThree[0].slug}`}>
             {blogRecentPostThree[0].title}
           </Link>
         </h3>
@@ -84,7 +84,7 @@ const Blog = () => {
           <div className="row align-items-center">
             <div className="col-lg-5">
               <div className="tg-blog-thumb fix">
-                <Link href={`/blog-details/${item.slug}`}>
+                <Link href={`/blog/${item.slug}`}>
                   <Image
                     src={`${imageBase}/blog/${item.featured_image}`}
                     alt={item.title}
@@ -99,7 +99,7 @@ const Blog = () => {
             <div className="col-lg-7">
               <div className="tg-blog-contents">
                 <h3 className="tg-blog-title title-2 mb-0">
-                <Link href={`/blog-details/${item.slug}`}>
+                <Link href={`/blog/${item.slug}`}>
                     {item.title}
                   </Link>
                 </h3>
@@ -128,7 +128,7 @@ const Blog = () => {
                <div className="col-lg-12 text-center">
                     <p className="text-capitalize wow fadeInUp" data-wow-delay=".5s" data-wow-duration=".9s">Want to see our recent News & Updates. 
 
-                     <Link href="/blog-grid" className="hover:text-blue-500"> <strong style={{color: "#0a6a67"}}>Click Here to View More</strong></Link>
+                     <Link href="/blogs" className="hover:text-blue-500"> <strong style={{color: "#0a6a67"}}>Click Here to View More</strong></Link>
                     </p>
                </div>
             </div>

@@ -6,7 +6,7 @@ import PurposeSection from "./PurposeSection";
 import Testimonial from "./Testimonial";
 import Blog from "./Blog";
 import Cta2 from "./CtaTow";
-import Cta1 from "./Cta"
+import Cta1 from "./Cta";
 import HeroSection1 from "./CardSection";
 import LocationBased from "./LocationBased";
 import PackageTabs from "./PackageTabs";
@@ -25,11 +25,10 @@ const HomeOne = () => {
         <HeroSection1 />
         <PackageTabs />
         <LocationBased />
-         <Testimonial />
-         <Blog />
-         <Cta1 />
-         <Faq  data={homeFaqData}
-      showImage={true} isHome/>
+        <Testimonial />
+        <Blog />
+        <Cta1 />
+        <Faq data={homeFaqData} showImage={true} isHome />
       </main>
       <FooterOne />
     </>

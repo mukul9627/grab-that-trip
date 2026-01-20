@@ -43,7 +43,7 @@ const BlogArea = () => {
                     className="col-xl-6 col-lg-12 col-md-6"
                   >
                     <div className="tg-blog-grid-item mb-30">
-                      <Link href={`/blog-details/${item.slug}`}>
+                      <Link href={`/blog/${item.slug}`}>
                         <Image
                           src={`${imageBase}/blog/${item.featured_image}`}
                           alt={item.title}
@@ -54,7 +54,7 @@ const BlogArea = () => {
                       </Link>
 {/* {item.slug}  */}
                       <h2 className="tg-blog-standard-title mt-15">
-                        <Link href={`/blog-details/${item.slug}`}>
+                        <Link href={`/blog/${item.slug}`}>
                           {item.title}
                         </Link>
                       </h2>
@@ -62,7 +62,7 @@ const BlogArea = () => {
                       <p>{item.short_description}</p>
 
                       <Link
-                        href={`/blog-details/${item.slug}`}
+                        href={`/blog/${item.slug}`}
                         className="tg-btn"
                       >
                         <Button text="Read More" />

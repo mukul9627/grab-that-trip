@@ -103,7 +103,7 @@ export default function FAQSection({ data, showImage = true, image,isHome }: Pro
                       </h2>
 
                       <div className={`faq-content ${item.open ? "open" : ""}`}>
-                        <div className="accordion-body">
+                        <div className="accordion-body accordion-body-body-ms ">
                           <p>{item.description}</p>
                         </div>
                       </div>
@@ -118,6 +118,9 @@ export default function FAQSection({ data, showImage = true, image,isHome }: Pro
 
       {/* STYLES */}
       <style jsx>{`
+      .accordion-body-body-ms p{
+      text-transform: none;
+      }
       .mukul-padding{
       padding-top: 135px;
       padding-bottom: 200px;

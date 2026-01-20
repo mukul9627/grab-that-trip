@@ -119,7 +119,7 @@ export async function fetchBlogCategory(): Promise<BlogCategory[]> {
 }
 
 export async function fetchBlogRecentPost(): Promise<BlogRecentPost[]> {
-  const res = await fetch(`${BASE_URL}Home/GetRecentBlog?top=4`);
+  const res = await fetch(`${BASE_URL}Home/GetRecentBlog?top=3`);
   const json = await res.json();
   return json?.status === "True" ? json.data : [];
 }

@@ -10,7 +10,7 @@ const BlogDetails = () => {
     <>
       <HeaderOne />
       <main>
-        <BreadCrumb title="Blog Details" sub_title="Exploring The Green Spac Realar Residence Area Harmony" />
+        <BreadCrumb title="Blog" sub_title="Blog" />
         <BlogDetailsArea />
       </main>
       <FooterOne />
