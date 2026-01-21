@@ -252,10 +252,9 @@ useEffect(() => {
                 <h2 className="mb-10">{data.name}</h2>
                 <div className="tg-tour-details-video-location d-flex flex-wrap">
                   <span className="mr-25">
-                    <i className="fa-regular fa-location-dot"></i> Street
-                    Bintage,Veins City, italy
+                    <i className="fa-regular fa-location-dot"></i> {data.short_description}
                   </span>
-                  <div className="tg-tour-details-video-ratings">
+                  {/* <div className="tg-tour-details-video-ratings">
                     <span>
                       <i className="fa-sharp fa-solid fa-star"></i>
                     </span>
@@ -272,7 +271,7 @@ useEffect(() => {
                       <i className="fa-sharp fa-solid fa-star"></i>
                     </span>
                     <span className="review">(5 Reviews)</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -451,8 +450,10 @@ useEffect(() => {
                   <AboutText data={data} />
                   <div className="tg-tour-about-border mb-40"></div>
                   {data && <Included inclusions={data.inclusions} />}
+                  
 
                   <div className="tg-tour-about-border mb-40"></div>
+                  {/* Tour Plan */}
                   {data && <Faq tourplans={data.tourplans} />}
                   <div className="tg-tour-about-border mb-45"></div>
                   {/* ---------- MULTIPLE LOCATIONS MAP ---------- */}
@@ -460,15 +461,16 @@ useEffect(() => {
                     <h4 className="tg-tour-about-title mb-15">Location</h4>
                     {/* <MapMultipleLocations tourplans={data.tourplans} /> */}
                   </div>
-                  <div className="tg-tour-about-border mb-45"></div>
-                  <Review />
+                  {/* <div className="tg-tour-about-border mb-45"></div>
+                  <Review /> */}
                   <div className="tg-tour-about-border mb-35"></div>
+                  {/* ReviewDetails */}
                   <ReviewDetails reviews={reviews} />
                   <div className="tg-tour-about-border mb-45"></div>
                   {/* <ReviewFormArea /> */}
                 </div>
               </div>
-<Faqsection />
+{/* <Faqsection /> */}
             </div>
             <div className="col-xl-4 col-lg-4">
               <div className="tg-tour-about-sidebar tg-tour-about-sidebar-ms top-sticky mb-200">

@@ -66,7 +66,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body>
+      <body cz-shortcut-listen="true">
         {/* 🔹 GTM noscript */}
         <noscript>
           <iframe

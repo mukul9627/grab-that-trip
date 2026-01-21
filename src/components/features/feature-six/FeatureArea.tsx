@@ -116,8 +116,8 @@ export default function FeatureArea() {
                         className="col-xxl-4 col-xl-6 col-lg-6 col-md-6"
                       >
                         <div className="tg-listing-card-item mb-30" style={{boxShadow: '0 0 9px 7px lightgray'}}>
-                          <div className="tg-listing-card-thumb">
-                            <Link href={`/holidays/${item.slug}`}>
+                         <Link href={`/holidays/${item.slug}`}>  <div className="tg-listing-card-thumb">
+                           
                               <Image
                                 src={`${imgBase}/bg/${item.hero_image_url}`}
                                 alt={item.name}
@@ -125,8 +125,8 @@ export default function FeatureArea() {
                                 height={240}
                                 className="w-100"
                               />
-                            </Link>
-                          </div>
+                           
+                          </div> </Link>
 
                           <div className="tg-listing-main-content" style={{padding: '17px'}}>
                             <h4 className="mb-1 ml-12 tg-location-time" style={{position: "relative", left: '4rem',top: '-19px' ,fontSize: '22px'}}>

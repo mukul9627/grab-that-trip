@@ -9,6 +9,7 @@ import { getFeatureTabTow } from "@/hooks/getFeatureTabTow";
 import { addToWishlist } from "@/redux/features/wishlistSlice";
 import { getPackagesByFeatureId } from "@/hooks/getPackagesByFeatureId";
 import BookingModal from "./BookingModal";
+import WhatsApp from "@/assets/img/cart/whatsapp_1.svg";
 
 type FeatureTab = {
   feature_id: number;
@@ -211,6 +212,10 @@ export default function PackageTabs() {
                         return (
                           <div key={index} className="col-lg-6 order-lg-1">
                             <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
+                              {/* <Link
+                                href={`/packages/${item.slug}`}
+                                rel="noopener noreferrer"
+                              > */}{" "}
                               <Image
                                 // src={`${imageBase}/package/bg/${item.bg_image}`}
                                 src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
@@ -218,9 +223,8 @@ export default function PackageTabs() {
                                 fill
                                 className="object-cover"
                               />
-
+                              {/* </Link> */}
                               <div className="cardpackage-ms" />
-
                               <div className="cardpackage-ms1">
                                 <Link
                                   href={`/packages/${item.slug}`}
@@ -248,27 +252,65 @@ export default function PackageTabs() {
                                 </Link>
 
                                 <div className="d-flex align-items-center justify-content-between">
-                                  <div>
-                                    <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
-                                      INR {item.offer_price}
-                                    </h3>
-                                    <p className="small mt-1">
-                                      OFFER PRICE PER PERSON
-                                    </p>
-                                  </div>
-
-                                  <button
-                                    onClick={() => openBookingPopup(item)}
-                                    className="btn btn-light fw-semibold"
-                                    style={{
-                                      borderRadius: "10px",
-                                      padding: "10px 25px",
-                                      backgroundColor: "#0A6A67",
-                                      color: "white",
-                                    }}
+                                  <Link
+                                    href={`/packages/${item.slug}`}
+                                    rel="noopener noreferrer"
                                   >
-                                    BOOK NOW
-                                  </button>
+                                    {" "}
+                                    <div>
+                                      <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
+                                        INR {item.offer_price}
+                                      </h3>
+                                      <p className="small mt-1">
+                                       PER PERSON
+                                      </p>
+                                    </div>
+                                  </Link>
+
+                                  <div className="d-flex flex-column">
+                                    <Link
+                                      href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                                        `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`
+                                      )}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="d-flex"
+                                    >
+                                      <div className="tg-listing-card-review-mukul space whatsapp-icon-custom-css">
+                                        <span
+                                          className="tg-listing-rating-icon-mukul"
+                                          style={{
+                                            cursor: "pointer",
+                                            position: "relative",
+                                            width: "43px",
+                                            height: "28px",
+                                          }}
+                                        >
+                                          <Image
+                                            src={WhatsApp}
+                                            alt={
+                                              item?.package_name || "WhatsApp"
+                                            }
+                                            fill
+                                            sizes="28px"
+                                            className="object-cover"
+                                          />
+                                        </span>
+                                      </div>
+                                    </Link>
+                                    <button
+                                      onClick={() => openBookingPopup(item)}
+                                      className="btn btn-light fw-semibold"
+                                      style={{
+                                        borderRadius: "10px",
+                                        padding: "10px 25px",
+                                        backgroundColor: "#0A6A67",
+                                        color: "white",
+                                      }}
+                                    >
+                                      BOOK NOW
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
                             </div>
@@ -284,9 +326,9 @@ export default function PackageTabs() {
                           <div key={index} className="col-lg-6 order-lg-2">
                             <div className="tg-tour-details-video-thumb mb-15 leftimg-cardpackage">
                               <Link
-                                  href={`/packages/${item.slug}`}
-                                  rel="noopener noreferrer"
-                                >
+                                href={`/packages/${item.slug}`}
+                                rel="noopener noreferrer"
+                              >
                                 <Image
                                   src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                                   alt={item.package_name}
@@ -296,55 +338,95 @@ export default function PackageTabs() {
                               </Link>
 
                               <div className="cardpackage-ms" />
- <Link
+
+                              <div className="cardpackage-ms1">
+                                <Link
                                   href={`/packages/${item.slug}`}
                                   rel="noopener noreferrer"
                                 >
-                                   <div className="cardpackage-ms1">
-                                <div>
-                                  <p className="fw-semibold small mb-1 text-end">
-                                    {item.days > 1 && `${item.days - 1} Nights`}{" "}
-                                    - {item.days} Days
-                                  </p>
-
-                                  <h1 className="cardpackage-ms-h1">
-                                    {item.destination_name}
-                                  </h1>
-
-                                  <p
-                                    className="mt-1"
-                                    style={{ fontSize: "16px" }}
-                                  >
-                                    {item.short_description}
-                                  </p>
-                                </div>
-
-                                <div className="d-flex align-items-center justify-content-between">
                                   <div>
-                                    <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
-                                      INR {item.offer_price}
-                                    </h3>
-                                    <p className="small mt-1">
-                                      OFFER PRICE PER PERSON
+                                    <p className="fw-semibold small mb-1 text-end">
+                                      {item.days > 1 &&
+                                        `${item.days - 1} Nights`}{" "}
+                                      - {item.days} Days
+                                    </p>
+
+                                    <h1 className="cardpackage-ms-h1">
+                                      {item.destination_name}
+                                    </h1>
+
+                                    <p
+                                      className="mt-1"
+                                      style={{ fontSize: "16px" }}
+                                    >
+                                      {item.short_description}
                                     </p>
                                   </div>
+                                </Link>
 
-                                  <button
-                                    onClick={() => openBookingPopup(item)}
-                                    className="btn btn-light fw-semibold"
-                                    style={{
-                                      borderRadius: "10px",
-                                      padding: "10px 25px",
-                                      backgroundColor: "#0A6A67",
-                                      color: "white",
-                                    }}
+                                <div className="d-flex align-items-center justify-content-between">
+                                  <Link
+                                    href={`/packages/${item.slug}`}
+                                    rel="noopener noreferrer"
                                   >
-                                    BOOK NOW
-                                  </button>
+                                    {" "}
+                                    <div>
+                                      <h3 className="fw-bold mb-0 text-white cardpackage-ms-h3">
+                                        INR {item.offer_price}
+                                      </h3>
+                                      <p className="small mt-1">
+                                        PER PERSON
+                                      </p>
+                                    </div>
+                                  </Link>
+
+                                  <div className="d-flex flex-column">
+                                    {" "}
+                                    <Link
+                                      href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                                        `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`
+                                      )}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="d-flex"
+                                    >
+                                      <div className="tg-listing-card-review-mukul space whatsapp-icon-custom-css">
+                                        <span
+                                          className="tg-listing-rating-icon-mukul"
+                                          style={{
+                                            cursor: "pointer",
+                                            position: "relative",
+                                            width: "28px",
+                                            height: "28px",
+                                          }}
+                                        >
+                                          <Image
+                                            src={WhatsApp}
+                                            alt={
+                                              item?.package_name || "WhatsApp"
+                                            }
+                                            fill
+                                            sizes="28px"
+                                            className="object-cover"
+                                          />
+                                        </span>
+                                      </div>
+                                    </Link>
+                                    <button
+                                      onClick={() => openBookingPopup(item)}
+                                      className="btn btn-light fw-semibold"
+                                      style={{
+                                        borderRadius: "10px",
+                                        padding: "10px 25px",
+                                        backgroundColor: "#0A6A67",
+                                        color: "white",
+                                      }}
+                                    >
+                                      BOOK NOW
+                                    </button>
+                                  </div>
                                 </div>
                               </div>
-                                </Link>
-                             
                             </div>
                           </div>
                         );
@@ -366,10 +448,10 @@ export default function PackageTabs() {
                               className="position-relative"
                               style={{ height: "223px" }}
                             >
-                               <Link
-                                  href={`/packages/${item.slug}`}
-                                  rel="noopener noreferrer"
-                                >
+                              <Link
+                                href={`/packages/${item.slug}`}
+                                rel="noopener noreferrer"
+                              >
                                 <Image
                                   src={`${imageBase}/package/${item.package_code}/${item.bg_image}`}
                                   alt={item.package_name}
@@ -418,17 +500,40 @@ export default function PackageTabs() {
                               {/* PRICE — FIXED AT BOTTOM */}
                               <div className="py-3 px-1 d-flex justify-content-between align-items-center tab-ms-cad mt-auto">
                                 <h6 className="fw-bold mb-0">
-                                  <span
-                                    className="small text-muted"
-                                    style={{ fontWeight: "300" }}
-                                  >
-                                    From{" "}
-                                  </span>
-                                  INR {item.offer_price}
+                                  INR {item.offer_price}/<span className="small text-muted under-h6-span">PERSON</span>
                                 </h6>
-                                <span className="small text-muted">
-                                  PER PERSON
-                                </span>
+
+                               
+                                <Link
+                                  href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                                    `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`
+                                  )}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="d-flex"
+                                >
+                                  <span className="small text-muted">
+                                    <div className="tg-listing-card-review-mukul space">
+                                      <span
+                                        className="tg-listing-rating-icon-mukul"
+                                        style={{
+                                          cursor: "pointer",
+                                          position: "relative",
+                                          width: "28px",
+                                          height: "28px",
+                                        }}
+                                      >
+                                        <Image
+                                          src={WhatsApp}
+                                          alt={item?.package_name || "WhatsApp"}
+                                          fill
+                                          sizes="28px"
+                                          className="object-cover"
+                                        />
+                                      </span>
+                                    </div>
+                                  </span>
+                                </Link>
                               </div>
                             </div>
                           </div>
@@ -457,6 +562,18 @@ export default function PackageTabs() {
 
           {/* CSS */}
           <style jsx>{`
+          .under-h6-span{
+          font-size: 12px;
+          }
+            Link:hover {
+              color: #fff !important;
+            }
+
+            .whatsapp-icon-custom-css {
+              position: relative;
+              top: 0rem;
+              left: 5.5rem;
+            }
             h6 {
               font-size: 18px;
             }

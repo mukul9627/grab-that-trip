@@ -60,12 +60,12 @@ const Banner = () => {
         .home-banner-mukul {
           transition: opacity 0.6s ease-in-out;
         }
-           @media (max-width: 991px) {
-      .tg-hero-title{
-      font-size: 30px
-      }
-      
-           }
+        @media (max-width: 991px) {
+          .tg-hero-title {
+            font-size: 30px;
+            margin-top:  -18px;
+          }
+        }
       `}</style>
     </div>
   );

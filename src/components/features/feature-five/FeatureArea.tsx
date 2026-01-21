@@ -69,7 +69,7 @@ export default function FeatureArea() {
 
       <div className="tg-listing-grid-area mt-85 mb-85">
         <div className="container">
-          <div className="row" style={{justifyContent: 'center'}}>
+          <div className="row" style={{ justifyContent: "center" }}>
             {/* SIDEBAR */}
             <FeatureSidebar
               fullData={destinationsList}
@@ -115,9 +115,13 @@ export default function FeatureArea() {
                         key={item.feature_type_id}
                         className="col-xxl-4 col-xl-6 col-lg-6 col-md-6"
                       >
-                        <div className="tg-listing-card-item mb-30" style={{boxShadow: '0 0 9px 7px lightgray'}}>
-                          <div className="tg-listing-card-thumb">
-                            <Link href={`/holidays/${item.slug}`}>
+                        <div
+                          className="tg-listing-card-item mb-30"
+                          style={{ boxShadow: "0 0 9px 7px lightgray" }}
+                        >
+                          <Link href={`/holidays/${item.slug}`}>
+                            {" "}
+                            <div className="tg-listing-card-thumb">
                               <Image
                                 src={`${imgBase}/bg/${item.bg_image}`}
                                 alt={item.name}
@@ -125,17 +129,31 @@ export default function FeatureArea() {
                                 height={240}
                                 className="w-100"
                               />
-                            </Link>
-                          </div>
+                            </div>{" "}
+                          </Link>
 
-                          <div className="tg-listing-main-content" style={{padding: '17px'}}>
-                            <h4 className="mb-1 ml-12 tg-location-time" style={{position: "relative", left: '4rem',top: '-19px' ,fontSize: '22px'}}>
+                          <div
+                            className="tg-listing-main-content"
+                            style={{ padding: "17px" }}
+                          >
+                            <h4
+                              className="mb-1 ml-12 tg-location-time"
+                              style={{
+                                position: "relative",
+                                left: "4rem",
+                                top: "-19px",
+                                fontSize: "22px",
+                              }}
+                            >
                               <Link href={`/holidays/${item.name}`}>
                                 {item.name}
                               </Link>
                             </h4>
 
-                            <h4 className="tg-listing-card-title mb-0" style={{textAlign: 'center', fontWeight: '500'}}>
+                            <h4
+                              className="tg-listing-card-title mb-0"
+                              style={{ textAlign: "center", fontWeight: "500" }}
+                            >
                               {item.description}
                             </h4>
 
@@ -155,7 +173,7 @@ export default function FeatureArea() {
                   </div>
 
                   {/* PAGINATION */}
-                 {!loading && filteredData.length > 0 && (
+                  {!loading && filteredData.length > 0 && (
                     <div className="tg-pagenation-wrap text-center mt-50 mb-30">
                       <nav>
                         <ReactPaginate

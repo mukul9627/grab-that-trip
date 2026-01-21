@@ -85,8 +85,8 @@ const LocationBased = () => {
             modules={[Autoplay, Navigation]}
             className="tg-location-su-slider custom-mobile-slider"
           >
-            {destinations.map((item) => (
-              <SwiperSlide key={item.feature_type_id}>
+            {destinations.map((item, index) => (
+              <SwiperSlide key={`${item.feature_type_id}-${index}`}>
                 <div className="tg-location-wrap">
                   <div className="tg-location-thumb">
                     <Link

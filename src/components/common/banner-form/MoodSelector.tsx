@@ -261,6 +261,7 @@ export default function MoodSelector({ onMoodChange }: MoodSelectorProps) {
           }
           .moodSelector {
             width: 100%;
+            margin-top: -31px;
             margin-left: 0px;
             background: rgba(228, 228, 228, 0.25);
             -webkit-backdrop-filter: blur(3px);
