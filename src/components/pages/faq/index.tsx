@@ -1,19 +1,19 @@
 import BreadCrumb from "@/components/common/BreadCrumb"
-import HeaderThree from "@/layouts/headers/HeaderThree"
 import FaqArea from "./FaqArea"
 import Cta from "../pricing/Cta"
-import FooterThree from "@/layouts/footers/FooterThree"
+import HeaderOne from "@/layouts/headers/HeaderOne"
+import FooterOne from "@/layouts/footers/FooterOne"
 
 const Faq = () => {
    return (
       <>
-         <HeaderThree />
+         <HeaderOne />
          <main>
             <BreadCrumb title="Frequently Asked Question" sub_title="Faq’s" />
             <FaqArea />
             <Cta />
          </main>
-         <FooterThree />
+         <FooterOne />
       </>
    )
 }

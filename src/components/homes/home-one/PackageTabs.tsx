@@ -496,6 +496,7 @@ export default function PackageTabs() {
                               <p className="text-muted small mb-2">
                                 {item.destination_name}
                               </p>
+                              
 
                               {/* PRICE — FIXED AT BOTTOM */}
                               <div className="py-3 px-1 d-flex justify-content-between align-items-center tab-ms-cad mt-auto">

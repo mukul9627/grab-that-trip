@@ -2,13 +2,39 @@ import "../styles/index.css";
 import "../../public/assets/scss/main.scss";
 import Script from "next/script";
 import Providers from "./providers";
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Grab That Trip - Tour & Travel Booking",
+export const metadata: Metadata = {
+  title: {
+    default: "Grab That Trip - Tour & Travel Booking",
+    template: "%s",
+  },
   description: "Grab That Trip is a Modern Tour & Travel Booking Platform",
   keywords: ["travel booking", "tour packages", "Grab That Trip"],
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
+  },
+
   verification: {
     google: "nyhlmGhnEPLi551_V46J-0PTtEey2XTL6fs9QXH6W14",
+  },
+
+  openGraph: {
+    type: "website",
+    siteName: "Grab That Trip",
+  },
+
+  icons: {
+    icon: "/GrabThatTrip_Colour.jpg",
   },
 };
 
@@ -19,27 +45,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-          name="robots"
-          content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-        />
-        <meta property="og:type" content="website"></meta>
-
-        {/* <!-- Google tag (gtag.js) --> */}
-        <script
-          async
+      <body>
+        {/* 🔹 Google Analytics */}
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-2PVSFQMRLR"
-        ></script>
-        <script>
-          {` window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+          strategy="afterInteractive"
+        />
+        <Script id="ga-script" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-2PVSFQMRLR');
+          `}
+        </Script>
 
-  gtag('config', 'G-2PVSFQMRLR');`}
-        </script>
         {/* 🔹 Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`
@@ -54,19 +74,6 @@ export default function RootLayout({
           `}
         </Script>
 
-        <meta
-          name="google-site-verification"
-          content="nyhlmGhnEPLi551_V46J-0PTtEey2XTL6fs9QXH6W14"
-        />
-
-        <link rel="icon" href="/GrabThatTrip_Colour.jpg" sizes="any" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&family=Outfit:wght@100..900&display=swap"
-        />
-      </head>
-
-      <body cz-shortcut-listen="true">
         {/* 🔹 GTM noscript */}
         <noscript>
           <iframe
@@ -77,7 +84,6 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* ✅ Client Providers */}
         <Providers>{children}</Providers>
       </body>
     </html>

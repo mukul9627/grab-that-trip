@@ -2,7 +2,7 @@ import Link from "next/link"
 
 const BreadCrumb = () => {
    return (
-      <div className="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" style={{ backgroundImage: `url(/assets/img/breadcrumb/breadcrumb.jpg)` }}>
+      <div className="tg-breadcrumb-area tg-breadcrumb-spacing fix p-relative z-index-1 include-bg" style={{ backgroundImage: `url(/assets/img/breadcrumb/Activity.jpg)` }}>
          <div className="tg-hero-top-shadow"></div>
          <div className="tg-breadcrumb-shadow"></div>
          <div className="container">
