@@ -257,7 +257,7 @@ export default function PurposeSection() {
                       <h4
                         onClick={() =>
                           setOpenId(
-                            openId === item.package_id ? null : item.package_id
+                            openId === item.package_id ? null : item.package_id,
                           )
                         }
                         className={`tg-listing-card-title mb-0 ${
@@ -304,53 +304,48 @@ export default function PurposeSection() {
                     </div>
 
                     <div className="tg-listing-card-price-mukul d-flex align-items-end justify-content-between">
-  
-  {/* BOOK NOW */}
-  <div
-    className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center"
-    onClick={() => openBookingPopup(item)}
-    style={{ cursor: "pointer" }}
-  >
-    <span className="tg-listing-card-currency-amount mr-5 fw-medium fs-6">
-      Book Now
-    </span>
-  </div>
+                      {/* BOOK NOW */}
+                      <div
+                        className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center"
+                        onClick={() => openBookingPopup(item)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <span className="tg-listing-card-currency-amount mr-5 fw-medium fs-6">
+                          Book Now
+                        </span>
+                      </div>
 
-  
+                      {/* WHATSAPP */}
 
-  {/* WHATSAPP */}
-
-  <Link
-  href={`https://wa.me/918929919292?text=${encodeURIComponent(
-    `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`
-  )}`}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="d-flex"
->
-    <div className="tg-listing-card-review-mukul space">
-      <span
-        className="tg-listing-rating-icon-mukul"
-        style={{
-          cursor: "pointer",
-          position: "relative",
-          width: "28px",
-          height: "28px",
-        }}
-      >
-        <Image
-          src={WhatsApp}
-          alt={item?.package_name || "WhatsApp"}
-          fill
-          sizes="28px"
-          className="object-cover"
-        />
-      </span>
-    </div>
-  </Link>
-
-</div>
-
+                      <Link
+                        href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                          `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`,
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="d-flex"
+                      >
+                        <div className="tg-listing-card-review-mukul space">
+                          <span
+                            className="tg-listing-rating-icon-mukul"
+                            style={{
+                              cursor: "pointer",
+                              position: "relative",
+                              width: "28px",
+                              height: "28px",
+                            }}
+                          >
+                            <Image
+                              src={WhatsApp}
+                              alt={item?.package_name || "WhatsApp"}
+                              fill
+                              sizes="28px"
+                              className="object-cover"
+                            />
+                          </span>
+                        </div>
+                      </Link>
+                    </div>
                   </div>
 
                   {/* MY code end */}

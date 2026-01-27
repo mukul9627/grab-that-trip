@@ -18,7 +18,7 @@ export default function FeatureSidebar({
 
   /* ================= DESTINATION LIST ================= */
   const destinations = [
-    "All Destination",
+    "All Activities",
     ...Array.from(
       new Set(
         fullData
@@ -32,7 +32,7 @@ export default function FeatureSidebar({
   useEffect(() => {
     let data = [...fullData];
 
-    if (destination && destination !== "All Destination") {
+    if (destination && destination !== "All Activities") {
       data = data.filter((item) => item.name === destination);
     }
 
@@ -45,7 +45,7 @@ export default function FeatureSidebar({
     <div className="col-xl-3 col-lg-4 order-last order-lg-first">
       <div className="tg-filter-sidebar mb-40 top-sticky">
         <div className="tg-filter-item">
-          <h4 className="tg-filter-title mb-15">Destination</h4>
+          <h4 className="tg-filter-title mb-15">Activities</h4>
 
           <div className="tg-filter-list">
             <ul>

@@ -6,6 +6,7 @@ import { fetchHolidayMeta } from "@/lib/holiday.server";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+ 
 }
 
 /* =========================
@@ -58,30 +59,62 @@ export async function generateMetadata(
 /* =========================
    PAGE
 ========================= */
+
 export default async function Page({ params }: PageProps) {
   const { slug } = await params;
 
-  // Fetch again ONLY for FAQ schema
   let meta = await fetchHolidayMeta(slug, "feature");
   if (!meta) {
     meta = await fetchHolidayMeta(slug, "destination");
   }
 
+  const bannerImage =
+    meta?.banner_image
+      ? meta.banner_image
+      : "/assets/img/breadcrumb/breadcrumb.jpg"; // fallback
+
   return (
     <Wrapper>
-      {/* ✅ FAQ SCHEMA (SERVER RENDERED) */}
+      {/* FAQ Schema */}
       {meta?.faq_schema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: meta.faq_schema,
-          }}
+          dangerouslySetInnerHTML={{ __html: meta.faq_schema }}
         />
       )}
 
       <Suspense fallback={<div>Loading...</div>}>
-        <FeatureTwo slug={slug} />
+        <FeatureTwo slug={slug} bannerImage={bannerImage} />
       </Suspense>
     </Wrapper>
   );
 }
+
+
+// export default async function Page({ params }: PageProps) {
+//   const { slug } = await params;
+
+//   // Fetch again ONLY for FAQ schema
+//   let meta = await fetchHolidayMeta(slug, "feature");
+//   if (!meta) {
+//     meta = await fetchHolidayMeta(slug, "destination");
+//   }
+
+//   return (
+//     <Wrapper>
+//       {/* ✅ FAQ SCHEMA (SERVER RENDERED) */}
+//       {meta?.faq_schema && (
+//         <script
+//           type="application/ld+json"
+//           dangerouslySetInnerHTML={{
+//             __html: meta.faq_schema,
+//           }}
+//         />
+//       )}
+
+//       <Suspense fallback={<div>Loading...</div>}>
+//         <FeatureTwo slug={slug} />
+//       </Suspense>
+//     </Wrapper>
+//   );
+// }

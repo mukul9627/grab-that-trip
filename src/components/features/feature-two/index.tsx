@@ -5,14 +5,15 @@ import BannerForm from "./BannerForm"
 
 interface FeatureTwoProps {
   slug: string;
+  bannerImage: string;
 }
 
-const FeatureTwo = ({ slug }: FeatureTwoProps) => {
+const FeatureTwo = ({ slug, bannerImage }: FeatureTwoProps) => {
    return (
       <>
          <HeaderOne />
          <main>
-            <BreadCrumb />
+             <BreadCrumb bannerImage={bannerImage} />
             {/* <BannerForm /> */}
             <FeatureArea slug={slug} />
          </main>

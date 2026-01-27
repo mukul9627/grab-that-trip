@@ -496,16 +496,58 @@ export default function PackageTabs() {
                               <p className="text-muted small mb-2">
                                 {item.destination_name}
                               </p>
-                              
-
-                              {/* PRICE — FIXED AT BOTTOM */}
-                              <div className="py-3 px-1 d-flex justify-content-between align-items-center tab-ms-cad mt-auto">
                                 <h6 className="fw-bold mb-0">
                                   INR {item.offer_price}/<span className="small text-muted under-h6-span">PERSON</span>
                                 </h6>
 
-                               
-                                <Link
+                              {/* PRICE — FIXED AT BOTTOM */}
+                              <div className="py-3 px-1 d-flex justify-content-between align-items-center tab-ms-cad mt-auto">
+                              
+
+                               <div className="tg-listing-card-price-mukul d-flex align-items-end justify-content-between button-width-change-ms">
+                      {/* BOOK NOW */}
+                      <div
+                        className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center"
+                        onClick={() => openBookingPopup(item)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <span className="tg-listing-card-currency-amount mr-5 fw-medium fs-6">
+                          Book Now
+                        </span>
+                      </div>
+
+                      {/* WHATSAPP */}
+
+                      <Link
+                        href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                          `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`,
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="d-flex"
+                      >
+                        <div className="tg-listing-card-review-mukul space">
+                          <span
+                            className="tg-listing-rating-icon-mukul"
+                            style={{
+                              cursor: "pointer",
+                              position: "relative",
+                              width: "28px",
+                              height: "28px",
+                            }}
+                          >
+                            <Image
+                              src={WhatsApp}
+                              alt={item?.package_name || "WhatsApp"}
+                              fill
+                              sizes="28px"
+                              className="object-cover"
+                            />
+                          </span>
+                        </div>
+                      </Link>
+                    </div>
+                                {/* <Link
                                   href={`https://wa.me/918929919292?text=${encodeURIComponent(
                                     `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`
                                   )}`}
@@ -534,7 +576,7 @@ export default function PackageTabs() {
                                       </span>
                                     </div>
                                   </span>
-                                </Link>
+                                </Link> */}
                               </div>
                             </div>
                           </div>
@@ -563,6 +605,9 @@ export default function PackageTabs() {
 
           {/* CSS */}
           <style jsx>{`
+          .button-width-change-ms{
+          width: 17rem
+          }
           .under-h6-span{
           font-size: 12px;
           }
@@ -652,6 +697,11 @@ export default function PackageTabs() {
               border-radius: 2px;
               transition: transform 0.4s ease-in-out;
             }
+                 @media (max-width: 575px) {
+   .button-width-change-ms{
+          width: revert;
+          }
+          }
           `}</style>
         </div>
       </section>

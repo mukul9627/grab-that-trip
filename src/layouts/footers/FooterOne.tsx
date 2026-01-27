@@ -49,13 +49,27 @@ const FooterOne = () => {
                       </button>
                     </form>
                   </div>
-                  
+                    <div className="tg-footer-social">
+                    <Link href="https://www.facebook.com/people/Grab-That-Trip/61581532384160/?rdid=zxuu7QEfecEgLe35&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BqpAomK3v%2F">
+                      <i className="fa-brands fa-facebook-f"></i>
+                    </Link>
+                    {/* <Link href="#"><i className="fa-brands fa-twitter"></i></Link> */}
+                    <Link href="https://www.instagram.com/grabthattrip/">
+                      <i className="fa-brands fa-instagram"></i>
+                    </Link>
+                    <Link href="https://www.linkedin.com/in/grab-that-trip-7716b0398/?utm_source=share_via&utm_content=profile&utm_medium=member_android">
+                      <i className="fa-brands fa-linkedin"></i>
+                    </Link>
+                    <Link href="https://www.youtube.com/@grabthattrip?si=OX5nAr_24_yDyRrw">
+                      <i className="fa-brands fa-youtube"></i>
+                    </Link>
+                  </div>
 
-                    <div className="tg-footer-logo mb-20">
+                    {/* <div className="tg-footer-logo mb-20">
                     <Link href="/">
                       <Image src={IATA} alt="" width={100} height={65} />
                     </Link>
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="col-xl-2 col-lg-3 col-md-5 col-sm-6 col-6">
@@ -88,23 +102,23 @@ const FooterOne = () => {
                   <h3 className="tg-footer-widget-title mb-25">Package</h3>
                   <ul>
                     <li>
-                      <Link href="#">Family</Link>
+                      <Link href="/holidays/family">Family</Link>
                     </li>
                     <li>
-                      <Link href="#">Vacation</Link>
+                      <Link href="/holidays/vacation">Vacation</Link>
                     </li>
                     <li>
-                      <Link href="#">Honeymoon</Link>
+                      <Link href="/holidays/honeyemoon">Honeymoon</Link>
                     </li>
                     <li>
-                      <Link href="#">Business</Link>
+                      <Link href="/holidays/adventure-purpose">Adventure</Link>
                     </li>
-                    <li>
+                    {/* <li>
                       <Link href="#">Pilgrim</Link>
                     </li>
                     <li>
                       <Link href="#">Solo</Link>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>
@@ -113,16 +127,19 @@ const FooterOne = () => {
                   <h3 className="tg-footer-widget-title mb-25">Destination</h3>
                   <ul>
                     <li>
-                      <Link href="#">Bali</Link>
+                      <Link href="/holidays/bali">Bali</Link>
                     </li>
                     <li>
-                      <Link href="#">Dubai</Link>
+                      <Link href="/holidays/uae">Dubai</Link>
                     </li>
                     <li>
-                      <Link href="#">Singapore</Link>
+                      <Link href="/holidays/singapore">Singapore</Link>
                     </li>
                     <li>
-                      <Link href="#">Thailand</Link>
+                      <Link href="/holidays/thailand">Thailand</Link>
+                    </li>
+                     <li>
+                      <Link href="/holidays/kenya">Kenya</Link>
                     </li>
                   </ul>
                 </div>
@@ -216,21 +233,7 @@ const FooterOne = () => {
                   </ul>
                 </div>
 
-                <div className="tg-footer-social">
-                    <Link href="https://www.facebook.com/people/Grab-That-Trip/61581532384160/?rdid=zxuu7QEfecEgLe35&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BqpAomK3v%2F">
-                      <i className="fa-brands fa-facebook-f"></i>
-                    </Link>
-                    {/* <Link href="#"><i className="fa-brands fa-twitter"></i></Link> */}
-                    <Link href="https://www.instagram.com/grabthattrip/">
-                      <i className="fa-brands fa-instagram"></i>
-                    </Link>
-                    <Link href="https://www.linkedin.com/in/grab-that-trip-7716b0398/?utm_source=share_via&utm_content=profile&utm_medium=member_android">
-                      <i className="fa-brands fa-linkedin"></i>
-                    </Link>
-                    <Link href="https://www.youtube.com/@grabthattrip?si=OX5nAr_24_yDyRrw">
-                      <i className="fa-brands fa-youtube"></i>
-                    </Link>
-                  </div>
+              
               </div>
             </div>
           </div>

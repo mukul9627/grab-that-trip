@@ -6,6 +6,7 @@ type TourPlan = {
   day_no: number;
   activity: string;
   description: string;
+  image: string;
 };
 
 type FaqItem = TourPlan & {
@@ -31,22 +32,22 @@ const Faq = ({ tourplans }: Props) => {
   }, [tourplans]);
 
   const toggleAnswer = (id: number) => {
-    setFaqData(prev =>
-      prev.map(item => ({
+    setFaqData((prev) =>
+      prev.map((item) => ({
         ...item,
         showAnswer: item.tourplan_id === id,
-      }))
+      })),
     );
   };
 
+  const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
   return (
     <div className="tg-tour-faq-wrap mb-70">
       <h4 className="tg-tour-about-title mb-15">Tour Plan</h4>
 
       <div className="tg-tour-about-faq-inner">
         <div className="tg-tour-about-faq">
-
-          {faqData.map(item => (
+          {faqData.map((item) => (
             <div key={item.tourplan_id} className="accordion-item">
               <h2 className="accordion-header">
                 <button
@@ -67,12 +68,21 @@ const Faq = ({ tourplans }: Props) => {
                 }`}
               >
                 <div className="accordion-body">
+                  {item?.image && (
+                    <img
+                      src={`${imageBase}/package/tourplan/${item.image}`}
+                      alt={item.image}
+                      width={300}
+                      height={200}
+                      className="py-2"
+                    />
+                  )}
+
                   <p>{item.description}</p>
                 </div>
               </div>
             </div>
           ))}
-
         </div>
       </div>
     </div>

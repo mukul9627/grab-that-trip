@@ -44,7 +44,7 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
 
   const currentItems = filteredData.slice(
     itemOffset,
-    itemOffset + itemsPerPage
+    itemOffset + itemsPerPage,
   );
 
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -67,7 +67,7 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
       return null;
     }
   };
-  
+
   useEffect(() => {
     if (!slug) return;
 
@@ -97,7 +97,7 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
     (item: any) => {
       dispatch(addToWishlist(item));
     },
-    [dispatch]
+    [dispatch],
   );
   const openBookingPopup = (item: any) => {
     setSelected(item);
@@ -195,8 +195,8 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
                         >
                           <div className="tg-listing-card-item mb-30">
                             {/* IMAGE */}
-                            <div className="tg-listing-card-thumb fix p-relative">
-                              <Link href={`/packages/${item.slug}`}>
+                            <Link href={`/packages/${item.slug}`}>
+                              <div className="tg-listing-card-thumb fix p-relative">
                                 <Image
                                   className="tg-card-border w-100"
                                   src={`${imgBase}/package/${item.package_code}/${item.bg_image}`}
@@ -204,25 +204,8 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
                                   width={284}
                                   height={244}
                                 />
-                              </Link>
-                              {/* <span>{item.package_id}</span> */}
-
-                              {/* WISHLIST BUTTON */}
-                              {/* <div className="tg-listing-item-wishlist">
-                              <a
-                                onClick={() => handleAddToWishlist(item)}
-                                style={{ cursor: "pointer" }}
-                              >
-                                <svg width="20" height="18" viewBox="0 0 20 18">
-                                  <path
-                                    d="M10.5167 16.3416C10.2334 16.4416 9.76675 16.4416 9.48341 16.3416C7.06675 15.5166 1.66675 12.075 1.66675 6.24165C1.66675 3.66665 3.74175 1.58331 6.30008 1.58331C7.81675 1.58331 9.15841 2.31665 10.0001 3.44998C10.8417 2.31665 12.1917 1.58331 13.7001 1.58331C16.2584 1.58331 18.3334 3.66665 18.3334 6.24165C18.3334 12.075 12.9334 15.5166 10.5167 16.3416Z"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                  />
-                                </svg>
-                              </a>
-                            </div> */}
-                            </div>
+                              </div>
+                            </Link>
 
                             {/* RATING */}
                             <div className="tg-listing-card-review flex items-center justify-between space tg-listing-card-review-mukul pr-17 pt-10 pb-0">
@@ -299,7 +282,7 @@ export default function FeatureArea({ slug }: FeatureAreaProps): ReactElement {
                                 </div>
                                 <Link
                                   href={`https://wa.me/918929919292?text=${encodeURIComponent(
-                                    `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`
+                                    `Hey! I came across the *${item.package_name}* on your website and would love to know more details.`,
                                   )}`}
                                   target="_blank"
                                   rel="noopener noreferrer"

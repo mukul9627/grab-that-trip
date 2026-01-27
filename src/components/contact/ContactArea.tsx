@@ -18,24 +18,25 @@ const ContactArea = () => {
                         <div className="tg-team-details-contact">
                            <div className="item">
                               <span>Phone :</span>
-                              <Link href="tel:+1239998000">+123 9998 000</Link>
+                              <Link href="tel:+918929919292">+91 8929919292</Link>
                            </div>
-                           <div className="item">
+                           {/* <div className="item">
                               <span>Website : </span>
-                              <Link href="#">www.info.com</Link>
-                           </div>
+                              <Link href="#">info@grabthattrip.com</Link>
+                           </div> */}
                            <div className="item">
                               <span>E-mail : </span>
-                              <Link href="mailto:info@gmail.com">info@gmail.com</Link>
+                              <Link href="mailto:info@gmail.com">info@grabthattrip.com</Link>
                            </div>
                            <div className="item">
                               <span>Address :</span>
-                              <Link href="#"> 1426 California, USA </Link>
+                              <Link href="#"> B-85, 3rd Floor, Defence Colony, <br /> New Delhi 110024 </Link>
                            </div>
                         </div>
                      </div>
                      <div className="tg-contact-map h-100">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31078.361591144112!2d-74.0256365664179!3d40.705584751235754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1724572184688!5m2!1sen!2sbd" width="600" height="450" style={{ border: "0" }} loading="lazy"></iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d4428.682943472747!2d77.2243511!3d28.5684484!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjjCsDM0JzA2LjUiTiA3N8KwMTMnMzMuNyJF!5e1!3m2!1sen!2sin!4v1769505681686!5m2!1sen!2sin" width="600" height="450" style={{border:"0"}}  loading="lazy"></iframe>
+                        {/* <iframe src="https://maps.app.goo.gl/xq98fa3m2uYrVtvc9" width="600" height="450" style={{ border: "0" }} loading="lazy"></iframe> */}
                      </div>
                   </div>
                </div>

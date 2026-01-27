@@ -14,7 +14,9 @@ import Review from "./about/Review";
 import ReviewDetails from "./about/ReviewDetails";
 import FeatureSidebar from "./FeatureSidebar";
 import Faqsection from "./about/Faqsection";
-import Cat1 from "@/components/homes/home-one/Cta"
+import Cat1 from "@/components/homes/home-one/Cta";
+import BookingModal from "@/components/homes/home-one/BookingModal";
+import WhatsApp from "@/assets/img/cart/whatsapp_1.svg";
 
 const secretKey = "MY_PRIVATE_KEY";
 
@@ -37,7 +39,6 @@ type PackageDetail = {
   tourplans: any[];
   images: any[];
   package_code: any[];
-  
 };
 
 type Review = {
@@ -55,66 +56,7 @@ type Review = {
   created_at: string;
 };
 
-// const [data, setData] = useState<PackageDetail | null>(null);
-// const [reviews, setReviews] = useState<ReviewItem[]>([]);
-
-// At the top of the file
 /// <reference types="@types/google.maps" />
-
-// type TourPlanMap = {
-//   day_no: number;
-//   activity: string;
-//   location_coordinates: string;
-// };
-
-// type MapProps = {
-//   tourplans: TourPlanMap[];
-// };
-
-// const MapMultipleLocations = ({ tourplans }: MapProps) => {
-//   useEffect(() => {
-//     if (!window.google) {
-//       const script = document.createElement("script");
-//       script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY`;
-//       script.async = true;
-//       script.defer = true;
-//       script.onload = initMap;
-//       document.head.appendChild(script);
-//     } else {
-//       initMap();
-//     }
-
-//     function initMap() {
-//       if (!tourplans || tourplans.length === 0) return;
-
-//       const bounds = new google.maps.LatLngBounds();
-
-//       const map = new google.maps.Map(
-//         document.getElementById("map") as HTMLElement,
-//         {
-//           zoom: 10,
-//           center: { lat: 0, lng: 0 },
-//         }
-//       );
-
-//       tourplans.forEach((plan) => {
-//         const [lat, lng] = plan.location_coordinates.split(",").map(Number);
-
-//         const marker = new google.maps.Marker({
-//           position: { lat, lng },
-//           map,
-//           title: plan.activity,
-//         });
-
-//         bounds.extend(marker.getPosition()!);
-//       });
-
-//       map.fitBounds(bounds);
-//     }
-//   }, [tourplans]);
-
-//   return <div id="map" style={{ width: "100%", height: "450px" }}></div>;
-// };
 
 interface FeatureDetailsAreaProps {
   slug: string;
@@ -123,6 +65,10 @@ interface FeatureDetailsAreaProps {
 const FeatureDetailsArea = ({ slug }: FeatureDetailsAreaProps) => {
   const searchParams = useSearchParams();
   const encryptedId = searchParams.get("pid");
+  const [openGallery, setOpenGallery] = useState(false);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [selected, setSelected] = useState<any>(null);
 
   const [data, setData] = useState<PackageDetail | null>(null);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -131,7 +77,12 @@ const FeatureDetailsArea = ({ slug }: FeatureDetailsAreaProps) => {
 
   const imageBase = process.env.NEXT_PUBLIC_IMAGE_URL;
 
-  
+  const BaseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+  const openBookingPopup = (item: any) => {
+    setSelected(item);
+    setOpenModal(true);
+  };
 
   useEffect(() => {
     if (!data) return;
@@ -142,7 +93,7 @@ const FeatureDetailsArea = ({ slug }: FeatureDetailsAreaProps) => {
       try {
         const res = await fetch(
           `https://gtt.dbbworldwide.com/Home/GetReview?package_id=${packageId}`,
-          { cache: "no-store" }
+          { cache: "no-store" },
         );
         const json = await res.json();
         setReviews(json.data || []);
@@ -154,50 +105,26 @@ const FeatureDetailsArea = ({ slug }: FeatureDetailsAreaProps) => {
     fetchReviews();
   }, [data]);
 
-  // useEffect(() => {
-  //   if (!encryptedId) return;
+  useEffect(() => {
+    if (!slug) return;
 
-  //   const packageId = decryptId(encryptedId);
-
-  //   async function fetchDetail() {
-  //     try {
-  //       const res = await fetch(
-  //         `https://gtt.dbbworldwide.com/Home/GetPackageDetailBySlug?slug=${slug}`,
-  //         { cache: "no-store" }
-  //       );
-  //       const json = await res.json();
-  //       setData(json.data?.[0] || null);
-  //     } catch (err) {
-  //       console.error("Detail API error:", err);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-
-  //   fetchDetail();
-  // }, [encryptedId]);
-
-useEffect(() => {
-  if (!slug) return;
-
-  async function fetchDetail() {
-    try {
-      const res = await fetch(
-        `https://gtt.dbbworldwide.com/Home/GetPackageDetailBySlug?slug=${slug}`,
-        { cache: "no-store" }
-      );
-      const json = await res.json();
-      setData(json.data?.[0] || null);
-    } catch (err) {
-      console.error("Detail API error:", err);
-    } finally {
-      setLoading(false);
+    async function fetchDetail() {
+      try {
+        const res = await fetch(
+          `https://gtt.dbbworldwide.com/Home/GetPackageDetailBySlug?slug=${slug}`,
+          { cache: "no-store" },
+        );
+        const json = await res.json();
+        setData(json.data?.[0] || null);
+      } catch (err) {
+        console.error("Detail API error:", err);
+      } finally {
+        setLoading(false);
+      }
     }
-  }
 
-  fetchDetail();
-}, [slug]);
-
+    fetchDetail();
+  }, [slug]);
 
   if (loading) {
     return <div className="text-center py-10">Loading package details...</div>;
@@ -207,8 +134,23 @@ useEffect(() => {
     return <div className="text-center py-10">No package found</div>;
   }
 
+  /* ✅ MOVE THIS BELOW THE GUARD */
+  const images = data.images || [];
+  const visibleImages = images.slice(0, 8);
+  const extraCount = images.length - 4;
+  // console.log(visibleImages)
   return (
     <>
+      {openModal && selected && (
+        <BookingModal
+          open={openModal}
+          onClose={() => setOpenModal(false)}
+          package_id={selected.package_id}
+          package_name={selected.package_name}
+          base_price={selected.base_price}
+          offer_price={selected.offer_price}
+        />
+      )}
       <div
         className="tg-breadcrumb-spacing-3 include-bg p-relative fix"
         style={{
@@ -252,7 +194,8 @@ useEffect(() => {
                 <h2 className="mb-10">{data.name}</h2>
                 <div className="tg-tour-details-video-location d-flex flex-wrap">
                   <span className="mr-25">
-                    <i className="fa-regular fa-location-dot"></i> {data.short_description}
+                    <i className="fa-regular fa-location-dot"></i>{" "}
+                    {data.short_description}
                   </span>
                   {/* <div className="tg-tour-details-video-ratings">
                     <span>
@@ -315,107 +258,229 @@ useEffect(() => {
               </div>
             </div>
           </div>
-        <div className="mb-25">
-  {/* MOBILE SCROLL GALLERY */}
-  <div className="d-lg-none d-block">
-    <div
-      style={{
-        display: "flex",
-        gap: "10px",
-        overflowX: "auto",
-        scrollSnapType: "x mandatory",
-      }}
-    >
-      {data.images?.map((img, i) => (
-        <div
-          key={i}
-          style={{
-            minWidth: "100%",
-            scrollSnapAlign: "center",
-            borderRadius: "8px",
-            overflow: "hidden",
-          }}
-        >
-          <Image
-            // src={`${imageBase}/package/bg/${img.image}`}
-             src={`${imageBase}/package/${data.package_code}/${img.image}`}
-            alt={`Gallery ${i}`}
-            width={800}
-            height={300}
-            className="w-100 object-cover"
-          />
-        </div>
-      ))}
-    </div>
-  </div>
+          <div className="mb-25">
+            {/* MOBILE SCROLL GALLERY */}
+            <div className="d-lg-none d-block">
+              <div className="mobile-gallery">
+                {images.map((img, i) => (
+                  <div
+                    key={i}
+                    className="mobile-gallery-item"
+                    onClick={() => setActiveIndex(i)} // ✅ open big view
+                  >
+                    <Image
+                      src={`${imageBase}/package/${data.package_code}/${img.image}`}
+                      alt={`Gallery ${i + 1}`}
+                      width={800}
+                      height={300}
+                      className="mobile-gallery-img"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
 
-  {/* DESKTOP GRID (your original layout) */}
-  <div className="row gx-15 d-none d-lg-flex">
-    {/* LEFT BIG IMAGE */}
-    <div className="col-lg-7">
-      {data.images?.[0] && (
-        <div className="tg-tour-details-video-thumb mb-15">
-          <Image
-            className="w-100 object-cover"
-             src={`${imageBase}/package/${data.package_code}/${data.images[0].image}`}
-            // src={`${imageBase}/package/bg/${data.images[0].image}`}
-            alt="Gallery Big"
-            width={706}
-            height={500}
-          />
-        </div>
-      )}
-    </div>
+            {activeIndex !== null && (
+              <div className="mobile-lightbox">
+                <div
+                  className="mobile-lightbox-backdrop"
+                  onClick={() => setActiveIndex(null)}
+                />
 
-    {/* RIGHT SIDE */}
-    <div className="col-lg-5">
-      <div className="row gx-15">
-        <div className="col-12">
-          {data.images?.[1] && (
-            <div className="tg-tour-details-video-thumb p-relative mb-15">
-              <Image
-                className="w-100 object-cover"
-                  src={`${imageBase}/package/${data.package_code}/${data.images[1].image}`}
-                alt="Gallery Medium"
-                width={503}
-                height={250}
+                <div className="mobile-lightbox-content">
+                  {/* CLOSE */}
+                  <button
+                    className="mobile-lightbox-close"
+                    onClick={() => setActiveIndex(null)}
+                  >
+                    ✕
+                  </button>
+
+                  {/* PREV */}
+                  {activeIndex > 0 && (
+                    <button
+                      className="mobile-lightbox-nav left"
+                      style={{ zIndex: "1" }}
+                      onClick={() => setActiveIndex(activeIndex - 1)}
+                    >
+                      <span>
+                        <i className="fa-solid fa-angle-left mukul-angle-icon1"></i>
+                      </span>
+                    </button>
+                  )}
+
+                  {/* IMAGE */}
+                  <Image
+                    src={`${imageBase}/package/${data.package_code}/${images[activeIndex].image}`}
+                    alt="Big View"
+                    width={500}
+                    height={400}
+                    sizes="100vw"
+                    priority
+                    className="mobile-lightbox-image"
+                  />
+
+                  {/* NEXT */}
+                  {activeIndex < images.length - 1 && (
+                    <button
+                      className="mobile-lightbox-nav right"
+                      onClick={() => setActiveIndex(activeIndex + 1)}
+                    >
+                      <span>
+                        <i className="fa-solid fa-angle-right mukul-angle-icon"></i>
+                      </span>
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {/* DESKTOP GRID (your original layout) */}
+            {/* DESKTOP GRID */}
+            <div className="row gx-15 d-none d-lg-flex">
+              <div className="col-lg-7">
+                {visibleImages[0] && (
+                  <Image
+                    src={`${imageBase}/package/${data.package_code}/${visibleImages[0].image}`}
+                    alt="Gallery Big"
+                    width={706}
+                    height={500}
+                    className="w-100 object-cover"
+                  />
+                )}
+              </div>
+
+              <div className="col-lg-5">
+                <div className="row gx-15">
+                  <div className="col-12">
+                    {visibleImages[1] && (
+                      <Image
+                        src={`${imageBase}/package/${data.package_code}/${visibleImages[1].image}`}
+                        alt="Gallery Medium"
+                        width={503}
+                        height={250}
+                        className="w-100 object-cover mb-15"
+                      />
+                    )}
+                  </div>
+
+                  <div className="col-lg-6">
+                    {visibleImages[2] && (
+                      <Image
+                        src={`${imageBase}/package/${data.package_code}/${visibleImages[2].image}`}
+                        alt="Gallery Small 1"
+                        width={244}
+                        height={238}
+                        className="w-100 object-cover mb-15"
+                      />
+                    )}
+                  </div>
+
+                  <div className="col-lg-6">
+                    {visibleImages[3] && (
+                      <div
+                        className="position-relative cursor-pointer"
+                        onClick={() => setOpenGallery(true)}
+                      >
+                        <Image
+                          src={`${imageBase}/package/${data.package_code}/${visibleImages[3].image}`}
+                          alt="Gallery Small 2"
+                          width={244}
+                          height={238}
+                          className="w-100 object-cover mb-15"
+                        />
+                        {extraCount > 0 && (
+                          <div className="gallery-overlay">+{extraCount}</div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* ================= GALLERY MODAL ================= */}
+          {openGallery && (
+            <div className="gallery-modal">
+              <div
+                className="gallery-backdrop"
+                onClick={() => setOpenGallery(false)}
               />
+              <div className="gallery-content">
+                <button
+                  className="gallery-close"
+                  onClick={() => setOpenGallery(false)}
+                >
+                  ✕
+                </button>
+
+                <div className="gallery-grid">
+                  {images.map((img, i) => (
+                    <div
+                      key={i}
+                      className="gallery-item cursor-pointer"
+                      onClick={() => setActiveIndex(i)} // 🔥 open clicked image
+                    >
+                      <Image
+                        src={`${imageBase}/package/${data.package_code}/${img.image}`}
+                        alt={`Gallery ${i + 1}`}
+                        width={400}
+                        height={300}
+                        className="w-100 object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+                {activeIndex !== null && (
+                  <div className="lightbox">
+                    <div
+                      className="lightbox-backdrop"
+                      onClick={() => setActiveIndex(null)}
+                    />
+
+                    <div className="lightbox-content">
+                      {/* CLOSE */}
+                      <button
+                        className="lightbox-close"
+                        onClick={() => setActiveIndex(null)}
+                      >
+                        ✕
+                      </button>
+
+                      {/* PREV */}
+                      {activeIndex > 0 && (
+                        <button
+                          className="lightbox-nav left"
+                          onClick={() => setActiveIndex(activeIndex - 1)}
+                        >
+                          ‹
+                        </button>
+                      )}
+
+                      {/* IMAGE */}
+                      <Image
+                        src={`${imageBase}/package/${data.package_code}/${images[activeIndex].image}`}
+                        alt="Big View"
+                        width={1200}
+                        height={800}
+                        className="lightbox-image"
+                      />
+
+                      {/* NEXT */}
+                      {activeIndex < images.length - 1 && (
+                        <button
+                          className="lightbox-nav right"
+                          onClick={() => setActiveIndex(activeIndex + 1)}
+                        >
+                          ›
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           )}
-        </div>
-
-        <div className="col-lg-6 col-md-6">
-          {data.images?.[2] && (
-            <div className="tg-tour-details-video-thumb mb-15">
-              <Image
-                className="w-100 object-cover"
-                src={`${imageBase}/package/${data.package_code}/${data.images[2].image}`}
-                alt="Gallery Small 1"
-                width={244}
-                height={238}
-              />
-            </div>
-          )}
-        </div>
-
-        <div className="col-lg-6 col-md-6">
-          {data.images?.[3] && (
-            <div className="tg-tour-details-video-thumb mb-15">
-              <Image
-                className="w-100 object-cover"
-                 src={`${imageBase}/package/${data.package_code}/${data.images[3].image}`}
-                alt="Gallery Small 2"
-                width={244}
-                height={238}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
 
           <div className="tg-tour-details-feature-list-wrap">
             <div className="row align-items-center">
@@ -429,6 +494,49 @@ useEffect(() => {
                   <p>
                     From <span>INR {data.offer_price}</span> / Person
                   </p>
+                </div>
+                <div className="tg-listing-card-price-mukul d-flex align-items-end justify-content-between button-width-ms">
+                  {/* BOOK NOW */}
+                  <div
+                    className="tg-listing-card-price-wrap-mukul price-bg d-flex align-items-center justify-content-center"
+                    onClick={() => openBookingPopup(data)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <span className="tg-listing-card-currency-amount mr-5 fw-medium fs-6">
+                      Book Now
+                    </span>
+                  </div>
+
+                  {/* WHATSAPP */}
+
+                  <Link
+                    href={`https://wa.me/918929919292?text=${encodeURIComponent(
+                      `Hey! I came across the *${data.name}* on your website and would love to know more details.`,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="d-flex"
+                  >
+                    <div className="tg-listing-card-review-mukul space">
+                      <span
+                        className="tg-listing-rating-icon-mukul"
+                        style={{
+                          cursor: "pointer",
+                          position: "relative",
+                          width: "28px",
+                          height: "28px",
+                        }}
+                      >
+                        <Image
+                          src={WhatsApp}
+                          alt={data?.name || "WhatsApp"}
+                          fill
+                          sizes="28px"
+                          className="object-cover"
+                        />
+                      </span>
+                    </div>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -450,7 +558,6 @@ useEffect(() => {
                   <AboutText data={data} />
                   <div className="tg-tour-about-border mb-40"></div>
                   {data && <Included inclusions={data.inclusions} />}
-                  
 
                   <div className="tg-tour-about-border mb-40"></div>
                   {/* Tour Plan */}
@@ -470,9 +577,9 @@ useEffect(() => {
                   {/* <ReviewFormArea /> */}
                 </div>
               </div>
-{/* <Faqsection /> */}
+              {/* <Faqsection /> */}
             </div>
-            <div className="col-xl-4 col-lg-4">
+            <div className="col-xl-4 col-lg-4 side-form-dnone">
               <div className="tg-tour-about-sidebar tg-tour-about-sidebar-ms top-sticky mb-200">
                 <FeatureSidebar
                   package_id={data.package_id}
@@ -488,7 +595,209 @@ useEffect(() => {
       <div className="mb-120">
         <Cat1 />
       </div>
-        
+
+      <style jsx>{`
+        .mukul-angle-icon {
+          color: white;
+          margin-left: -3rem;
+          font-size: 23px;
+        }
+        .mukul-angle-icon1 {
+          color: white;
+          margin-right: -2rem;
+          font-size: 23px;
+        }
+
+        /* ===== MOBILE SCROLL ===== */
+        .mobile-gallery {
+          display: flex;
+          gap: 10px;
+          overflow-x: auto;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .mobile-gallery-item {
+          min-width: 100%;
+          scroll-snap-align: center;
+          border-radius: 8px;
+          overflow: hidden;
+        }
+
+        .mobile-gallery-img {
+          width: 100%;
+          height: auto;
+          cursor: pointer;
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .mobile-lightbox {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+        }
+
+        .mobile-lightbox-backdrop {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.95);
+        }
+
+        .mobile-lightbox-content {
+          position: relative;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        /* 🔥 PINCH ZOOM ENABLED */
+        .mobile-lightbox-image {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+          touch-action: pan-x pan-y pinch-zoom;
+        }
+
+        /* CLOSE BUTTON */
+        .mobile-lightbox-close {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+          background: transparent;
+          border: none;
+          color: #fff;
+          font-size: 28px;
+          z-index: 10;
+        }
+
+        img {
+          touch-action: manipulation;
+        }
+
+        .lightbox {
+          position: fixed;
+          inset: 0;
+          z-index: 10000;
+        }
+
+        .lightbox-backdrop {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.9);
+        }
+
+        .lightbox-content {
+          position: relative;
+          height: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .lightbox-image {
+          max-width: 90%;
+          max-height: 90%;
+          object-fit: contain;
+          border-radius: 6px;
+        }
+
+        .lightbox-close {
+          position: absolute;
+          top: 20px;
+          right: 30px;
+          background: transparent;
+          border: none;
+          color: #fff;
+          font-size: 30px;
+          cursor: pointer;
+        }
+
+        .lightbox-nav {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          background: rgba(0, 0, 0, 0.5);
+          border: none;
+          color: #fff;
+          font-size: 50px;
+          cursor: pointer;
+          padding: 0 15px;
+        }
+
+        .lightbox-nav.left {
+          left: 20px;
+        }
+
+        .lightbox-nav.right {
+          right: 20px;
+        }
+
+        .gallery-overlay {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.65);
+          color: #fff;
+          font-size: 32px;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .gallery-modal {
+          position: fixed;
+          inset: 0;
+          z-index: 9999;
+        }
+
+        .gallery-backdrop {
+          position: absolute;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.85);
+        }
+
+        .gallery-content {
+          position: relative;
+          max-width: 1100px;
+          margin: 60px auto;
+          background: #000;
+          padding: 20px;
+        }
+
+        .gallery-close {
+          position: absolute;
+          top: 10px;
+          right: 15px;
+          background: none;
+          border: none;
+          color: #fff;
+          font-size: 26px;
+          cursor: pointer;
+        }
+
+        .gallery-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+          gap: 15px;
+        }
+
+        .button-width-ms {
+          position: relative;
+          width: 17rem;
+          left: 8rem;
+        }
+        @media (max-width: 575px) {
+.side-form-dnone{
+display: none;
+}
+          .button-width-ms {
+            position: relative;
+            width: revet;
+            left: 0;
+          }
+        }
+      `}</style>
     </>
   );
 };
